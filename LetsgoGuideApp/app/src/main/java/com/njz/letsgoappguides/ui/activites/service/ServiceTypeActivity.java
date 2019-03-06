@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoappguides.Bean.MySelfInfo;
@@ -40,7 +41,7 @@ public class ServiceTypeActivity extends BaseActivity implements View.OnClickLis
 
     TitleView titleView;
 
-    TextView tv_guide,tv_car,tv_custom,tv_feature,tv_hotel,tv_ticket,tv_submit;
+    LinearLayout ll_guide,ll_car,ll_custom,ll_feature,ll_hotel,ll_ticket;
 
 
     ServerTypePresenter mPresenter;
@@ -65,21 +66,19 @@ public class ServiceTypeActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
-        tv_submit = $(R.id.tv_submit);
-        tv_guide = $(R.id.tv_guide);
-        tv_car = $(R.id.tv_car);
-        tv_custom = $(R.id.tv_custom);
-        tv_feature = $(R.id.tv_feature);
-        tv_hotel = $(R.id.tv_hotel);
-        tv_ticket = $(R.id.tv_ticket);
+        ll_guide = $(R.id.ll_guide);
+        ll_car = $(R.id.ll_car);
+        ll_custom = $(R.id.ll_custom);
+        ll_feature = $(R.id.ll_feature);
+        ll_hotel = $(R.id.ll_hotel);
+        ll_ticket = $(R.id.ll_ticket);
 
-        tv_guide.setOnClickListener(this);
-        tv_car.setOnClickListener(this);
-        tv_custom.setOnClickListener(this);
-        tv_feature.setOnClickListener(this);
-        tv_hotel.setOnClickListener(this);
-        tv_ticket.setOnClickListener(this);
-        tv_submit.setOnClickListener(this);
+        ll_guide.setOnClickListener(this);
+        ll_car.setOnClickListener(this);
+        ll_custom.setOnClickListener(this);
+        ll_feature.setOnClickListener(this);
+        ll_hotel.setOnClickListener(this);
+        ll_ticket.setOnClickListener(this);
 
         initData();
     }
@@ -90,33 +89,6 @@ public class ServiceTypeActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void setBtnSelect(int serveType){
-        setCleanBtn();
-        switch (serveType){
-            case SERVER_TYPE_GUIDE_ID:
-                tv_guide.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme33_hollow));
-                tv_guide.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
-                break;
-            case SERVER_TYPE_FEATURE_ID:
-                tv_feature.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme33_hollow));
-                tv_feature.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
-                break;
-            case SERVER_TYPE_CUSTOM_ID:
-                tv_custom.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme33_hollow));
-                tv_custom.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
-                break;
-            case SERVER_TYPE_HOTEL_ID:
-                tv_hotel.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme33_hollow));
-                tv_hotel.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
-                break;
-            case SERVER_TYPE_TICKET_ID:
-                tv_ticket.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme33_hollow));
-                tv_ticket.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
-                break;
-            case SERVER_TYPE_CAR_ID:
-                tv_car.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme33_hollow));
-                tv_car.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
-                break;
-        }
         if(lists == null){
             return;
         }
@@ -125,30 +97,22 @@ public class ServiceTypeActivity extends BaseActivity implements View.OnClickLis
                 model = lists.get(i);
             }
         }
+
+        if(model == null || lists == null){
+            return;
+        }
+        RxBus2.getInstance().post(new ServiceTypeEvent(model));
+        finish();
     }
 
-    public void setCleanBtn(){
-        tv_guide.setBackgroundColor(ContextCompat.getColor(context,R.color.color_d9));
-        tv_guide.setTextColor(ContextCompat.getColor(context,R.color.color_text));
-        tv_feature.setBackgroundColor(ContextCompat.getColor(context,R.color.color_d9));
-        tv_feature.setTextColor(ContextCompat.getColor(context,R.color.color_text));
-        tv_custom.setBackgroundColor(ContextCompat.getColor(context,R.color.color_d9));
-        tv_custom.setTextColor(ContextCompat.getColor(context,R.color.color_text));
-        tv_hotel.setBackgroundColor(ContextCompat.getColor(context,R.color.color_d9));
-        tv_hotel.setTextColor(ContextCompat.getColor(context,R.color.color_text));
-        tv_ticket.setBackgroundColor(ContextCompat.getColor(context,R.color.color_d9));
-        tv_ticket.setTextColor(ContextCompat.getColor(context,R.color.color_text));
-        tv_car.setBackgroundColor(ContextCompat.getColor(context,R.color.color_d9));
-        tv_car.setTextColor(ContextCompat.getColor(context,R.color.color_text));
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_guide:
+            case R.id.ll_guide:
                 setBtnSelect(SERVER_TYPE_GUIDE_ID);
                 break;
-            case R.id.tv_car:
+            case R.id.ll_car:
                 if(!TextUtils.equals(MySelfInfo.getInstance().getDriveViable(),"2")){
                     DialogUtil.getInstance().getDefaultDialog(context, "驾驶证认证提醒",
                             "完成驾驶证认证后，才能发布包车接送服务内容，赶快去认证吧！", "去认证", new DialogUtil.DialogCallBack() {
@@ -161,7 +125,7 @@ public class ServiceTypeActivity extends BaseActivity implements View.OnClickLis
                 }
                 setBtnSelect(SERVER_TYPE_CAR_ID);
                 break;
-            case R.id.tv_custom:
+            case R.id.ll_custom:
                 if(!TextUtils.equals(MySelfInfo.getInstance().getGuideViable(),"2")){
                     DialogUtil.getInstance().getDefaultDialog(context, "导游资格认证提醒",
                             "完成导游资格认证后，才能发布私人定制服务内容，赶快去认证吧！", "去认证", new DialogUtil.DialogCallBack() {
@@ -174,21 +138,14 @@ public class ServiceTypeActivity extends BaseActivity implements View.OnClickLis
                 }
                 setBtnSelect(SERVER_TYPE_CUSTOM_ID);
                 break;
-            case R.id.tv_feature:
+            case R.id.ll_feature:
                 setBtnSelect(SERVER_TYPE_FEATURE_ID);
                 break;
-            case R.id.tv_hotel:
+            case R.id.ll_hotel:
                 setBtnSelect(SERVER_TYPE_HOTEL_ID);
                 break;
-            case R.id.tv_ticket:
+            case R.id.ll_ticket:
                 setBtnSelect(SERVER_TYPE_TICKET_ID);
-                break;
-            case R.id.tv_submit:
-                if(model == null || lists == null){
-                    return;
-                }
-                RxBus2.getInstance().post(new ServiceTypeEvent(model));
-                finish();
                 break;
         }
     }
@@ -206,7 +163,6 @@ public class ServiceTypeActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void getServeDicListSuccess(GetServeDicListModel datas) {
         lists = datas.getNjzGuideServeDicVoList();
-        setBtnSelect(serverType);
     }
 
     @Override

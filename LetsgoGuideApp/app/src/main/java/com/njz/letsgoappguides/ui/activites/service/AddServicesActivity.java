@@ -104,8 +104,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     MineTextView serviceTitle;
     @BindView(R.id.service_price)//私人订制价格
     MineTextView servicePrice;
-    @BindView(R.id.tv_service_lan)
-    TextView tvServiceLan;
     @BindView(R.id.recycler_view)
     RecyclerView mPhotoRecyclerView;
     @BindView(R.id.ll_vai_text)
@@ -775,19 +773,19 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     @OnClick(R.id.ll_isagreement)
     public void isagreement(){
         if (isSelect) {
-            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.no_check));
+            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check_un));
             isSelect=false;
         }else{
-            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.reg_check));
+            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check));
             isSelect=true;
         }
     }
 
     public void setIv_isagreement(){
         if (isSelect) {
-            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.reg_check));
+            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check));
         }else{
-            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.no_check));
+            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check_un));
         }
     }
 
@@ -974,10 +972,12 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
 
     //----------------end 多图片上传------------
+    private TackPicturesUtil tackPicUtil;
     private void initAddPhoto() {
         //------------附件
+        tackPicUtil = new TackPicturesUtil(activity);
         photoAdapter = new PhotoAdapter(context, selectedPhotos);
-        mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(PhotoAdapter.IMAGE_LINE, OrientationHelper.VERTICAL));
+        mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(PhotoAdapter.IMAGE_LINE_3, OrientationHelper.VERTICAL));
         mPhotoRecyclerView.setAdapter(photoAdapter);
         mPhotoRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,
                 new RecyclerItemClickListener.OnItemClickListener() {
@@ -990,6 +990,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                                     .setPreviewEnabled(false)
                                     .setSelected(selectedPhotos)
                                     .start(AddServicesActivity.this);
+//                            tackPicUtil.showDialog(context);
+
                         } else {
                             PhotoPreview.builder()
                                     .setPhotos(selectedPhotos)
@@ -1240,10 +1242,10 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 GetUpdateServiceInfo.ServeUpdataBean serveUpdataBean= infos.getNjzGuideServeEntity();
 
                 if(serveUpdataBean.getPurchaseRules()!=null&&!serveUpdataBean.getPurchaseRules().equals("")){
-                    iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.reg_check));
+                    iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check));
                     isSelect=true;
                 }else{
-                    iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.no_check));
+                    iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check_un));
                     isSelect=false;
                 }
 

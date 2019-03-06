@@ -29,6 +29,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
   public final static int TYPE_PHOTO = 2;
 
   public final static int IMAGE_LINE = 5;
+  public final static int IMAGE_LINE_3 = 3;
   public final static int MAX = 6;
   public final static int MAX_4 = 4;
   private int type = 0;

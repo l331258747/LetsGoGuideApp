@@ -4,76 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.njz.letsgoappguides.ui.activites.mysetting.SettingActivity">
 
-    <include layout="@layout/base_title_layout"></include>
+    <include layout="@layout/base_title_layout"/>
 
     <com.njz.letsgoappguides.customview.widget.MineTextView
         android:id="@+id/setting_mtv_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:titles="绑定手机"
+        app:bottom_lines_visible="true"
         app:rightTitles="15221264851"
         app:right_img_visible="true"
-        app:bottom_lines_visible="true"
-        ></com.njz.letsgoappguides.customview.widget.MineTextView>
+        app:titles="绑定手机"/>
+
     <com.njz.letsgoappguides.customview.widget.MineTextView
         android:id="@+id/setting_mtv_psd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:titles="修改密码"
-        app:right_img_visible="true"
         app:bottom_lines_visible="true"
-        ></com.njz.letsgoappguides.customview.widget.MineTextView>
+        app:right_img_visible="true"
+        app:titles="修改密码"/>
+
     <com.njz.letsgoappguides.customview.widget.MineTextView
         android:id="@+id/setting_mtv_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:titles="清理内存"
+        app:bottom_lines_visible="true"
         app:rightTitles="0K"
         app:right_img_visible="true"
-        app:bottom_lines_visible="true"
-        ></com.njz.letsgoappguides.customview.widget.MineTextView>
+        app:titles="清理内存"/>
+
     <com.njz.letsgoappguides.customview.widget.MineTextView
         android:id="@+id/setting_mtv_sult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:titles="意见反馈"
-        app:right_img_visible="true"
         app:bottom_lines_visible="true"
-        ></com.njz.letsgoappguides.customview.widget.MineTextView>
+        app:right_img_visible="true"
+        app:titles="意见反馈"/>
+
     <com.njz.letsgoappguides.customview.widget.MineTextView
         android:id="@+id/setting_mtv_our"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:titles="关于我们"
+        app:bottom_lines_visible="true"
         app:rightTitles="1.0.0"
         app:right_img_visible="true"
-        app:bottom_lines_visible="true"
-        ></com.njz.letsgoappguides.customview.widget.MineTextView>
+        app:titles="关于我们"/>
+
     <com.njz.letsgoappguides.customview.widget.MineTextView
         android:id="@+id/system_setting_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:titles="检测升级"
-        app:right_img_visible="true"
         app:bottom_lines_visible="true"
-        ></com.njz.letsgoappguides.customview.widget.MineTextView>
+        app:right_img_visible="true"
+        app:titles="检测升级"/>
 
     <TextView
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginTop="45dp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginRight="38dp"
         android:id="@+id/set_in_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x_px_40"
+        android:layout_marginLeft="38dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/login_btn_style"
+        android:gravity="center"
         android:text="退出登录"
         android:textColor="@color/white"
-        android:background="@drawable/login_btn_style"/>
+        android:textSize="16sp" />
 
 </LinearLayout>
 

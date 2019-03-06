@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--  头部 -->
     <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
@@ -41,6 +42,8 @@
 
     </RelativeLayout>
 
+
+    <!--content-->
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -49,459 +52,226 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <com.njz.letsgoappguides.customview.widget.MineTextView
-                        android:id="@+id/service_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:bottom_lines_visible="true"
-                        app:center_edit_hint="请选择服务类型"
-                        app:right_img_visible="true"
-                        app:titles="服务类型"></com.njz.letsgoappguides.customview.widget.MineTextView>
-
-                    <com.njz.letsgoappguides.customview.widget.MineTextView
-                        android:id="@+id/service_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:bottom_lines_visible="true"
-                        app:center_edit_hint="请输入标题"
-                        app:titles="标题"></com.njz.letsgoappguides.customview.widget.MineTextView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_service_lan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="标题图" />
-
-                        <LinearLayout
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginTop="10dp">
-
-                            <include layout="@layout/base_recycler_view_layout" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/ll_wai_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <!--<LinearLayout
-                        android:id="@+id/ll_car_id1"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <com.njz.letsgoappguides.customview.widget.MineTextView
-                            android:id="@+id/service_cartype"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:titles="车辆类型"
-                            app:center_edit_hint="请输入车辆类型"
-                            app:bottom_lines_visible="true"
-                            ></com.njz.letsgoappguides.customview.widget.MineTextView>
-                        <com.njz.letsgoappguides.customview.widget.MineTextView
-                            android:id="@+id/service_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:titles="价格"
-                            app:center_edit_hint="请输入默认价格"
-                            app:right_button_visible="true"
-                            ></com.njz.letsgoappguides.customview.widget.MineTextView>
-                    </LinearLayout>-->
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_langage_id1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <!--<com.njz.letsgoappguides.customview.widget.MineTextView
-                        android:id="@+id/service_lanage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:titles="服务语言"
-                        app:center_edit_hint="请选择服务语言"
-                        app:right_img_visible="true"
-                        app:bottom_lines_visible="true"
-                        ></com.njz.letsgoappguides.customview.widget.MineTextView>
-                    <com.njz.letsgoappguides.customview.widget.MineTextView
-                        android:id="@+id/service_pricetwo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:titles="价格"
-                        app:center_edit_hint="请输入默认价格"
-                        app:right_button_visible="true"
-                        app:bottom_lines_visible="true"
-                        ></com.njz.letsgoappguides.customview.widget.MineTextView>-->
-
-                </LinearLayout>
-
-                <!--<ImageView
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:id="@+id/bottom_view1"
+                <com.njz.letsgoappguides.customview.widget.MineTextView
+                    android:id="@+id/service_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/lines" />-->
+                    app:bottom_lines_visible="true"
+                    app:center_edit_hint="请选择服务类型"
+                    app:right_img_visible="true"
+                    app:titles="服务类型" />
+
+                <com.njz.letsgoappguides.customview.widget.MineTextView
+                    android:id="@+id/service_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:bottom_lines_visible="true"
+                    app:center_edit_hint="尽可能突出自己的服务亮点，如：专业持证导游带您畅游张家界；但不能出现多日游、包车、公司名称等信息。"
+                    app:titles="服务标题" />
 
                 <LinearLayout
-                    tools:visibility="visible"
-                    android:visibility="gone"
-                    android:id="@+id/ll_isCheckCar"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    >
-                    <ImageView
-                        android:layout_marginTop="@dimen/x_px_2"
-                        android:layout_marginLeft="20dp"
-                        android:id="@+id/iv_isagreement"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/no_check"
-                        />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
                     <TextView
-                        android:layout_marginLeft="@dimen/x_px_5"
+                        android:id="@+id/tv_service_lan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="是否允许游客自驾车"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_vai_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-                    <!--<LinearLayout
-                        android:id="@+id/ll_service_addcartype"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/service_clone"
-                            />
-                        <TextView
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="添加车辆类型"
-                            android:textSize="12sp"
-                            />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/ll_service_langage"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/service_clone"
-                            />
-                        <TextView
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="添加服务语言"
-                            android:textSize="12sp"
-                            />
-                    </LinearLayout>-->
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <com.njz.letsgoappguides.customview.widget.MineTextView
-                        android:id="@+id/service_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:bottom_lines_visible="true"
-                        app:center_edit_hint="请输入价格"
-                        app:titles="价格"
-                        tools:visibility="visible"></com.njz.letsgoappguides.customview.widget.MineTextView>
-
-                    <com.njz.letsgoappguides.customview.widget.MineTextView
-                        android:id="@+id/ll_service_city"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:bottom_lines_visible="true"
-                        app:center_edit_hint="请选择城市"
-                        app:right_img_visible="true"
-                        app:titles="城市"></com.njz.letsgoappguides.customview.widget.MineTextView>
-
-                    <com.njz.letsgoappguides.customview.widget.MineTextView
-                        android:id="@+id/ll_service_notime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:bottom_lines_visible="true"
-                        app:center_edit_hint="请输入非空闲时间（非必填）"
-                        app:right_img_visible="true"
-                        app:titles="非空闲时间"></com.njz.letsgoappguides.customview.widget.MineTextView>
-
-                    <com.njz.letsgoappguides.customview.widget.MineTextView
-                        android:id="@+id/ll_service_ind"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:bottom_lines_visible="true"
-                        app:center_edit_hint="请对您提供的服务信息进行详细说明"
-                        app:right_img_visible="true"
-                        app:titles="服务特色"></com.njz.letsgoappguides.customview.widget.MineTextView>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
-
-                        <TextView
-                            android:id="@+id/tv_qianming"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="费用说明" />
-
-                        <EditText
-                            android:id="@+id/ll_service_priceinfo"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_qianming"
-                            android:layout_marginTop="16dp"
-                            android:background="@drawable/person_et_style"
-                            android:gravity="top"
-                            android:hint="请详细说明相关费用信息"
-                            android:lines="6"
-                            android:padding="10dp"
-                            android:src="@mipmap/my_add"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_penalty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
+                        android:layout_marginTop="16dp"
+                        android:text="标题图" />
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="违约金设置"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="向导确认订单前不收取违约金；"
-                            android:textSize="14sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_textid"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:text="行程开始前"
-                                android:textSize="14sp" />
-
-                            <EditText
-                                android:id="@+id/edit_text_1"
-                                android:layout_width="40dp"
-                                android:layout_height="25dp"
-                                android:layout_marginLeft="2dp"
-                                android:layout_marginRight="2dp"
-                                android:layout_marginTop="15dp"
-                                android:background="@drawable/add_service_green"
-                                android:gravity="center"
-                                android:inputType="number"
-                                android:text="4"
-                                android:textColor="@color/color_green"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:text="至"
-                                android:textSize="14sp" />
-
-                            <EditText
-                                android:id="@+id/edit_text_2"
-                                android:layout_width="40dp"
-                                android:layout_height="25dp"
-                                android:layout_marginLeft="2dp"
-                                android:layout_marginRight="2dp"
-                                android:layout_marginTop="15dp"
-                                android:background="@drawable/add_service_green"
-                                android:gravity="center"
-                                android:inputType="number"
-                                android:text="7"
-                                android:textColor="@color/color_green"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:text="日取消订单，收取游客"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="已付费用30%的违约金；"
-                            android:textSize="14sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_textid2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:text="行程开始前"
-                                android:textSize="14sp" />
-
-                            <EditText
-                                android:id="@+id/edit_text_3"
-                                android:layout_width="40dp"
-                                android:layout_height="25dp"
-                                android:layout_marginLeft="2dp"
-                                android:layout_marginRight="2dp"
-                                android:layout_marginTop="15dp"
-                                android:background="@drawable/add_service_red"
-                                android:gravity="center"
-                                android:inputType="number"
-                                android:text="1"
-                                android:textColor="@color/color_red"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:gravity="center"
-                                android:text="至"
-                                android:textSize="14sp" />
-
-                            <EditText
-                                android:id="@+id/edit_text_4"
-                                android:layout_width="40dp"
-                                android:layout_height="25dp"
-                                android:layout_marginLeft="2dp"
-                                android:layout_marginRight="2dp"
-                                android:layout_marginTop="15dp"
-                                android:background="@drawable/add_service_red"
-                                android:gravity="center"
-                                android:inputType="number"
-                                android:text="3"
-                                android:textColor="@color/color_red"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:text="日取消订单，收取游客"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="已付费用50%的违约金；"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="行程开始当天取消订单，收取游客已付费用100%的违约金；"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginTop="15dp"
-                            android:text="行程开始前其他时间取消订单，不收取违约金。"
-                            android:textSize="14sp" />
+                        <include layout="@layout/base_recycler_view_layout" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/color_d9" />
+
+                <com.njz.letsgoappguides.customview.widget.MineTextView
+                    android:id="@+id/ll_service_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:bottom_lines_visible="false"
+                    app:center_edit_hint="请选择提供线下服务的城市"
+                    app:right_img_visible="true"
+                    app:titles="服务目的地" />
 
             </LinearLayout>
 
+
+            <!--服务-->
+            <LinearLayout
+                android:id="@+id/ll_wai_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/ll_langage_id1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+
+            <!--添加服务按钮-->
+            <LinearLayout
+                android:id="@+id/ll_vai_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
+            <!--是否允许游客自驾车-->
+            <RelativeLayout
+                android:id="@+id/ll_isCheckCar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_d9" />
+
+
+                <LinearLayout
+                    android:id="@+id/ll_isagreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/iv_isagreement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/no_check" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="是否允许游客自驾车" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/color_d9" />
+
+                <com.njz.letsgoappguides.customview.widget.MineTextView
+                    android:id="@+id/service_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:bottom_lines_visible="true"
+                    app:center_edit_hint="请输入价格"
+                    app:titles="价格"
+                    tools:visibility="visible" />
+
+                <com.njz.letsgoappguides.customview.widget.MineTextView
+                    android:id="@+id/ll_service_ind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:bottom_lines_visible="true"
+                    app:center_edit_hint="请对您的服务内容进行详细说明"
+                    app:right_img_visible="true"
+                    app:titles="服务特色" />
+
+                <com.njz.letsgoappguides.customview.widget.MineTextView
+                    android:id="@+id/ll_service_notime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:bottom_lines_visible="true"
+                    app:center_edit_hint="选填，设置不能提供服务的时间"
+                    app:right_img_visible="true"
+                    app:titles="非空闲时间" />
+
+            </LinearLayout>
+
+            <!--费用说明-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/tv_qianming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="费用说明" />
+
+                <EditText
+                    android:id="@+id/ll_service_priceinfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_qianming"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/person_et_style"
+                    android:gravity="top"
+                    android:hint="1、必须对游客在预定该服务后所要产生的各项服务进行详细说明。\n2、对该服务包含的费用进行说明，如：向导服务费、车辆服务费。\n3、对预定该服务后可能产生但该服务不包含的费用进行说明，如：停车费、过路费、门票费、餐费等。\n4、对自己在该服务中涉及的吃饭、住宿、门票等可能产生的费用进行说明。"
+                    android:lines="6"
+                    android:padding="10dp"
+                    android:src="@mipmap/my_add"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <!--退订条款-->
+            <include layout="@layout/activity_add_services_refund" />
+
         </LinearLayout>
+
 
     </android.support.v4.widget.NestedScrollView>
 
+    <!--底部-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/frame_bottom"
@@ -510,24 +280,24 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/color_d9"/>
+            android:background="@color/color_d9" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/serve_btn_save"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="7dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/service_btn_style_blue"
                 android:gravity="center"
                 android:text="保存"
@@ -536,12 +306,12 @@
             <TextView
                 android:id="@+id/serve_btn_save_sub"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="7dp"
                 android:layout_marginRight="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/login_btn_style"
                 android:gravity="center"
                 android:text="保存并上架"

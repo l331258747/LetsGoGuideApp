@@ -3,7 +3,6 @@ package com.njz.letsgoappguides.customview.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -38,7 +37,7 @@ public class MineTextView extends LinearLayout {
     public MineTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.view_mine_text, this, true);
+        View view = LayoutInflater.from(context).inflate(R.layout.view_mine_text3, this, true);
 
         tv_title = (TextView) findViewById(R.id.text_iv);
         tv_content =  (TextView) findViewById(R.id.text_tvCheckb);
@@ -47,8 +46,6 @@ public class MineTextView extends LinearLayout {
         bottom_view1 =   findViewById(R.id.bottom_view1);
         text_iv_moreb =   findViewById(R.id.text_iv_moreb);
         rl_id =   findViewById(R.id.rl_id);
-
-
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.setting_item);
         if (attributes != null) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.njz.letsgoappguides.model.server.AutoServiceModel;
@@ -89,6 +90,16 @@ public class ServiceUtil {
 
     //违约金参数设置
     public static void strSplitNum(String numStr, EditText text1, EditText text2){
+        if(TextUtils.isEmpty(numStr))return;
+        String[] threes=numStr.split(",");
+        if(threes.length>=2) {
+            text1.setText(threes[0]);
+            text2.setText(threes[1]);
+        }
+    }
+
+    //违约金参数设置
+    public static void strSplitNum(String numStr, TextView text1, EditText text2){
         if(TextUtils.isEmpty(numStr))return;
         String[] threes=numStr.split(",");
         if(threes.length>=2) {

@@ -71,7 +71,6 @@ import com.njz.letsgoappguides.util.thread.MyThreadPool;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -130,11 +129,11 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     @BindView(R.id.tv_textid2)
     TextView tv_textid2;
     @BindView(R.id.edit_text_1)
-    EditText edit_text1;
+    TextView edit_text1;
     @BindView(R.id.edit_text_2)
     EditText edit_text2;
     @BindView(R.id.edit_text_3)
-    EditText edit_text3;
+    TextView edit_text3;
     @BindView(R.id.edit_text_4)
     EditText edit_text4;
     //    @BindView(R.id.ll_car_id1)
@@ -146,9 +145,11 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     @BindView(R.id.ll_penalty)
     LinearLayout llPenalty;//违约金
     @BindView(R.id.ll_isCheckCar)
-    LinearLayout ll_IsCheckCar;//选中自驾车
+    RelativeLayout ll_IsCheckCar;//选中自驾车
     @BindView(R.id.iv_isagreement)
     ImageView iv_isagreement;
+    @BindView(R.id.ll_isagreement)
+    LinearLayout ll_isagreement;
 
     boolean isSelect=false;//向导陪游是否选中自驾车
 
@@ -771,7 +772,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         }
     }
 
-    @OnClick(R.id.iv_isagreement)
+    @OnClick(R.id.ll_isagreement)
     public void isagreement(){
         if (isSelect) {
             iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.no_check));

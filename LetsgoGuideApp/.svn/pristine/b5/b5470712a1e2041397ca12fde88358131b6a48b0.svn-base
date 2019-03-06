@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    tools:context="com.njz.letsgoappguides.ui.activites.CodeLoginActivity">
+
+    <include layout="@layout/base_title_layout"></include>
+
+    <ImageView
+        android:layout_margin="@dimen/x_px_50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/logo"
+        />
+
+    <com.njz.letsgoappguides.customview.widget.RegisterItemView
+        android:id="@+id/codeLogin_input_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:register_item_hint="@string/input_phone"
+        app:register_item_max_length="11"
+        ></com.njz.letsgoappguides.customview.widget.RegisterItemView>
+
+    <com.njz.letsgoappguides.customview.widget.RegisterItemView
+        android:id="@+id/codeLogin_input_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:register_item_hint="@string/input_crad"
+        app:register_item_max_length="6"
+        app:register_item_right_drawable="@drawable/mine_un"
+        app:register_item_right_text="@string/input_get_card"
+        ></com.njz.letsgoappguides.customview.widget.RegisterItemView>
+
+    <TextView
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/y_px_40"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/codeLogin_in_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x_px_40"
+        android:text="@string/login_button"
+        android:textColor="@color/white"
+        android:background="@drawable/login_btn_style"/>
+
+
+</LinearLayout>
+

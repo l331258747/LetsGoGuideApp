@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_empty_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="30dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <ImageView
+            android:layout_marginTop="100dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/iv_empty_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/empty_network" />
+        <ImageView
+            android:id="@+id/iv_to"
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:paddingRight="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/empty_serviceto" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_empty_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="什么都没有哦~" />
+
+    <TextView
+        android:id="@+id/tv_empty_content_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_empty_content"
+        android:layout_marginTop="8dp"
+        android:text="别紧张，试试看刷新页面~"
+        android:textColor="@color/color_99"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_empty_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_empty_content_2"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_theme_hollow_r40"
+        android:paddingBottom="8dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="8dp"
+        android:text="点击刷新"
+        android:textColor="@color/color_theme"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</LinearLayout>

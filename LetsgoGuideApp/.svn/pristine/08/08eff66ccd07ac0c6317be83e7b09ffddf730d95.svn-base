@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:overScrollMode="never"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v4.widget.NestedScrollView
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/parent_background"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@mipmap/my_bg"
+                        android:src="@mipmap/my_bg" />
+
+                    <ImageView
+                        android:padding="10dp"
+                        android:id="@+id/iv_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/my_setting"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        >
+                        <ImageView
+                            android:id="@+id/iv_head"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerVertical="true"
+                            android:scaleType="centerCrop"
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/my_add" />
+
+                        <TextView
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="10dp"
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="李知新"
+                            android:layout_toRightOf="@+id/iv_head"/>
+
+                        <TextView
+                            android:textColor="@color/white"
+                            android:padding="10dp"
+                            android:id="@+id/setting_tv_person"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:text="个人资料"
+                            android:layout_marginRight="30dp"
+                            />
+
+                        <ImageView
+                            android:id="@+id/my_ivmore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:scaleType="centerCrop"
+                            android:layout_marginRight="20dp"
+                            android:src="@mipmap/my_more_white" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
+
+                    <com.njz.letsgoappguides.customview.widget.MineItemView
+                        android:id="@+id/miv_mysetting_per"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:title="实名认证"
+                        app:content="已认证"
+                        app:left_drawable="@mipmap/my_authen"
+                        >
+                        </com.njz.letsgoappguides.customview.widget.MineItemView>
+
+                    <com.njz.letsgoappguides.customview.widget.MineItemView
+                        android:id="@+id/miv_mysetting_perdr"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:title="导游资格认证"
+                        app:content="审核中"
+                        app:left_drawable="@mipmap/my_audit"
+                        >
+                    </com.njz.letsgoappguides.customview.widget.MineItemView>
+
+                    <com.njz.letsgoappguides.customview.widget.MineItemView
+                        android:id="@+id/miv_mysetting_percar"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:title="驾驶证认证"
+                        app:content="未认证"
+                        app:left_drawable="@mipmap/my_uncertified"
+                        >
+                    </com.njz.letsgoappguides.customview.widget.MineItemView>
+                </LinearLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/card_view_bg_10">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/rl_head"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical">
+
+        <!--                <com.njz.letsgoappguides.customview.widget.MineItemView2
+                            android:id="@+id/mysetting_money"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:home_my_item2_left_drawable="@mipmap/my_bond"
+                            app:home_my_item2_title="保证金" />
+
+                        <com.njz.letsgoappguides.customview.widget.MineItemView2
+                            android:id="@+id/mysetting_service"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:home_my_item2_left_drawable="@mipmap/my_service"
+                            app:home_my_item2_title="我的服务" />-->
+
+                        <com.njz.letsgoappguides.customview.widget.MineItemView2
+                            android:id="@+id/mysetting_income"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:home_my_item2_left_drawable="@mipmap/my_income"
+                            app:home_my_item2_title="我的收益" />
+
+                        <com.njz.letsgoappguides.customview.widget.MineItemView2
+                            android:id="@+id/mysetting_evaluatuin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:home_my_item2_left_drawable="@mipmap/my_comment"
+                            app:home_my_item2_title="我的评价" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/card_view_bg_10"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/rl_head"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical">
+
+
+                        <com.njz.letsgoappguides.customview.widget.MineItemView2
+                            android:id="@+id/mine_customer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:home_my_item2_left_drawable="@mipmap/my_opguide"
+                            app:home_my_item2_title="操作指南" />
+
+                        <com.njz.letsgoappguides.customview.widget.MineItemView2
+                            android:id="@+id/mine_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:home_my_item2_left_drawable="@mipmap/my_customer"
+                            app:home_my_item2_title="联系客服" />
+                    </LinearLayout>
+
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

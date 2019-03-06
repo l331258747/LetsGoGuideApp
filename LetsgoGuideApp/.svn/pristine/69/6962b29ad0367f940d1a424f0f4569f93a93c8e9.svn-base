@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:overScrollMode="never"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/base_title_layout"></include>
+    <android.support.v4.widget.NestedScrollView
+            android:overScrollMode="never"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <LinearLayout
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:id="@+id/ll_auth_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+            <com.njz.letsgoappguides.customview.widget.MineEditView
+                android:id="@+id/met_carauth_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:per_title="档案编号"
+                app:per_hint="请输入12位驾驶证档案证号" />
+            <com.njz.letsgoappguides.customview.widget.MineEditView
+                android:id="@+id/met_carauth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:per_title="准驾车型"
+                app:per_hint="请选择准驾车型"
+                app:per_right_drawable="@mipmap/my_more"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/tv_value"/>
+            <com.njz.letsgoappguides.customview.widget.MineEditView
+                android:id="@+id/met_carauth_startdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:per_title="证件生效时间"
+                app:per_hint="请选择证件生效时间"
+                app:per_right_drawable="@mipmap/my_more"/>
+            <com.njz.letsgoappguides.customview.widget.MineEditView
+                android:id="@+id/met_carauth_enddate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:per_title="证件失效时间"
+                app:per_hint="请选择证件失效时间"
+                app:per_right_drawable="@mipmap/my_more"/>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+                <TextView
+                    android:textColor="@color/color_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="驾驶证照片"
+                    />
+                <LinearLayout
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/carauth_iv_driver"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@mipmap/auth_driver_clone"
+                        />
+                    <ImageView
+                        android:layout_marginLeft="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@id/carauth_iv_driver"
+                        android:id="@+id/carauth_iv_driver2"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@mipmap/auth_driver"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/bu_auth_to"
+                android:gravity="center"
+                android:layout_marginTop="53dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="50dp"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/login_btn_style"
+                android:text="提交"/>
+        </LinearLayout>
+
+        <include layout="@layout/activity_authentication_nopass"></include>
+        <include layout="@layout/activity_authentication_ing"></include>
+    </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>

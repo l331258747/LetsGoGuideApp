@@ -1,0 +1,176 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+
+
+    signingConfigs {
+        debugConfig {
+            storeFile file("letsgoguideapp.jks")
+            storePassword "letsgoguide"
+            keyAlias "najiuzouguide"
+            keyPassword "letsgoguide"
+        }
+    }
+
+    compileSdkVersion 26
+    buildToolsVersion "28.0.1"
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']        }
+
+    }
+
+    defaultConfig {
+        applicationId "com.njz.letsgoappguides"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1010202
+        versionName "1.1.2.2"
+
+        multiDexEnabled true
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+
+    productFlavors {
+        //qq、baidu、xiaomi、huawei、ali、vivo、oppo、meizu、c360 qq代表应用宝
+
+        if(defaultConfig.versionCode % 100 == 0){
+            prod {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "prod"]
+            }
+//            qq {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"]
+//            }
+//            baidu {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+//            }
+//            xiaomi {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+//            }
+//            huawei {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+//            }
+//            ali {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ali"]
+//            }
+//            vivo {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
+//            }
+//            oppo {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+//            }
+//            meizu {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
+//            }
+//            c360 {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
+//            }
+        }else{
+            dev {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "dev"]
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debugConfig
+        }
+        release {
+            // 混淆
+            minifyEnabled true
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            // 前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明，后一个文件是自己的定义混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debugConfig
+        }
+    }
+
+    lintOptions {
+        //build release 版本 时 开启lint 检测
+        checkReleaseBuilds false
+        //lint 遇到 error 时继续 构建
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    //------- srart ----------
+    //控件
+
+    //框架
+
+    //bugly
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+
+    //控件注解
+    //------- end ----------
+
+    //----start 外部包
+    //时间控件
+    //banner
+    //图片
+    //富文本
+
+    //----end 外部包
+
+    //-----start 本地包
+    compile project(':PhotoPicker')
+    compile project(':idcardcamera')
+    compile project(':easeui')
+
+    //-----end 本地包
+
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    compile 'jp.wasabeef:richeditor-android:1.2.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:26.+'
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:cardview-v7:26.+'
+    compile 'com.android.support:support-v4:26.+'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    compile 'com.contrarywind:Android-PickerView:4.1.6'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'com.prolificinteractive:material-calendarview:1.4.3'
+    compile 'com.android.support:multidex:1.0.0'
+
+    //rxlifecycle的依赖
+    compile 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+
+
+    //jpush log
+    compile 'com.orhanobut:logger:1.15'
+
+
+    compile 'com.jakewharton:butterknife:8.8.1'
+    apt 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    compile files('libs/umeng-analytics-7.5.4.jar')
+    compile files('libs/umeng-common-1.5.4.jar')
+
+    compile 'com.j256.ormlite:ormlite-android:5.0'
+}

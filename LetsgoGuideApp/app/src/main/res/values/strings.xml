@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">那就走导游端</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="main_menu_home">首页</string>
+    <string name="main_menu_interlocution">问答</string>
+    <string name="main_menu_serve">服务</string>
+    <string name="main_menu_message">消息</string>
+    <string name="main_menu_mysetting">我的</string>
+    <string name="login_card">动态码登录</string>
+    <string name="login_forgit_pwd">忘记密码</string>
+    <string name="login_button">登录</string>
+    <string name="login_button_final">完成并登录</string>
+    <string name="login_button_next">下一步，重置密码</string>
+    <string name="register_button">注册</string>
+    <string name="register_button2">完成注册</string>
+    <string name="login_input_phone">手机号码/导游证</string>
+    <string name="input_phone">请输入手机号码</string>
+    <string name="input_crad">请输入短信动态码</string>
+    <string name="input_psd">请输入登录密码</string>
+    <string name="input_psd2">请再次输入密码进行确认</string>
+    <string name="input_psd3">请输入新密码</string>
+    <string name="input_psd4">请再次确认密码</string>
+    <string name="input_get_card">获取动态码</string>
+    <string name="tv_check">我已阅读并遵守</string>
+    <string name="tv_check_word">《那就走用户服务协议》</string>
+    <string name="verify"><Data><![CDATA[重新发送<font color="#ff0000">%ds</font>]]></Data></string>
+    <string name="auth_text">要求：\n1、人员五官清晰\n2、证件全部信息清晰无遮挡\n3、要求原图，无修改</string>
+    <string name="line_deatils"><u>查看详情</u></string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+
+    <string name="order_item_date_custom">行程时间&#8195;</string>
+    <string name="order_item_date_car">出行日期&#8195;</string>
+    <string name="order_item_date_hotel">入住时间&#8195;</string>
+    <string name="order_item_date_ticket">日期&#8195;&#8195;&#8195;</string>
+
+    <string name="refund_rule_30">行程开始前%s日取消订单，收取游客已付费用30%%的违约金</string>
+    <string name="refund_rule_50">行程开始前%s日取消订单，收取游客已付费用50%%的违约金</string>
+    <string name="title_activity_service_preview">ServicePreviewActivity</string>
+    <string name="title_activity_aplash2">Aplash2Activity</string>
+
+</resources>

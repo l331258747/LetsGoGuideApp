@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="my_ratingbar">
+        <attr name="my_ratingbar_margin" format="dimension"/>
+        <attr name="my_ratingbar_size" format="dimension"/>
+        <attr name="my_ratingbar_click" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="home_my_item">
+        <attr name="title" format="string"/>
+        <attr name="content" format="string"/>
+        <attr name="hint" format="string"/>
+        <attr name="left_drawable" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="home_edit_view">
+        <attr name="per_title" format="string"/>
+        <attr name="per_content" format="string"/>
+        <attr name="per_hint" format="string"/>
+        <attr name="per_right_drawable" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="notify_item">
+        <attr name="notify_item_title" format="string"/>
+        <attr name="notify_item_img" format="reference"/>
+        <attr name="notify_item_line" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="home_my_item2">
+        <attr name="home_my_item2_title" format="string"/>
+        <attr name="home_my_item2_content" format="string"/>
+        <attr name="home_my_item2_left_drawable" format="reference"/>
+        <attr name="home_my_item2_right_drawable" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="setting_item">
+        <attr name="titles" format="string"/>
+        <attr name="rightTitles" format="string"/>
+        <attr name="center_edit" format="string"></attr>
+        <attr name="center_edit_hint" format="string"></attr>
+        <attr name="right_button_visible" format="boolean"></attr>
+        <attr name="right_img_visible" format="boolean"></attr>
+        <attr name="bottom_lines_visible" format="boolean"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="login_item">
+        <attr name="login_item_title" format="string"/>
+        <attr name="login_item_title_color" format="reference"/>
+        <attr name="login_item_right_text" format="string"/>
+        <attr name="login_item_title_width" format="dimension"/>
+        <attr name="login_item_hint" format="string"/>
+        <attr name="login_item_right_drawable" format="reference"/>
+        <attr name="login_item_max_length" format="integer"/>
+        <attr name="login_item_content_size" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="register_item">
+        <attr name="register_item_title" format="string"/>
+        <attr name="register_item_right_text" format="string"/>
+        <attr name="register_item_title_width" format="dimension"/>
+        <attr name="register_item_hint" format="string"/>
+        <attr name="register_item_right_drawable" format="reference"/>
+        <attr name="register_item_max_length" format="integer"/>
+        <attr name="register_item_content_size" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="guide_score">
+        <attr name="guide_score_text_size" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="order_evaluate">
+        <attr name="order_evaluate_title" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="TagFlowLayout">
+        <attr name="max_select" format="integer"></attr>
+        <attr name="tag_gravity">
+            <enum name="left" value="-1" />
+            <enum name="center" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TabLayout">
+        <attr name="tabIndicatorColor" format="color" />
+        <attr name="tabIndicatorHeight" format="dimension" />
+        <attr name="tabContentStart" format="dimension" />
+        <attr name="tabBackground" format="reference" />
+        <attr name="tabMode">
+            <enum name="scrollable" value="0" />
+            <enum name="fixed" value="1" />
+        </attr>
+        <attr name="tabGravity">
+            <enum name="fill" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="tabMinWidth" format="dimension" />
+        <attr name="tabMaxWidth" format="dimension" />
+        <attr name="tabTextAppearance" format="reference" />
+        <attr name="tabTextColor" format="color" />
+        <attr name="tabSelectedTextColor" format="color" />
+        <attr name="tabPaddingStart" format="dimension" />
+        <attr name="tabPaddingTop" format="dimension" />
+        <attr name="tabPaddingEnd" format="dimension" />
+        <attr name="tabPaddingBottom" format="dimension" />
+        <attr name="tabPadding" format="dimension" />
+        <attr name="tabLineOffset" format="dimension" />
+
+    </declare-styleable>
+
+    <declare-styleable name="TitleView">
+        <attr name="TitleView_title" format="string"/>
+        <attr name="TitleView_right_text" format="string"/>
+        <attr name="TitleView_right_img" format="reference"/>
+        <attr name="TitleView_left_img" format="reference"/>
+        <attr name="TitleView_visible" format="boolean"/>
+        <attr name="TitleView_line_visible" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="MsgSettingView">
+        <attr name="MsgSettingView_title" format="string"/>
+    </declare-styleable>
+</resources>

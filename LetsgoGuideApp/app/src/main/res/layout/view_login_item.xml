@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/x_px_60"
+    android:layout_marginRight="@dimen/x_px_60"
+    android:background="@drawable/btn_99_bottom_line_p8"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/login_item_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/x_px_10"
+        android:layout_marginRight="@dimen/x_px_10"
+        android:src="@mipmap/phone"
+        />
+
+    <EditText
+        android:textSize="14sp"
+        android:id="@+id/login_item_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:background="@color/transparent"
+        android:textColorHint="@color/color_99"
+        android:hint="请输入手机号" />
+
+
+</LinearLayout>

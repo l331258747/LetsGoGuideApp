@@ -107,7 +107,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     @BindView(R.id.service_title)
     MineTextView serviceTitle;
     @BindView(R.id.service_price)//私人订制价格
-    MineTextView servicePrice;
+            MineTextView servicePrice;
     @BindView(R.id.recycler_view)
     RecyclerView mPhotoRecyclerView;
     @BindView(R.id.ll_vai_text)
@@ -153,7 +153,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     @BindView(R.id.ll_isagreement)
     LinearLayout ll_isagreement;
 
-    boolean isSelect=false;//向导陪游是否选中自驾车
+    boolean isSelect = false;//向导陪游是否选中自驾车
 
     List<String> sTypes;
     List<String> langages;
@@ -168,23 +168,23 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     private ArrayList<String> selectedPhotos = new ArrayList<>();
     private ArrayList<String> upLoadPhotos = new ArrayList<>();
     String upUrls = "";
-    private List<String> list=new ArrayList<>();
+    private List<String> list = new ArrayList<>();
 
     //------------城市------------
-    List<String> listModels=new ArrayList<>();
-    List<List<String>> listModelsChildrens=new ArrayList<>();
-    List<List<List<String>>> listModelsChildrensbean=new ArrayList<>();
-    List<GetServiceCityModel> listCity=new ArrayList<>();
+    List<String> listModels = new ArrayList<>();
+    List<List<String>> listModelsChildrens = new ArrayList<>();
+    List<List<List<String>>> listModelsChildrensbean = new ArrayList<>();
+    List<GetServiceCityModel> listCity = new ArrayList<>();
 
-    int cityTypeId=0;
+    int cityTypeId = 0;
     //-------------end----------------
 
 
-    List<LinearServiceView> linears=new ArrayList<>();
-    List<NjzGuideServeFormatDtosBean> serveFormatList=new ArrayList<>();
-    List<NjzGuideServeDicVoListBean> getServeDicVoListisTrue=new ArrayList<>();
+    List<LinearServiceView> linears = new ArrayList<>();
+    List<NjzGuideServeFormatDtosBean> serveFormatList = new ArrayList<>();
+    List<NjzGuideServeDicVoListBean> getServeDicVoListisTrue = new ArrayList<>();
 
-    String myFeature="";//服务特色
+    String myFeature = "";//服务特色
 
     BatchUploadPresenter mBatchUploadPresenter;
     GetLanguagePresenter mGetLanguagePresenter;
@@ -195,21 +195,21 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     int serviceId;
     int toId;
 
-    List<List<GetUpdateServiceInfo.ServeGroupListInfo>> infos1=new ArrayList<>();//得到详情值
-    int saleNum=0;
+    List<List<GetUpdateServiceInfo.ServeGroupListInfo>> infos1 = new ArrayList<>();//得到详情值
+    int saleNum = 0;
     float minprice;
 
-    ArrayList<String> notimeDate=new ArrayList<>();
+    ArrayList<String> notimeDate = new ArrayList<>();
 
-    int uniqueId=0;
-    List<PriceModel> priceCalendar=new ArrayList<>();
+    int uniqueId = 0;
+    List<PriceModel> priceCalendar = new ArrayList<>();
 
     @Override
     protected void initView() {
         titleTv.setText("新增服务");
 
-        serviceId=getIntent().getIntExtra("serviceTypeID",0);//
-        toId=getIntent().getIntExtra("ID",0);//1、新增   2、修改
+        serviceId = getIntent().getIntExtra("serviceTypeID", 0);//
+        toId = getIntent().getIntExtra("ID", 0);//1、新增   2、修改
 
         initAddPhoto();//先执行
         initDate();
@@ -223,48 +223,49 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     //----------服务类型选择 start
     Disposable serviceTypeDisposable;
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(serviceTypeDisposable != null && !serviceTypeDisposable.isDisposed())
+        if (serviceTypeDisposable != null && !serviceTypeDisposable.isDisposed())
             serviceTypeDisposable.dispose();
-        if(loadingDialog!=null){
+        if (loadingDialog != null) {
             loadingDialog.dismiss();
         }
     }
 
-    public void initServiceTypeDisposable(){
+    public void initServiceTypeDisposable() {
         serviceTypeDisposable = RxBus2.getInstance().toObservable(ServiceTypeEvent.class, new Consumer<ServiceTypeEvent>() {
             @Override
             public void accept(ServiceTypeEvent serviceTypeEvent) throws Exception {
                 if (getServeDicVoListisTrue.size() > 0) {
                     serviceType.setEditContent(serviceTypeEvent.getModel().getName());
                     serverTypeId = serviceTypeEvent.getModel().getId();
-                    List<NjzGuideServeFormatDicVosBean> getServeFormatDicVosBeanList=serviceTypeEvent.getModel().getNjzGuideServeFormatDicVos();
-                    int getServeFormatDicVosSize=getServeFormatDicVosBeanList.size();
+                    List<NjzGuideServeFormatDicVosBean> getServeFormatDicVosBeanList = serviceTypeEvent.getModel().getNjzGuideServeFormatDicVos();
+                    int getServeFormatDicVosSize = getServeFormatDicVosBeanList.size();
                     ll_vai_text.removeAllViews();
                     llWaiId.removeAllViews();
                     linears.clear();
                     serveFormatList.clear();
-                    for (int i=0;i<getServeFormatDicVosSize;i++){
-                        NjzGuideServeFormatDicVosBean getServeFormatDicVosBean= getServeFormatDicVosBeanList.get(i);
-                        if(getServeFormatDicVosBean.isIsPower()){//当前用户是否用上传该规格的权限
-                            String formatName=getServeFormatDicVosBean.getFormatName();
-                            String uniqueValue=getServeFormatDicVosBean.getUniqueValue();
-                            if(getServeFormatDicVosBean.isIsRequisite()) {//去掉删除按钮
+                    for (int i = 0; i < getServeFormatDicVosSize; i++) {
+                        NjzGuideServeFormatDicVosBean getServeFormatDicVosBean = getServeFormatDicVosBeanList.get(i);
+                        if (getServeFormatDicVosBean.isIsPower()) {//当前用户是否用上传该规格的权限
+                            String formatName = getServeFormatDicVosBean.getFormatName();
+                            String uniqueValue = getServeFormatDicVosBean.getUniqueValue();
+                            if (getServeFormatDicVosBean.isIsRequisite()) {//去掉删除按钮
                                 int isDelete = 1;
                                 initAddLayout(formatName, uniqueValue, isDelete);
                             }
-                            initTextLayout(formatName,uniqueValue);
+                            initTextLayout(formatName, uniqueValue);
                         }
                     }
                 }
-                if(serverTypeId==3){//私人订制
+                if (serverTypeId == 3) {//私人订制
                     servicePrice.setInputTypes(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);//小数点和整数
                     servicePrice.setVisibility(View.VISIBLE);//价格
                     llPenalty.setVisibility(View.GONE);//违约金
                     llServiceNotime.setVisibility(View.GONE);
-                }else{
+                } else {
                     servicePrice.setVisibility(View.GONE);
                     llPenalty.setVisibility(View.VISIBLE);
                     llServiceNotime.setVisibility(View.VISIBLE);
@@ -282,42 +283,43 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         mBatchUploadPresenter = new BatchUploadPresenter(context, this);
         mGetLanguagePresenter = new GetLanguagePresenter(context, this);
         mAddServicePresenter = new AddServicePresenter(context, this);
-        mGetCityPresenter=new GetCityPresenter(context,this);
+        mGetCityPresenter = new GetCityPresenter(context, this);
         sTypePresenter = new ServerTypePresenter(context, this);
-        mGetUpdateServInfoPresenter=new GetUpdateServInfoPresenter(context,this);
+        mGetUpdateServInfoPresenter = new GetUpdateServInfoPresenter(context, this);
         loadingDialog = new LoadingDialog(context);
 
-        if(MySelfInfo.getInstance().isLogin()){
-            if(MySelfInfo.getInstance().getServiceIden()==0){//只在登录之后第一次获取服务语言、城市
+        if (MySelfInfo.getInstance().isLogin()) {
+            if (MySelfInfo.getInstance().getServiceIden() == 0) {//只在登录之后第一次获取服务语言、城市
                 mGetLanguagePresenter.userGetLanguage();
                 mGetCityPresenter.getServiceCityList();
             }
         }
 
 
-        if(toId==2){//修改
+        if (toId == 2) {//修改
             titleTv.setText("修改服务");
             mGetUpdateServInfoPresenter.getUpdateServInfo(serviceId);
-        }else if(toId==1){
+        } else if (toId == 1) {
             sTypePresenter.getServeDicList(true);
-        }else if(toId==3){
+        } else if (toId == 3) {
             titleTv.setText("新增服务");
             mGetUpdateServInfoPresenter.getUpdateServInfo(serviceId);
         }
 
         initServiceTypeDisposable();
+
         //服务类型
         serviceType.setFocusables(false, new View.OnClickListener() {//设置可点击但是不可编辑
             @Override
             public void onClick(View view) {
                 AppUtils.HideKeyboard(serviceType);
-                if(toId==1||toId==3){
-                    uniqueId=0;
+                if (toId == 1 || toId == 3) {
+                    uniqueId = 0;
                     Intent intent = new Intent(context, ServiceTypeActivity.class);
-                    intent.putExtra("SERVER_TYPE",serverTypeId);
+                    intent.putExtra("SERVER_TYPE", serverTypeId);
                     startActivity(intent);
-                }else{
-                    Toast.makeText(context,"修改服务不能修改服务类型",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "修改服务不能修改服务类型", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -326,45 +328,50 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         llServiceInd.setFocusables(false, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,ServicesFeatureActivity.class);
-                intent.putExtra("ID",101);
-                intent.putExtra("myFeature",myFeature);
-                startActivityForResult(intent,101);
+                Intent intent = new Intent(context, ServicesFeatureActivity.class);
+                intent.putExtra("ID", 101);
+                intent.putExtra("myFeature", myFeature);
+                startActivityForResult(intent, 101);
             }
         });
 
         llServiceCity.setFocusables(false, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    AppUtils.HideKeyboard(llServiceCity);
-                    showPickerView();
+                AppUtils.HideKeyboard(llServiceCity);
+                showPickerView();
             }
         });
 
         llServiceNotime.setFocusables(false, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,CalendarActivity.class);
-                if(notimeDate.size()>0){
-                    intent.putStringArrayListExtra(Constant.CALENDARNOTIME,notimeDate);
+                Intent intent = new Intent(context, CalendarActivity.class);
+                if (notimeDate.size() > 0) {
+                    intent.putStringArrayListExtra(Constant.CALENDARNOTIME, notimeDate);
                 }
                 startActivityForResult(intent, Constant.CALENDARID);
             }
         });
 
+        initRefundContent();
+    }
+
+    //初始化退款条款内容
+    private void initRefundContent() {
         edit_text1.setEnabled(false);
         edit_text3.setEnabled(false);
         edit_text4.addTextChangedListener(new MyTextWatcherAfter() {
             @Override
             public void callback(Editable s) {
-                if(TextUtils.isEmpty(edit_text4.getText().toString())) return;
-                if(Integer.valueOf(edit_text4.getText().toString())>10){
+                if (TextUtils.isEmpty(edit_text4.getText().toString())) return;
+                if (getInt(edit_text4) > 10) {
                     edit_text4.setText("");
                     showShortToast("天数不能超过10日");
                 }
-                if(TextUtils.isEmpty(edit_text4.getText().toString())) return;
-                if(Integer.valueOf(edit_text4.getText().toString())<=10){
-                    edit_text1.setText(Integer.valueOf(edit_text4.getText().toString())+1+"");
+                if (TextUtils.isEmpty(edit_text4.getText().toString())) return;
+                if (getInt(edit_text4) <= 10) {
+                    edit_text1.setText(getInt(edit_text4) + 1 + "");
                 }
             }
         });
@@ -373,8 +380,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         edit_text2.addTextChangedListener(new MyTextWatcherAfter() {
             @Override
             public void callback(Editable s) {
-                if(TextUtils.isEmpty(edit_text2.getText().toString())) return;
-                if(Integer.valueOf(edit_text2.getText().toString())>15){
+                if (TextUtils.isEmpty(edit_text2.getText().toString())) return;
+                if (getInt(edit_text2) > 15) {
                     edit_text2.setText("");
                     showShortToast("天数不能超过15日");
                 }
@@ -396,183 +403,209 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     }
 
 
-    public boolean checkYulanName(){
-        if(serviceType.getEditContent().equals("")){
+    //验证是否能进入预览页
+    public boolean checkYulanName() {
+        if (serviceType.getEditContent().equals("")) {
             showShortToast("请选择服务类型");
             return false;
-        }else if(serviceTitle.getEditContent().equals("")) {
+        } else if (serviceTitle.getEditContent().equals("")) {
             showShortToast("请输入标题");
             return false;
         }
         return true;
     }
 
-    public boolean checkName(){
-        if(serviceType.getEditContent().equals("")){
+    //验证提交信息是否正确
+    public boolean checkName() {
+        if (serviceType.getEditContent().equals("")) {
             showShortToast("请选择服务类型");
             return false;
-        }else if(serviceTitle.getEditContent().equals("")) {
+        } else if (serviceTitle.getEditContent().equals("")) {
             showShortToast("请输入标题");
             return false;
-        } else if(upUrls.equals("")){
+        } else if (upUrls.equals("")) {
             showShortToast("请上传标题图");
             return false;
         }
-        for (int a=0;a<linears.size();a++){
-            String con=linears.get(a).getContent();
-            String con2=linears.get(a).getContent2();
-            if(con.equals("")){
+        for (int a = 0; a < linears.size(); a++) {
+            String con = linears.get(a).getContent();
+            String con2 = linears.get(a).getContent2();
+            if (con.equals("")) {
                 showShortToast(linears.get(a).getHint());
                 return false;
-            }else if(con2.equals("")){
+            } else if (con2.equals("")) {
                 showShortToast(linears.get(a).getHint2());
                 return false;
-            }else if(!ServiceUtil.getPriceCheck(con2,context)){
-                return ServiceUtil.getPriceCheck(con2,context);
+            } else if (!ServiceUtil.getPriceCheck(con2, context)) {
+                return ServiceUtil.getPriceCheck(con2, context);
             }
         }
-        if(serverTypeId==3) {//私人订制
-            String context2=servicePrice.getEditContent().trim();
-            if(!ServiceUtil.getPriceCheck(context2,context)){
+        if (serverTypeId == 3) {//私人订制
+            String context2 = servicePrice.getEditContent().trim();
+            if (!ServiceUtil.getPriceCheck(context2, context)) {
                 return false;
             }
         }
-        if(llServiceCity.getEditContent().equals("")){
+        if (llServiceCity.getEditContent().equals("")) {
             showShortToast("请选择城市");
             return false;
-        }else if(myFeature.equals("")){
+        } else if (myFeature.equals("")) {
             showShortToast("请输入服务特色");
             return false;
-        }else if(llServicePriceinfo.getText().toString().equals("")){
+        } else if (llServicePriceinfo.getText().toString().equals("")) {
             showShortToast("请输入费用说明");
             return false;
-        }else if(edit_text1.getText().toString().equals("")
-                ||edit_text2.getText().toString().equals("")
-                ||edit_text3.getText().toString().equals("")
-                ||edit_text4.getText().toString().equals("")){
+        } else if (edit_text1.getText().toString().equals("")
+                || edit_text2.getText().toString().equals("")
+                || edit_text3.getText().toString().equals("")
+                || edit_text4.getText().toString().equals("")) {
             showShortToast("请输入违约金参数");
             return false;
-        }else if(Integer.valueOf(edit_text2.getText().toString())<Integer.valueOf(edit_text1.getText().toString())){
+        } else if (getInt(edit_text2) < getInt(edit_text1)) {
             showShortToast("违约金参数设置不正确");
             return false;
-        }else if(Integer.valueOf(edit_text4.getText().toString())<Integer.valueOf(edit_text3.getText().toString())){
+        } else if (getInt(edit_text4) < getInt(edit_text3)) {
             showShortToast("违约金参数设置不正确");
             return false;
-        }else if(Integer.valueOf(edit_text4.getText().toString())<=1){
+        } else if (getInt(edit_text4) <= 1) {
             showShortToast("违约金参数设置不正确");
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
+    public int getInt(TextView tv){
+        return Integer.valueOf(tv.getText().toString());
+    }
+
+    public int getInt(EditText et){
+        return Integer.valueOf(et.getText().toString());
+    }
+
+    //预览
     @OnClick(R.id.title_yulan)
-    public void yulan(){
-        if(checkYulanName()) {
+    public void yulan() {
+        if (checkYulanName()) {
             setServeFormatList();
-            minprice=ServiceUtil.getMinPrices(serveFormatList,serverTypeId);
+            minprice = ServiceUtil.getMinPrices(serveFormatList, serverTypeId);
             Intent intent = new Intent(context, ServicePreviewActivity.class);
-            ServicePreviewInfo model=new ServicePreviewInfo();
+            ServicePreviewInfo model = new ServicePreviewInfo();
             model.setTitleImg(upUrls);
             model.setServeFeature(myFeature);
             model.setServeType(serverTypeId);
             model.setTitle(serviceTitle.getEditContent());
-            model.setRenegePriceThree(edit_text1.getText().toString()+","+edit_text2.getText().toString());//违约金参数
-            model.setRenegePriceFive(edit_text3.getText().toString()+","+edit_text4.getText().toString());// 违约金参数
+            model.setRenegePriceThree(edit_text1.getText().toString() + "," + edit_text2.getText().toString());//违约金参数
+            model.setRenegePriceFive(edit_text3.getText().toString() + "," + edit_text4.getText().toString());// 违约金参数
             model.setAddress(llServiceCity.getEditContent());
             model.setAddressId(cityTypeId);
             model.setServeTypeName(serviceType.getEditContent());
             model.setSaleNum(saleNum);
             model.setServePrice(minprice);
-            if(serverTypeId==3){//私人订制
+            if (serverTypeId == 3) {//私人订制
                 model.setServePrice(Float.valueOf(servicePrice.getEditContent()));
             }
             model.setCostExplain(llServicePriceinfo.getText().toString());
-            intent.putExtra("ServicePreviewInfo",model);
-            intent.putExtra("PREVIEWID",Constant.PREVIEWID);
+            intent.putExtra("ServicePreviewInfo", model);
+            intent.putExtra("PREVIEWID", Constant.PREVIEWID);
             startActivity(intent);
         }
     }
 
-    public void setServeFormatList(){//服务规格
-        for (int i=0;i<linears.size();i++){
-            String serveFormatName=linears.get(i).getContent();//规格名称
-            String serveFPrice=linears.get(i).getContent2();//规格默认价格
+    //服务规格
+    public void setServeFormatList() {
+        for (int i = 0; i < linears.size(); i++) {
+            String serveFormatName = linears.get(i).getContent();//规格名称
+            String serveFPrice = linears.get(i).getContent2();//规格默认价格
 
-            if(toId==3){//复制
+            if (toId == 3) {//复制
                 serveFormatList.get(i).setId(null);
-            }else{
-                if(!linears.get(i).getIdContent().equals("")){//修改
+            } else {
+                if (!linears.get(i).getIdContent().equals("")) {//修改
                     serveFormatList.get(i).setId(Long.parseLong(linears.get(i).getIdContent()));
                 }
             }
 
             serveFormatList.get(i).setGuideServeFormatName(serveFormatName);
-            if(serveFPrice.equals("")){
+            if (serveFPrice.equals("")) {
                 serveFormatList.get(i).setServeDefaultPrice(0);
-            }else{
+            } else {
                 serveFormatList.get(i).setServeDefaultPrice(Float.valueOf(serveFPrice));
             }
 
         }
     }
 
-    public void setPriceCalender(List<PriceModel> priceCalendar,int uniqueId){//日历价格
-        List<NjzGuideServeFormatPriceEntities> list3=new ArrayList<>();
+    //日历价格------start
+    public void setPriceCalender(List<PriceModel> priceCalendar, int uniqueId) {
+        List<NjzGuideServeFormatPriceEntities> list3 = new ArrayList<>();
         //----------------价格日历
-        for (int s=0;s<priceCalendar.size();s++){
-            NjzGuideServeFormatPriceEntities list4=new NjzGuideServeFormatPriceEntities();
-            PriceModel priceModel=priceCalendar.get(s);
+        for (int s = 0; s < priceCalendar.size(); s++) {
+            NjzGuideServeFormatPriceEntities list4 = new NjzGuideServeFormatPriceEntities();
+            PriceModel priceModel = priceCalendar.get(s);
             list4.setYearInt(Integer.parseInt(priceModel.getYear()));
             list4.setMonthInt(Integer.parseInt(priceModel.getMonth()));
             list4.setDateInt(Integer.parseInt(priceModel.getDay()));
             list4.setPrice(Float.valueOf(priceModel.getPrice()));
             list3.add(list4);
         }
-        if(toId==1){//增加
-            serveFormatList.get(uniqueId-1).setServePriceSelect(list3);
-        }else if(toId==2||toId==3){//修改
-            for (int i=0;i<linears.size();i++){
-                if(!linears.get(i).getIdContent().equals("")){
-                    String id=linears.get(i).getIdContent();
-                    if(id.equals(uniqueId+"")){
+        if (toId == 1) {//增加
+            serveFormatList.get(uniqueId - 1).setServePriceSelect(list3);
+        } else if (toId == 2 || toId == 3) {//修改
+            for (int i = 0; i < linears.size(); i++) {
+                if (!linears.get(i).getIdContent().equals("")) {
+                    String id = linears.get(i).getIdContent();
+                    if (id.equals(uniqueId + "")) {
                         serveFormatList.get(i).setServePriceSelect(list3);
                     }
-                }else{
-                    serveFormatList.get(uniqueId-1).setServePriceSelect(list3);
+                } else {
+                    serveFormatList.get(uniqueId - 1).setServePriceSelect(list3);
                 }
             }
         }
-
-
-        //-------------------
-
     }
 
+    public List<PriceModel> getIdPrice(int id) {
+        if (serveFormatList.get(id).getServePriceSelect() != null) {
+            List<NjzGuideServeFormatPriceEntities> list = serveFormatList.get(id).getServePriceSelect();
+            if (list.size() > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    PriceModel priceModel = new PriceModel();
+                    priceModel.setPrice(list.get(i).getPrice() + "");
+                    priceModel.setTime(list.get(i).getYearInt() + "-" + DateUtil.getWith0(list.get(i).getMonthInt()) + "-" + DateUtil.getWith0(list.get(i).getDateInt()));
+                    priceCalendar.add(priceModel);
+                }
+            }
+        }
+        return priceCalendar;
+    }
+    //日历价格------end
+
+    //上传/保存
     @OnClick({R.id.serve_btn_save, R.id.serve_btn_save_sub})
     public void saveOnclick(View view) {
-        if(checkName()){
+        if (checkName()) {
             setServeFormatList();
-            minprice=ServiceUtil.getMinPrices(serveFormatList,serverTypeId);
-            AutoServiceModel model=new AutoServiceModel();//标题图
+            minprice = ServiceUtil.getMinPrices(serveFormatList, serverTypeId);
+            AutoServiceModel model = new AutoServiceModel();//标题图
             model.setTitleImg(upUrls);
             model.setServeFeature(myFeature);
             model.setServeType(serverTypeId);
             model.setNjzGuideServeFormatDtos(serveFormatList);
             model.setTitle(serviceTitle.getEditContent());
-            model.setRenegePriceThree(edit_text1.getText().toString()+","+edit_text2.getText().toString());//违约金参数
-            model.setRenegePriceFive(edit_text3.getText().toString()+","+edit_text4.getText().toString());// 违约金参数
+            model.setRenegePriceThree(edit_text1.getText().toString() + "," + edit_text2.getText().toString());//违约金参数
+            model.setRenegePriceFive(edit_text3.getText().toString() + "," + edit_text4.getText().toString());// 违约金参数
             model.setAddress(llServiceCity.getEditContent());
             model.setAddressId(cityTypeId);
             model.setServeTypeName(serviceType.getEditContent());
 
             //-----------非空闲时间----------
-            List<NjzGuideServeNoTimeEntitiesBean> list=new ArrayList<>();
+            List<NjzGuideServeNoTimeEntitiesBean> list = new ArrayList<>();
             NjzGuideServeNoTimeEntitiesBean lists2;
-            if(notimeDate.size()>0){
-                for (int i=0;i<notimeDate.size();i++){
-                    lists2=new NjzGuideServeNoTimeEntitiesBean();
-                    String date=notimeDate.get(i).toString();
+            if (notimeDate.size() > 0) {
+                for (int i = 0; i < notimeDate.size(); i++) {
+                    lists2 = new NjzGuideServeNoTimeEntitiesBean();
+                    String date = notimeDate.get(i).toString();
                     lists2.setDateValue(date);
                     list.add(lists2);
                 }
@@ -582,91 +615,93 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             model.setServeMaxNum(1);
             model.setServeMinNum(1);
             model.setServePrice(minprice);
-            if(serverTypeId==3){//私人订制
+            if (serverTypeId == 3) {//私人订制
                 model.setServePrice(Float.valueOf(servicePrice.getEditContent()));
             }
             //----------自驾车传参------------start
-            if(isSelect){
-                List<PurchaseRulesVo> purchaseRules=new ArrayList<>();
-                PurchaseRulesVo purchaseRulesVo=new PurchaseRulesVo();
+            if (isSelect) {
+                List<PurchaseRulesVo> purchaseRules = new ArrayList<>();
+                PurchaseRulesVo purchaseRulesVo = new PurchaseRulesVo();
                 purchaseRulesVo.setRuleClassName("QuantitativeRulesHandle");
                 purchaseRulesVo.setUniqueValue("xdpy_cx");
-                int[] data = {0,1};
+                int[] data = {0, 1};
                 purchaseRulesVo.setEntityList(data);
                 purchaseRules.add(purchaseRulesVo);
-                String purchaseRulesString=purchaseRules.toString();
+                String purchaseRulesString = purchaseRules.toString();
                 model.setPurchaseRules(purchaseRulesString);
             }
             //----------自驾车传参------------end
 
-            if(toId==2){//修改
+            if (toId == 2) {//修改
                 model.setId(serviceId);//服务ID
                 switch (view.getId()) {
                     case R.id.serve_btn_save:
                         mGetUpdateServInfoPresenter.updaServiceInfo(model);
                         break;
                     case R.id.serve_btn_save_sub:
-                        if(serveBtnSaveSub.getText().equals("修改并上架")){
-                        model.setStatus(new Long((long)1));
-                    }else{
-                        model.setStatus(new Long((long)0));
-                    }
+                        if (serveBtnSaveSub.getText().equals("修改并上架")) {
+                            model.setStatus(new Long((long) 1));
+                        } else {
+                            model.setStatus(new Long((long) 0));
+                        }
                         mGetUpdateServInfoPresenter.updaServiceInfo(model);
                         break;
                 }
-            }else if(toId==1||toId==3){
+            } else if (toId == 1 || toId == 3) {
                 switch (view.getId()) {
                     case R.id.serve_btn_save:
-                        model.setStatus(new Long((long)0));
+                        model.setStatus(new Long((long) 0));
                         mAddServicePresenter.addService(model);
                         break;
                     case R.id.serve_btn_save_sub:
-                        model.setStatus(new Long((long)1));
+                        model.setStatus(new Long((long) 1));
                         mAddServicePresenter.addService(model);
                         break;
                 }
             }
 
-            Log.e("test","提交的值"+model.toString());
+            Log.e("test", "提交的值" + model.toString());
         }
     }
 
-    public void initTextLayout(final String formatName,final String uniqueValue){
-        TextServiceView mTextServiceView=new TextServiceView(context);
-        mTextServiceView.setContent("添加"+formatName);
+    //添加服务类型按钮：添加车辆语言套餐
+    public void initTextLayout(final String formatName, final String uniqueValue) {
+        TextServiceView mTextServiceView = new TextServiceView(context);
+        mTextServiceView.setContent("添加" + formatName);
         mTextServiceView.setOnclick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int isDelete=0;
-                initAddLayout(formatName,uniqueValue,isDelete);
+                int isDelete = 0;
+                initAddLayout(formatName, uniqueValue, isDelete);
             }
         });
         ll_vai_text.addView(mTextServiceView);
     }
 
-    public void initAddLayout(String formatName,String uniqueValue,int isDelete){
+    //添加服务类型内容组件
+    public void initAddLayout(String formatName, String uniqueValue, int isDelete) {
         uniqueId++;
-        final LinearServiceView mLinearServiceView=new LinearServiceView(context);
-        if(isDelete==1){// 1、隐藏删除按钮
+        final LinearServiceView mLinearServiceView = new LinearServiceView(context);
+        if (isDelete == 1) {// 1、隐藏删除按钮
             mLinearServiceView.setDeleteBtnVisibility(View.GONE);
-        }else{
+        } else {
             mLinearServiceView.setDeleteBtnVisibility(View.VISIBLE);
         }
-        if(uniqueValue.equals("xdpy_cx")){
+        if (uniqueValue.equals("xdpy_cx")) {
             ll_IsCheckCar.setVisibility(View.VISIBLE);
             setIv_isagreement();
-        }else{
+        } else {
             getisCarType();
         }
         mLinearServiceView.setId(uniqueId);
         mLinearServiceView.setTitleContent(formatName);
         mLinearServiceView.setTitle2Content("价格");
-        mLinearServiceView.setEditHint1("请输入"+formatName);
-        if(formatName.equals("服务语言")) {
+        mLinearServiceView.setEditHint1("请输入" + formatName);
+        if (formatName.equals("服务语言")) {
             mLinearServiceView.setBtnVisibility(View.VISIBLE);
-            langageTypeModels=MySelfInfo.getInstance().getServiceMacroEntityList();
-            langages=MySelfInfo.getInstance().getServiceLangages();
-            if(langageTypeModels!=null&&langageTypeModels.size()>0&&langages!=null){
+            langageTypeModels = MySelfInfo.getInstance().getServiceMacroEntityList();
+            langages = MySelfInfo.getInstance().getServiceLangages();
+            if (langageTypeModels != null && langageTypeModels.size() > 0 && langages != null) {
                 mLinearServiceView.setContent(langageTypeModels.get(0).getName());
                 langagesId = langageTypeModels.get(0).getId();
                 mLinearServiceView.setOnclick(false, new View.OnClickListener() {
@@ -694,37 +729,37 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             @Override
             public void onClick(View v) {
                 priceCalendar.clear();
-                if(ServiceUtil.getPriceCheck(mLinearServiceView.getContent2(),context)){
-                    priceCalendar=getIdPrice(mLinearServiceView.getId()-1);
-                    if(toId==2||toId==3){//修改
-                        Intent intent=new Intent(context,PriceCalendarActivity.class);
-                        if(!mLinearServiceView.getIdContent().equals("")){
-                            intent.putExtra("uniqueId",Integer.parseInt(mLinearServiceView.getIdContent()));//规格ID
-                            intent.putExtra("uniquevalue","标识");
-                        }else{
-                            intent.putExtra("uniqueId",mLinearServiceView.getId());
-                            intent.putExtra("uniquevalue","");
+                if (ServiceUtil.getPriceCheck(mLinearServiceView.getContent2(), context)) {
+                    priceCalendar = getIdPrice(mLinearServiceView.getId() - 1);
+                    if (toId == 2 || toId == 3) {//修改
+                        Intent intent = new Intent(context, PriceCalendarActivity.class);
+                        if (!mLinearServiceView.getIdContent().equals("")) {
+                            intent.putExtra("uniqueId", Integer.parseInt(mLinearServiceView.getIdContent()));//规格ID
+                            intent.putExtra("uniquevalue", "标识");
+                        } else {
+                            intent.putExtra("uniqueId", mLinearServiceView.getId());
+                            intent.putExtra("uniquevalue", "");
                         }
                         intent.putParcelableArrayListExtra(Constant.PRICECALENDERINFO, (ArrayList) priceCalendar);
-                        if(!mLinearServiceView.getContent2().equals("")){
-                            intent.putExtra(Constant.DEFAULT_PRICE,mLinearServiceView.getContent2());
+                        if (!mLinearServiceView.getContent2().equals("")) {
+                            intent.putExtra(Constant.DEFAULT_PRICE, mLinearServiceView.getContent2());
                         }
-                        intent.putExtra("TOID",toId);
-                        startActivityForResult(intent,Constant.DEFAULT_PRICEID);
-                    }else if(toId==1){
-                        Intent intent=new Intent(context,PriceCalendarActivity.class);
-                        intent.putExtra("uniqueId",mLinearServiceView.getId());
-                        if(!mLinearServiceView.getContent2().equals("")){
-                            intent.putExtra(Constant.DEFAULT_PRICE,mLinearServiceView.getContent2());
+                        intent.putExtra("TOID", toId);
+                        startActivityForResult(intent, Constant.DEFAULT_PRICEID);
+                    } else if (toId == 1) {
+                        Intent intent = new Intent(context, PriceCalendarActivity.class);
+                        intent.putExtra("uniqueId", mLinearServiceView.getId());
+                        if (!mLinearServiceView.getContent2().equals("")) {
+                            intent.putExtra(Constant.DEFAULT_PRICE, mLinearServiceView.getContent2());
                         }
-                        intent.putExtra("TOID",toId);
+                        intent.putExtra("TOID", toId);
                         intent.putParcelableArrayListExtra(Constant.PRICECALENDERINFO, (ArrayList) priceCalendar);
-                        startActivityForResult(intent,Constant.DEFAULT_PRICEID);
+                        startActivityForResult(intent, Constant.DEFAULT_PRICEID);
                     }
                 }
             }
         });
-        final NjzGuideServeFormatDtosBean serveFormatDtosBean=new NjzGuideServeFormatDtosBean();
+        final NjzGuideServeFormatDtosBean serveFormatDtosBean = new NjzGuideServeFormatDtosBean();
         serveFormatDtosBean.setNjzGuideServeFormatDic(uniqueValue);
         serveFormatList.add(serveFormatDtosBean);
         mLinearServiceView.setOnclickDelete(new View.OnClickListener() {
@@ -742,54 +777,39 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     }
 
-    public void getisCarType(){
-        boolean isCarType=false;
-        for (int i=0;i<serveFormatList.size();i++){
-            if(serveFormatList.get(i).getNjzGuideServeFormatDic().equals("xdpy_cx")){
-                isCarType=true;
+    //是否允许游客自驾车------start
+    public void getisCarType() {
+        boolean isCarType = false;
+        for (int i = 0; i < serveFormatList.size(); i++) {
+            if (serveFormatList.get(i).getNjzGuideServeFormatDic().equals("xdpy_cx")) {
+                isCarType = true;
             }
         }
-        if (!isCarType){
+        if (!isCarType) {
             ll_IsCheckCar.setVisibility(View.GONE);
-            isSelect=false;
+            isSelect = false;
         }
     }
 
     @OnClick(R.id.ll_isagreement)
-    public void isagreement(){
+    public void isagreement() {
         if (isSelect) {
-            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check_un));
-            isSelect=false;
-        }else{
-            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check));
-            isSelect=true;
+            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_check_un));
+            isSelect = false;
+        } else {
+            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_check));
+            isSelect = true;
         }
     }
 
-    public void setIv_isagreement(){
+    public void setIv_isagreement() {
         if (isSelect) {
-            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check));
-        }else{
-            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check_un));
+            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_check));
+        } else {
+            iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_check_un));
         }
     }
-
-
-    public List<PriceModel> getIdPrice(int id){
-        if(serveFormatList.get(id).getServePriceSelect()!=null){
-            List<NjzGuideServeFormatPriceEntities> list=serveFormatList.get(id).getServePriceSelect();
-            if(list.size()>0){
-                for (int i=0;i<list.size();i++){
-                    PriceModel priceModel=new PriceModel();
-                    priceModel.setPrice(list.get(i).getPrice()+"");
-                    priceModel.setTime(list.get(i).getYearInt()+"-"+ DateUtil.getWith0(list.get(i).getMonthInt())+"-"+DateUtil.getWith0(list.get(i).getDateInt()));
-                    priceCalendar.add(priceModel);
-                }
-            }
-        }
-        return priceCalendar;
-    }
-
+    //是否允许游客自驾车------end
 
     //---------服务类型---- start----
     @Override
@@ -805,67 +825,66 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     @Override
     public void getServeDicListSuccess(GetServeDicListModel datas) {
         if (datas != null) {
-            if(serviceType == null) return;
-            String serviceName=serviceType.getEditContent();
+            if (serviceType == null) return;
+            String serviceName = serviceType.getEditContent();
 
-            if(datas.getNjzGuideServeDicVoList()!=null){
-                List<NjzGuideServeDicVoListBean> getServeDicVoList=datas.getNjzGuideServeDicVoList();
+            if (datas.getNjzGuideServeDicVoList() != null) {
+                List<NjzGuideServeDicVoListBean> getServeDicVoList = datas.getNjzGuideServeDicVoList();
                 for (int i = 0; i < getServeDicVoList.size(); i++) {
-                    if(getServeDicVoList.get(i).isIsShow()){
+                    if (getServeDicVoList.get(i).isIsShow()) {
                         getServeDicVoListisTrue.add(getServeDicVoList.get(i));
                         String name = getServeDicVoList.get(i).getName();
                         sTypes.add(name);
                     }
                 }
                 //---服务类型 start----------
-                int isshowdelete=0;
-                for (int a=0;a<getServeDicVoList.size();a++){
-                    if(toId==2||toId==3){//修改
-                        if(getServeDicVoList.get(a).getName().equals(serviceName)){
-                            List<NjzGuideServeFormatDicVosBean> info=getServeDicVoList.get(a).getNjzGuideServeFormatDicVos();
-                            if(info.size()>0){
-                                String name="";
-                                float defaultPrice=0;
-                                for (int v=0;v<infos1.size();v++){//初始化更新的组件
-                                        List<GetUpdateServiceInfo.ServeGroupListInfo> info2=infos1.get(v);
-                                        for (GetUpdateServiceInfo.ServeGroupListInfo infoq: info2) {
-                                            for (int c=0;c<info.size();c++){
-                                                if(info.get(c).getUniqueValue().equals(infoq.getNjzGuideServeFormatDic())){
-                                                    int isDelete=0;
-                                                    if(info.get(c).isIsRequisite()) {
-                                                        if(isshowdelete==0){
-                                                            isDelete=1;
-                                                        }else{
-                                                            isDelete=0;
-                                                        }
-                                                        initAddLayout(info.get(c).getFormatName(),info.get(c).getUniqueValue(),isDelete);
-                                                        isshowdelete++;
-                                                    }else{
-                                                        isDelete=0;
-                                                        initAddLayout(info.get(c).getFormatName(),info.get(c).getUniqueValue(),isDelete);
+                int isshowdelete = 0;
+                for (int a = 0; a < getServeDicVoList.size(); a++) {
+                    if (toId == 2 || toId == 3) {//修改
+                        if (getServeDicVoList.get(a).getName().equals(serviceName)) {
+                            List<NjzGuideServeFormatDicVosBean> info = getServeDicVoList.get(a).getNjzGuideServeFormatDicVos();
+                            if (info.size() > 0) {
+                                String name = "";
+                                float defaultPrice = 0;
+                                for (int v = 0; v < infos1.size(); v++) {//初始化更新的组件
+                                    List<GetUpdateServiceInfo.ServeGroupListInfo> info2 = infos1.get(v);
+                                    for (GetUpdateServiceInfo.ServeGroupListInfo infoq : info2) {
+                                        for (int c = 0; c < info.size(); c++) {
+                                            if (info.get(c).getUniqueValue().equals(infoq.getNjzGuideServeFormatDic())) {
+                                                int isDelete = 0;
+                                                if (info.get(c).isIsRequisite()) {
+                                                    if (isshowdelete == 0) {
+                                                        isDelete = 1;
+                                                    } else {
+                                                        isDelete = 0;
                                                     }
-//                                                    serverTypeId=info.get(c).getId();
+                                                    initAddLayout(info.get(c).getFormatName(), info.get(c).getUniqueValue(), isDelete);
+                                                    isshowdelete++;
+                                                } else {
+                                                    isDelete = 0;
+                                                    initAddLayout(info.get(c).getFormatName(), info.get(c).getUniqueValue(), isDelete);
                                                 }
                                             }
                                         }
+                                    }
                                 }
-                                for (int c=0;c<info.size();c++){
-                                    if(info.get(c).isIsPower()) {//是否可以上传该规格
+                                for (int c = 0; c < info.size(); c++) {
+                                    if (info.get(c).isIsPower()) {//是否可以上传该规格
                                         initTextLayout(info.get(c).getFormatName(), info.get(c).getUniqueValue());
                                     }
                                 }
-                                int o=0;
-                                for (List<GetUpdateServiceInfo.ServeGroupListInfo> in:
-                                infos1) {
-                                    for (GetUpdateServiceInfo.ServeGroupListInfo infoq: in) {
-                                        if(linears.size()>0){
-                                            LinearServiceView views=linears.get(o);
-                                            name=infoq.getGuideServeFormatName();//名称
-                                            defaultPrice=infoq.getServeDefaultPrice();//默认价格
-                                            int serveGroupId=infoq.getId();
+                                int o = 0;
+                                for (List<GetUpdateServiceInfo.ServeGroupListInfo> in :
+                                        infos1) {
+                                    for (GetUpdateServiceInfo.ServeGroupListInfo infoq : in) {
+                                        if (linears.size() > 0) {
+                                            LinearServiceView views = linears.get(o);
+                                            name = infoq.getGuideServeFormatName();//名称
+                                            defaultPrice = infoq.getServeDefaultPrice();//默认价格
+                                            int serveGroupId = infoq.getId();
                                             views.setContent(name);
-                                            views.setContent2(""+defaultPrice);
-                                            views.setIdContent(""+serveGroupId);
+                                            views.setContent2("" + defaultPrice);
+                                            views.setIdContent("" + serveGroupId);
                                             o++;
                                         }
                                     }
@@ -875,35 +894,35 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                     }
                 }
                 //---服务类型 end----------
-                if(getServeDicVoListisTrue.size()>0){
-                    int dicvos=getServeDicVoListisTrue.get(0).getNjzGuideServeFormatDicVos().size();
-                    if(dicvos>0){
-                        for (int s=0;s<dicvos;s++){
-                            if(toId==1){//新增
-                                NjzGuideServeDicVoListBean listTrue= getServeDicVoListisTrue.get(0);
-                                NjzGuideServeFormatDicVosBean listDicVosBean= listTrue.getNjzGuideServeFormatDicVos().get(s);
+                if (getServeDicVoListisTrue.size() > 0) {
+                    int dicvos = getServeDicVoListisTrue.get(0).getNjzGuideServeFormatDicVos().size();
+                    if (dicvos > 0) {
+                        for (int s = 0; s < dicvos; s++) {
+                            if (toId == 1) {//新增
+                                NjzGuideServeDicVoListBean listTrue = getServeDicVoListisTrue.get(0);
+                                NjzGuideServeFormatDicVosBean listDicVosBean = listTrue.getNjzGuideServeFormatDicVos().get(s);
                                 serviceType.setEditContent(listTrue.getName());
-                                serverTypeId=listTrue.getId();
-                                if(listTrue.getNjzGuideServeFormatDicVos().get(s).isIsPower()){
-                                    String formatName=listDicVosBean.getFormatName();
-                                    String uniqueValue=listDicVosBean.getUniqueValue();
-                                    if(listTrue.getNjzGuideServeFormatDicVos().get(s).isIsRequisite()){//必须上传该规格  隐藏删除按钮
-                                        int isDelete=1;
-                                        initAddLayout(formatName,uniqueValue,isDelete);
+                                serverTypeId = listTrue.getId();
+                                if (listTrue.getNjzGuideServeFormatDicVos().get(s).isIsPower()) {
+                                    String formatName = listDicVosBean.getFormatName();
+                                    String uniqueValue = listDicVosBean.getUniqueValue();
+                                    if (listTrue.getNjzGuideServeFormatDicVos().get(s).isIsRequisite()) {//必须上传该规格  隐藏删除按钮
+                                        int isDelete = 1;
+                                        initAddLayout(formatName, uniqueValue, isDelete);
                                     }
-                                    initTextLayout(formatName,uniqueValue);
+                                    initTextLayout(formatName, uniqueValue);
                                 }
                             }
                         }
                     }
                 }
             }
-            if(serverTypeId==3){//私人订制
+            if (serverTypeId == 3) {//私人订制
                 servicePrice.setInputTypes(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);//小数点和整数
                 servicePrice.setVisibility(View.VISIBLE);//价格
                 llPenalty.setVisibility(View.GONE);//违约金
                 llServiceNotime.setVisibility(View.GONE);
-            }else{
+            } else {
                 servicePrice.setVisibility(View.GONE);
                 llPenalty.setVisibility(View.VISIBLE);
                 llServiceNotime.setVisibility(View.VISIBLE);
@@ -930,9 +949,10 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     public void getCheckLanguageFailed(String msg) {
 
     }
+
     @Override
     public void userGetLanguageSuccess(List<GuideMacroEntityList> datas) {
-        if(MySelfInfo.getInstance().isLogin()) {
+        if (MySelfInfo.getInstance().isLogin()) {
             if (MySelfInfo.getInstance().getServiceIden() == 0) {
                 if (datas != null) {
                     for (int i = 0; i < datas.size(); i++) {
@@ -958,6 +978,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     //----------------end 多图片上传------------
     private TackPicturesUtil tackPicUtil;
+
     private void initAddPhoto() {
         //------------附件
         tackPicUtil = new TackPicturesUtil(activity);
@@ -1000,22 +1021,22 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             case 101: //返回的请求码
                 //操作
                 myFeature = data.getExtras().getString("myFeature");
-                if(!myFeature.equals("")){
+                if (!myFeature.equals("")) {
                     llServiceInd.setEditContent("已编辑");
                 }
                 break;
             case Constant.CALENDARID://非空闲时间
-                notimeDate=data.getStringArrayListExtra(Constant.CALENDARNOTIME);
-                if(notimeDate.size()>0){
-                    llServiceNotime.setEditContent(notimeDate.toString().substring(1,notimeDate.toString().length()-1));
-                }else{
+                notimeDate = data.getStringArrayListExtra(Constant.CALENDARNOTIME);
+                if (notimeDate.size() > 0) {
+                    llServiceNotime.setEditContent(notimeDate.toString().substring(1, notimeDate.toString().length() - 1));
+                } else {
                     llServiceNotime.setEditContent("");
                 }
                 break;
             case Constant.DEFAULT_PRICEID://日历价格
-                priceCalendar=data.getParcelableArrayListExtra(Constant.PRICECALENDERINFO);
-                int uniqueId=data.getIntExtra("uniqueId",0);
-                setPriceCalender(priceCalendar,uniqueId);
+                priceCalendar = data.getParcelableArrayListExtra(Constant.PRICECALENDERINFO);
+                int uniqueId = data.getIntExtra("uniqueId", 0);
+                setPriceCalender(priceCalendar, uniqueId);
                 break;
         }
         //多图片上传图片回调
@@ -1029,15 +1050,15 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             if (photos != null) {
                 selectedPhotos.addAll(photos);
             }
-            upUrls="";
+            upUrls = "";
             photoAdapter.notifyDataSetChanged();
-            int a=0;
-            for (int i=0;i<selectedPhotos.size();i++){
-                if(selectedPhotos.get(i).startsWith("http")){
-                    upUrls+=selectedPhotos.get(i).toString()+",";
-                }else {
+            int a = 0;
+            for (int i = 0; i < selectedPhotos.size(); i++) {
+                if (selectedPhotos.get(i).startsWith("http")) {
+                    upUrls += selectedPhotos.get(i).toString() + ",";
+                } else {
                     a++;
-                    if(a==1){
+                    if (a == 1) {
 //                        updateBack();
                         upFile2();
                     }
@@ -1072,15 +1093,15 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 upLoadPhotos.clear();
                 for (String path : selectedPhotos) {
                     list.clear();
-                    if(path.startsWith("http")){
+                    if (path.startsWith("http")) {
                         list.add(path);//添加网络图片，不需要上传
-                    }else{
+                    } else {
                         File file = new File(path);
-                        if(!file.getName().startsWith("crop") || file.length()>1024*100) {
+                        if (!file.getName().startsWith("crop") || file.length() > 1024 * 100) {
                             String savePath = TackPicturesUtil.IMAGE_CACHE_PATH + "crop" + file.getName();
                             ImageUtils.getImage(path, savePath);
                             upLoadPhotos.add(savePath);
-                        }else{
+                        } else {
                             upLoadPhotos.add(path);
                         }
                     }
@@ -1092,27 +1113,27 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     @Override
     public void batchUploadSuccess(BatchUploadInfo data) {
-        if(loadingDialog!=null){
+        if (loadingDialog != null) {
             loadingDialog.dismiss();
         }
-        if(data!=null){
-            String[] url=data.getUrl();
-            if(list.size()>0){
-                for (int i=0;i<list.size();i++){
-                    upUrls+=list.get(i)+",";
+        if (data != null) {
+            String[] url = data.getUrl();
+            if (list.size() > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    upUrls += list.get(i) + ",";
                 }
             }
-            for (int i=0;i<url.length;i++){
-                upUrls+=url[i]+",";
+            for (int i = 0; i < url.length; i++) {
+                upUrls += url[i] + ",";
             }
         }
-        selectedPhotos=StringUtils.stringToList(upUrls);
+        selectedPhotos = StringUtils.stringToList(upUrls);
         photoAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void batchUploadFailed(String msg) {
-        if(loadingDialog!=null){
+        if (loadingDialog != null) {
             loadingDialog.dismiss();
         }
     }
@@ -1124,19 +1145,20 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     private void showPickerView() {// 弹出选择器
         getServiceCityLists();
-        if(listCity==null||listModelsChildrens==null||listModelsChildrensbean==null||listModels==null)return;
-        if(listModels.size()>0&&listModelsChildrens.size()>0&&listModelsChildrensbean.size()>0){
+        if (listCity == null || listModelsChildrens == null || listModelsChildrensbean == null || listModels == null)
+            return;
+        if (listModels.size() > 0 && listModelsChildrens.size() > 0 && listModelsChildrensbean.size() > 0) {
             OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
                 @Override
                 public void onOptionsSelect(int options1, int options2, int options3, View v) {
                     //返回的分别是三个级别的选中位置
-                    if(listCity.get(options1).getChildrens().get(options2).getChildrens().size()>0){
-                        String addressName=listCity.get(options1).getChildrens().get(options2).getChildrens().get(options3).getAddressName();
-                        cityTypeId=listCity.get(options1).getChildrens().get(options2).getChildrens().get(options3).getId();
+                    if (listCity.get(options1).getChildrens().get(options2).getChildrens().size() > 0) {
+                        String addressName = listCity.get(options1).getChildrens().get(options2).getChildrens().get(options3).getAddressName();
+                        cityTypeId = listCity.get(options1).getChildrens().get(options2).getChildrens().get(options3).getId();
                         llServiceCity.setEditContent(addressName);
-                    }else{
-                        String addressName=listCity.get(options1).getChildrens().get(options2).getAddressName();
-                        cityTypeId=listCity.get(options1).getChildrens().get(options2).getId();
+                    } else {
+                        String addressName = listCity.get(options1).getChildrens().get(options2).getAddressName();
+                        cityTypeId = listCity.get(options1).getChildrens().get(options2).getId();
                         llServiceCity.setEditContent(addressName);
                     }
                 }
@@ -1147,8 +1169,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                     .setContentTextSize(16)
                     .build();
 
-    //        pvOptions.setPicker(listModels);//一级选择器
-    //        pvOptions.setPicker(listModels, listModelsChildrens);//二级选择器
+            //        pvOptions.setPicker(listModels);//一级选择器
+            //        pvOptions.setPicker(listModels, listModelsChildrens);//二级选择器
             pvOptions.setPicker(listModels, listModelsChildrens, listModelsChildrensbean);//三级选择器
             pvOptions.show();
         }
@@ -1156,47 +1178,48 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     @Override
     public void getServiceCityListSuccess(List<GetServiceCityModel> datas) {
-        if(datas.size()>0){
-            if(MySelfInfo.getInstance().isLogin()){
+        if (datas.size() > 0) {
+            if (MySelfInfo.getInstance().isLogin()) {
                 MySelfInfo.getInstance().setServiceCitys(datas);
                 MySelfInfo.getInstance().setServiceIden(1);
             }
         }
-     }
+    }
 
-     public void getServiceCityLists(){
-         if(MySelfInfo.getInstance().getServiceCitys()==null)return;
-         List<GetServiceCityModel> datas=MySelfInfo.getInstance().getServiceCitys();
-         listCity=datas;
-         for (int i=0;i<datas.size();i++){
-             List<String> names=new ArrayList<>();
-             List<List<String>> names5=new ArrayList<>();
-             String name1=datas.get(i).getAddressName();
-             listModels.add(name1);
-             for (int j=0;j<datas.get(i).getChildrens().size();j++){
-                 List<String> names4=new ArrayList<>();
-                 String name2=datas.get(i).getChildrens().get(j).getAddressName();
-                 names.add(name2);
-                 names5.add(names4);
-                 for(int x=0;x<datas.get(i).getChildrens().get(j).getChildrens().size();x++){
-                     String name3=datas.get(i).getChildrens().get(j).getChildrens().get(x).getAddressName();
-                     names4.add(name3);
-                 }
-             }
-             listModelsChildrens.add(names);
-             listModelsChildrensbean.add(names5);
-         }
-     }
+    public void getServiceCityLists() {
+        if (MySelfInfo.getInstance().getServiceCitys() == null) return;
+        List<GetServiceCityModel> datas = MySelfInfo.getInstance().getServiceCitys();
+        listCity = datas;
+        for (int i = 0; i < datas.size(); i++) {
+            List<String> names = new ArrayList<>();
+            List<List<String>> names5 = new ArrayList<>();
+            String name1 = datas.get(i).getAddressName();
+            listModels.add(name1);
+            for (int j = 0; j < datas.get(i).getChildrens().size(); j++) {
+                List<String> names4 = new ArrayList<>();
+                String name2 = datas.get(i).getChildrens().get(j).getAddressName();
+                names.add(name2);
+                names5.add(names4);
+                for (int x = 0; x < datas.get(i).getChildrens().get(j).getChildrens().size(); x++) {
+                    String name3 = datas.get(i).getChildrens().get(j).getChildrens().get(x).getAddressName();
+                    names4.add(name3);
+                }
+            }
+            listModelsChildrens.add(names);
+            listModelsChildrensbean.add(names5);
+        }
+    }
 
     @Override
     public void getServiceCityListFailed(String msg) {
-        Log.e("test",msg);
+        Log.e("test", msg);
     }
 
     @Override
     public void cityGetCitySuccess(List<CityModel> datas) {
 
     }
+
     @Override
     public void cityGetCityFailed(String msg) {
 
@@ -1222,56 +1245,56 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     //--------获取修改服务详情  start----------
     @Override
     public void getUpdateServInfoSuccess(GetUpdateServiceInfo infos) {
-        if(infos!=null){
-            if(infos.getNjzGuideServeEntity()!=null){
-                GetUpdateServiceInfo.ServeUpdataBean serveUpdataBean= infos.getNjzGuideServeEntity();
+        if (infos != null) {
+            if (infos.getNjzGuideServeEntity() != null) {
+                GetUpdateServiceInfo.ServeUpdataBean serveUpdataBean = infos.getNjzGuideServeEntity();
 
-                if(serveUpdataBean.getPurchaseRules()!=null&&!serveUpdataBean.getPurchaseRules().equals("")){
-                    iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check));
-                    isSelect=true;
-                }else{
-                    iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_check_un));
-                    isSelect=false;
+                if (serveUpdataBean.getPurchaseRules() != null && !serveUpdataBean.getPurchaseRules().equals("")) {
+                    iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_check));
+                    isSelect = true;
+                } else {
+                    iv_isagreement.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_check_un));
+                    isSelect = false;
                 }
 
                 serviceType.setEditContent(serveUpdataBean.getServeTypeName());
                 serviceTitle.setEditContent(serveUpdataBean.getTitle());
                 llServiceCity.setEditContent(serveUpdataBean.getAddress());
-                servicePrice.setEditContent(""+serveUpdataBean.getServePrice());
+                servicePrice.setEditContent("" + serveUpdataBean.getServePrice());
                 llServicePriceinfo.setText(serveUpdataBean.getCostExplain());
-                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceThree(),edit_text1,edit_text2);
-                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(),edit_text3,edit_text4);
-                String image= serveUpdataBean.getTitleImg();
-                if(!image.equals("")){
-                    upUrls=image;
-                    selectedPhotos=StringUtils.stringToList(image);
+                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceThree(), edit_text1, edit_text2);
+                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(), edit_text3, edit_text4);
+                String image = serveUpdataBean.getTitleImg();
+                if (!image.equals("")) {
+                    upUrls = image;
+                    selectedPhotos = StringUtils.stringToList(image);
                     initAddPhoto();//先执行
                 }
-                if(infos.getNjzGuideServeNoTimeEntities()!=null){
+                if (infos.getNjzGuideServeNoTimeEntities() != null) {
                     //非空闲时间
-                    List<GetUpdateServiceInfo.NjzGuideServeNoTimeEntities> noTimeEntities=infos.getNjzGuideServeNoTimeEntities();
-                    if(noTimeEntities.size()>0){
-                        for (int i=0;i<noTimeEntities.size();i++){
-                            String time=noTimeEntities.get(i).getDateValue();
+                    List<GetUpdateServiceInfo.NjzGuideServeNoTimeEntities> noTimeEntities = infos.getNjzGuideServeNoTimeEntities();
+                    if (noTimeEntities.size() > 0) {
+                        for (int i = 0; i < noTimeEntities.size(); i++) {
+                            String time = noTimeEntities.get(i).getDateValue();
                             notimeDate.add(time);
                         }
-                        llServiceNotime.setEditContent(notimeDate.toString().substring(1,notimeDate.toString().length()-1));
+                        llServiceNotime.setEditContent(notimeDate.toString().substring(1, notimeDate.toString().length() - 1));
                     }
                 }
                 llServiceInd.setEditContent("请点击修改...");
-                if(toId==2){
+                if (toId == 2) {
                     serveBtnSave.setText("修改");
-                    serveBtnSaveSub.setText("修改并"+serveUpdataBean.getStatusString());
+                    serveBtnSaveSub.setText("修改并" + serveUpdataBean.getStatusString());
                 }
 
-                if(infos.getserveGroupListInfo()!=null){
-                    infos1=infos.getserveGroupListInfo();
+                if (infos.getserveGroupListInfo() != null) {
+                    infos1 = infos.getserveGroupListInfo();
                 }
-                serverTypeId=serveUpdataBean.getServeType();
-                serviceId=serveUpdataBean.getId();
-                cityTypeId=serveUpdataBean.getAddressId();
-                myFeature=serveUpdataBean.getServeFeature();
-                saleNum=infos.getSaleNum();
+                serverTypeId = serveUpdataBean.getServeType();
+                serviceId = serveUpdataBean.getId();
+                cityTypeId = serveUpdataBean.getAddressId();
+                myFeature = serveUpdataBean.getServeFeature();
+                saleNum = infos.getSaleNum();
             }
         }
         sTypePresenter.getServeDicList(true);

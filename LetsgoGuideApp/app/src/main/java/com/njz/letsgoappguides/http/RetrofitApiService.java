@@ -43,6 +43,7 @@ import com.njz.letsgoappguides.model.server.CityModel;
 import com.njz.letsgoappguides.model.server.GetServeDicListModel;
 import com.njz.letsgoappguides.model.server.GetServiceCityModel;
 import com.njz.letsgoappguides.model.server.GetUpdateServiceInfo;
+import com.njz.letsgoappguides.model.server.NjzGuideServeFormatPriceEntityListBean;
 import com.njz.letsgoappguides.model.server.ServerListModel;
 import com.njz.letsgoappguides.model.server.ServerTypeModel;
 import com.njz.letsgoappguides.model.server.ServiceCalPriceInfo;
@@ -559,7 +560,7 @@ public interface RetrofitApiService {
     //获取某规格某月的时间价格参数
     //api/njzGuideServe/getMonthNjzGuideServeFormatPrice
     @GET("api/njzGuideServe/getMonthNjzGuideServeFormatPrice")
-    Observable<Result<List<ServiceCalPriceInfo.NjzGuideServeFormatPriceEntityListBean>>> getMonthPrice(
+    Observable<Result<List<NjzGuideServeFormatPriceEntityListBean>>> getMonthPrice(
             @Query("njzFormatId")int njzFormatId,
             @Query("time")String time
     );

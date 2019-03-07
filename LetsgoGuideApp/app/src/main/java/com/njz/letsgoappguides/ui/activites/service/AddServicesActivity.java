@@ -11,7 +11,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -39,6 +38,11 @@ import com.njz.letsgoappguides.model.server.CityModel;
 import com.njz.letsgoappguides.model.server.GetServeDicListModel;
 import com.njz.letsgoappguides.model.server.GetServiceCityModel;
 import com.njz.letsgoappguides.model.server.GetUpdateServiceInfo;
+import com.njz.letsgoappguides.model.server.NjzGuideServeDicVoListBean;
+import com.njz.letsgoappguides.model.server.NjzGuideServeFormatDicVosBean;
+import com.njz.letsgoappguides.model.server.NjzGuideServeFormatDtosBean;
+import com.njz.letsgoappguides.model.server.NjzGuideServeFormatPriceEntities;
+import com.njz.letsgoappguides.model.server.NjzGuideServeNoTimeEntitiesBean;
 import com.njz.letsgoappguides.model.server.PurchaseRulesVo;
 import com.njz.letsgoappguides.model.server.ServerTypeModel;
 import com.njz.letsgoappguides.model.server.ServicePreviewInfo;
@@ -66,8 +70,8 @@ import com.njz.letsgoappguides.util.photo.TackPicturesUtil;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
 import com.njz.letsgoappguides.util.rxbus.busEvent.ServiceTypeEvent;
 import com.njz.letsgoappguides.util.rxbus.busEvent.UpLoadPhotos;
+import com.njz.letsgoappguides.util.textWatcher.MyTextWatcherAfter;
 import com.njz.letsgoappguides.util.thread.MyThreadPool;
-
 
 import java.io.File;
 import java.util.ArrayList;
@@ -177,8 +181,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
 
     List<LinearServiceView> linears=new ArrayList<>();
-    List<AutoServiceModel.NjzGuideServeFormatDtosBean> serveFormatList=new ArrayList<>();
-    List<GetServeDicListModel.NjzGuideServeDicVoListBean> getServeDicVoListisTrue=new ArrayList<>();
+    List<NjzGuideServeFormatDtosBean> serveFormatList=new ArrayList<>();
+    List<NjzGuideServeDicVoListBean> getServeDicVoListisTrue=new ArrayList<>();
 
     String myFeature="";//服务特色
 
@@ -236,14 +240,14 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 if (getServeDicVoListisTrue.size() > 0) {
                     serviceType.setEditContent(serviceTypeEvent.getModel().getName());
                     serverTypeId = serviceTypeEvent.getModel().getId();
-                    List<GetServeDicListModel.NjzGuideServeDicVoListBean.NjzGuideServeFormatDicVosBean> getServeFormatDicVosBeanList=serviceTypeEvent.getModel().getNjzGuideServeFormatDicVos();
+                    List<NjzGuideServeFormatDicVosBean> getServeFormatDicVosBeanList=serviceTypeEvent.getModel().getNjzGuideServeFormatDicVos();
                     int getServeFormatDicVosSize=getServeFormatDicVosBeanList.size();
                     ll_vai_text.removeAllViews();
                     llWaiId.removeAllViews();
                     linears.clear();
                     serveFormatList.clear();
                     for (int i=0;i<getServeFormatDicVosSize;i++){
-                        GetServeDicListModel.NjzGuideServeDicVoListBean.NjzGuideServeFormatDicVosBean getServeFormatDicVosBean= getServeFormatDicVosBeanList.get(i);
+                        NjzGuideServeFormatDicVosBean getServeFormatDicVosBean= getServeFormatDicVosBeanList.get(i);
                         if(getServeFormatDicVosBean.isIsPower()){//当前用户是否用上传该规格的权限
                             String formatName=getServeFormatDicVosBean.getFormatName();
                             String uniqueValue=getServeFormatDicVosBean.getUniqueValue();
@@ -350,19 +354,9 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
         edit_text1.setEnabled(false);
         edit_text3.setEnabled(false);
-        edit_text4.addTextChangedListener(new TextWatcher() {
+        edit_text4.addTextChangedListener(new MyTextWatcherAfter() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void callback(Editable s) {
                 if(TextUtils.isEmpty(edit_text4.getText().toString())) return;
                 if(Integer.valueOf(edit_text4.getText().toString())>10){
                     edit_text4.setText("");
@@ -375,19 +369,10 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             }
         });
 
-        edit_text2.addTextChangedListener(new TextWatcher() {
+
+        edit_text2.addTextChangedListener(new MyTextWatcherAfter() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void callback(Editable s) {
                 if(TextUtils.isEmpty(edit_text2.getText().toString())) return;
                 if(Integer.valueOf(edit_text2.getText().toString())>15){
                     edit_text2.setText("");
@@ -533,10 +518,10 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     }
 
     public void setPriceCalender(List<PriceModel> priceCalendar,int uniqueId){//日历价格
-        List<AutoServiceModel.NjzGuideServeFormatDtosBean.NjzGuideServeFormatPriceEntities> list3=new ArrayList<>();
+        List<NjzGuideServeFormatPriceEntities> list3=new ArrayList<>();
         //----------------价格日历
         for (int s=0;s<priceCalendar.size();s++){
-            AutoServiceModel.NjzGuideServeFormatDtosBean.NjzGuideServeFormatPriceEntities list4=new AutoServiceModel.NjzGuideServeFormatDtosBean.NjzGuideServeFormatPriceEntities();
+            NjzGuideServeFormatPriceEntities list4=new NjzGuideServeFormatPriceEntities();
             PriceModel priceModel=priceCalendar.get(s);
             list4.setYearInt(Integer.parseInt(priceModel.getYear()));
             list4.setMonthInt(Integer.parseInt(priceModel.getMonth()));
@@ -582,11 +567,11 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             model.setServeTypeName(serviceType.getEditContent());
 
             //-----------非空闲时间----------
-            List<AutoServiceModel.NjzGuideServeNoTimeEntitiesBean> list=new ArrayList<>();
-            AutoServiceModel.NjzGuideServeNoTimeEntitiesBean lists2;
+            List<NjzGuideServeNoTimeEntitiesBean> list=new ArrayList<>();
+            NjzGuideServeNoTimeEntitiesBean lists2;
             if(notimeDate.size()>0){
                 for (int i=0;i<notimeDate.size();i++){
-                    lists2=new AutoServiceModel.NjzGuideServeNoTimeEntitiesBean();
+                    lists2=new NjzGuideServeNoTimeEntitiesBean();
                     String date=notimeDate.get(i).toString();
                     lists2.setDateValue(date);
                     list.add(lists2);
@@ -739,7 +724,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 }
             }
         });
-        final AutoServiceModel.NjzGuideServeFormatDtosBean serveFormatDtosBean=new AutoServiceModel.NjzGuideServeFormatDtosBean();
+        final NjzGuideServeFormatDtosBean serveFormatDtosBean=new NjzGuideServeFormatDtosBean();
         serveFormatDtosBean.setNjzGuideServeFormatDic(uniqueValue);
         serveFormatList.add(serveFormatDtosBean);
         mLinearServiceView.setOnclickDelete(new View.OnClickListener() {
@@ -792,7 +777,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     public List<PriceModel> getIdPrice(int id){
         if(serveFormatList.get(id).getServePriceSelect()!=null){
-            List<AutoServiceModel.NjzGuideServeFormatDtosBean.NjzGuideServeFormatPriceEntities> list=serveFormatList.get(id).getServePriceSelect();
+            List<NjzGuideServeFormatPriceEntities> list=serveFormatList.get(id).getServePriceSelect();
             if(list.size()>0){
                 for (int i=0;i<list.size();i++){
                     PriceModel priceModel=new PriceModel();
@@ -824,7 +809,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             String serviceName=serviceType.getEditContent();
 
             if(datas.getNjzGuideServeDicVoList()!=null){
-                List<GetServeDicListModel.NjzGuideServeDicVoListBean> getServeDicVoList=datas.getNjzGuideServeDicVoList();
+                List<NjzGuideServeDicVoListBean> getServeDicVoList=datas.getNjzGuideServeDicVoList();
                 for (int i = 0; i < getServeDicVoList.size(); i++) {
                     if(getServeDicVoList.get(i).isIsShow()){
                         getServeDicVoListisTrue.add(getServeDicVoList.get(i));
@@ -837,7 +822,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 for (int a=0;a<getServeDicVoList.size();a++){
                     if(toId==2||toId==3){//修改
                         if(getServeDicVoList.get(a).getName().equals(serviceName)){
-                            List<GetServeDicListModel.NjzGuideServeDicVoListBean.NjzGuideServeFormatDicVosBean> info=getServeDicVoList.get(a).getNjzGuideServeFormatDicVos();
+                            List<NjzGuideServeFormatDicVosBean> info=getServeDicVoList.get(a).getNjzGuideServeFormatDicVos();
                             if(info.size()>0){
                                 String name="";
                                 float defaultPrice=0;
@@ -895,8 +880,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                     if(dicvos>0){
                         for (int s=0;s<dicvos;s++){
                             if(toId==1){//新增
-                                GetServeDicListModel.NjzGuideServeDicVoListBean listTrue= getServeDicVoListisTrue.get(0);
-                                GetServeDicListModel.NjzGuideServeDicVoListBean.NjzGuideServeFormatDicVosBean listDicVosBean= listTrue.getNjzGuideServeFormatDicVos().get(s);
+                                NjzGuideServeDicVoListBean listTrue= getServeDicVoListisTrue.get(0);
+                                NjzGuideServeFormatDicVosBean listDicVosBean= listTrue.getNjzGuideServeFormatDicVos().get(s);
                                 serviceType.setEditContent(listTrue.getName());
                                 serverTypeId=listTrue.getId();
                                 if(listTrue.getNjzGuideServeFormatDicVos().get(s).isIsPower()){

@@ -34,6 +34,7 @@ import com.njz.letsgoappguides.model.server.CityModel;
 import com.njz.letsgoappguides.model.server.GetServeDicListModel;
 import com.njz.letsgoappguides.model.server.GetServiceCityModel;
 import com.njz.letsgoappguides.model.server.GetUpdateServiceInfo;
+import com.njz.letsgoappguides.model.server.NjzGuideServeDicVoListBean;
 import com.njz.letsgoappguides.model.server.ServerListModel;
 import com.njz.letsgoappguides.model.server.ServerTypeModel;
 import com.njz.letsgoappguides.presenter.server.GetCityContract;
@@ -363,12 +364,12 @@ public class serveFragment extends BaseFragment  implements GetCityContract.View
 
 
 
-    public void setServerTypes(List<GetServeDicListModel.NjzGuideServeDicVoListBean> datas){
+    public void setServerTypes(List<NjzGuideServeDicVoListBean> datas){
         PopupSelectModel model0 = new PopupSelectModel();
         model0.setId(-1);
         model0.setName("全部");
         sTypes.add(model0);
-        for (GetServeDicListModel.NjzGuideServeDicVoListBean item : datas){
+        for (NjzGuideServeDicVoListBean item : datas){
             PopupSelectModel model = new PopupSelectModel();
             model.setId(item.getId());
             model.setName(item.getName());
@@ -482,7 +483,7 @@ public class serveFragment extends BaseFragment  implements GetCityContract.View
     @Override
     public void getServeDicListSuccess(GetServeDicListModel models) {
         if(null==models)return;
-        List<GetServeDicListModel.NjzGuideServeDicVoListBean> getServeDicVoList=models.getNjzGuideServeDicVoList();
+        List<NjzGuideServeDicVoListBean> getServeDicVoList=models.getNjzGuideServeDicVoList();
         setServerTypes(getServeDicVoList);
     }
 

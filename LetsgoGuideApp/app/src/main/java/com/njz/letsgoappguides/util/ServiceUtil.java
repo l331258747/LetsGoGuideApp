@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.njz.letsgoappguides.model.server.AutoServiceModel;
+import com.njz.letsgoappguides.model.server.NjzGuideServeFormatDtosBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,9 +109,9 @@ public class ServiceUtil {
         }
     }
 
-    public static float getMin(List<AutoServiceModel.NjzGuideServeFormatDtosBean> in, String dic){
+    public static float getMin(List<NjzGuideServeFormatDtosBean> in, String dic){
         float minprice=0;
-        List<AutoServiceModel.NjzGuideServeFormatDtosBean> newin=new ArrayList<>();
+        List<NjzGuideServeFormatDtosBean> newin=new ArrayList<>();
         newin.clear();
         for (int i=0;i<in.size();i++){
             if(in.get(i).getNjzGuideServeFormatDic().equals(dic)){
@@ -127,7 +128,7 @@ public class ServiceUtil {
     }
 
     //得到服务最低价格
-    public static float getMinPrices(List<AutoServiceModel.NjzGuideServeFormatDtosBean> serveFormatList, int serverTypeId ){
+    public static float getMinPrices(List<NjzGuideServeFormatDtosBean> serveFormatList, int serverTypeId ){
         float minprice=0;
 //        for (int i=0;i<serveFormatList.size();i++){
             switch (serverTypeId){

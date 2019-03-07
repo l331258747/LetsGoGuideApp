@@ -1,6 +1,6 @@
 package com.njz.letsgoappguides.util.rxbus.busEvent;
 
-import com.njz.letsgoappguides.model.server.GetServeDicListModel;
+import com.njz.letsgoappguides.model.server.NjzGuideServeDicVoListBean;
 
 /**
  * Created by LGQ
@@ -10,13 +10,13 @@ import com.njz.letsgoappguides.model.server.GetServeDicListModel;
 
 public class ServiceTypeEvent {
 
-    GetServeDicListModel.NjzGuideServeDicVoListBean model;
+    NjzGuideServeDicVoListBean model;
 
-    public ServiceTypeEvent(GetServeDicListModel.NjzGuideServeDicVoListBean model) {
+    public ServiceTypeEvent(NjzGuideServeDicVoListBean model) {
         this.model = model;
     }
 
-    public GetServeDicListModel.NjzGuideServeDicVoListBean getModel() {
+    public NjzGuideServeDicVoListBean getModel() {
         return model;
     }
 

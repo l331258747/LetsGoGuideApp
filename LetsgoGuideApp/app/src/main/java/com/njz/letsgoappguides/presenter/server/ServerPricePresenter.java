@@ -5,6 +5,7 @@ import android.content.Context;
 import com.njz.letsgoappguides.http.MethodApi;
 import com.njz.letsgoappguides.http.ProgressSubscriber;
 import com.njz.letsgoappguides.http.ResponseCallback;
+import com.njz.letsgoappguides.model.server.NjzGuideServeFormatPriceEntityListBean;
 import com.njz.letsgoappguides.model.server.ServiceCalPriceInfo;
 import com.njz.letsgoappguides.model.server.ServiceDetailInfo;
 
@@ -40,9 +41,9 @@ public class ServerPricePresenter implements ServerPriceContract.Presenter {
 
     @Override
     public void getMonthPriceInfo(int njzFormatId, String time) {
-        ResponseCallback listener = new ResponseCallback<List<ServiceCalPriceInfo.NjzGuideServeFormatPriceEntityListBean>>() {
+        ResponseCallback listener = new ResponseCallback<List<NjzGuideServeFormatPriceEntityListBean>>() {
             @Override
-            public void onSuccess(List<ServiceCalPriceInfo.NjzGuideServeFormatPriceEntityListBean> infos) {
+            public void onSuccess(List<NjzGuideServeFormatPriceEntityListBean> infos) {
                 iView.getMonthPriceInfoSuccess(infos);
             }
 

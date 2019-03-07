@@ -114,7 +114,7 @@ public class EaseContactListFragment extends EaseBaseFragment {
                 }
             });
         }
-        
+
         query.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 contactListLayout.filter(s);

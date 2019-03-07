@@ -14,6 +14,7 @@ import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.customview.widget.TitleView;
 import com.njz.letsgoappguides.model.server.GetServeDicListModel;
+import com.njz.letsgoappguides.model.server.NjzGuideServeDicVoListBean;
 import com.njz.letsgoappguides.model.server.ServerTypeModel;
 import com.njz.letsgoappguides.presenter.server.ServerTypeContract;
 import com.njz.letsgoappguides.presenter.server.ServerTypePresenter;
@@ -45,8 +46,8 @@ public class ServiceTypeActivity extends BaseActivity implements View.OnClickLis
 
 
     ServerTypePresenter mPresenter;
-    GetServeDicListModel.NjzGuideServeDicVoListBean model;
-    List<GetServeDicListModel.NjzGuideServeDicVoListBean> lists;
+    NjzGuideServeDicVoListBean model;
+    List<NjzGuideServeDicVoListBean> lists;
     int serverType;
 
     @Override

@@ -23,6 +23,7 @@ import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.calendarDecorators.LunarDecorator;
 import com.njz.letsgoappguides.customview.widget.calendarDecorators.PriceModel;
 import com.njz.letsgoappguides.customview.widget.calendarDecorators.PrimeDayDisableDecorator;
+import com.njz.letsgoappguides.model.server.NjzGuideServeFormatPriceEntityListBean;
 import com.njz.letsgoappguides.model.server.PriceCalendarChildModel;
 import com.njz.letsgoappguides.model.server.ServiceCalPriceInfo;
 import com.njz.letsgoappguides.presenter.server.ServerPriceContract;
@@ -324,10 +325,10 @@ public class PriceCalendarActivity extends BaseActivity implements OnMonthChange
 
 
     @Override
-    public void getMonthPriceInfoSuccess(List<ServiceCalPriceInfo.NjzGuideServeFormatPriceEntityListBean> datas) {
+    public void getMonthPriceInfoSuccess(List<NjzGuideServeFormatPriceEntityListBean> datas) {
         if(datas==null)return;
         for (int i=0;i<datas.size();i++){
-            ServiceCalPriceInfo.NjzGuideServeFormatPriceEntityListBean infos=datas.get(i);
+            NjzGuideServeFormatPriceEntityListBean infos=datas.get(i);
             PriceModel priceModel=new PriceModel();
             priceModel.setTime(infos.getYearInt() + "-"
                     +  DateUtil.getWith0(infos.getMonthInt())+ "-"

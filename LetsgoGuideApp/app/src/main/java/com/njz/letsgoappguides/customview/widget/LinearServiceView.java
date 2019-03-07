@@ -104,7 +104,15 @@ public class LinearServiceView extends LinearLayout {
     }
 
     public void setTitle2Content(String content) {
-        tvTitle2.setText(content);
+        String str = "";
+        if(content.endsWith("yy")){
+            str = "价格";
+        }else if(content.endsWith("cx")){
+            str = "用车价格";
+        }else if(content.endsWith("tc")){
+            str = "套餐价格";
+        }
+        tvTitle2.setText(str);
     }
 
     public String getTitle2Content() {
@@ -112,12 +120,36 @@ public class LinearServiceView extends LinearLayout {
     }
 
     public void setEditHint1(String hint) {
-        etEditid1.setHint(hint);
+        String str = "";
+        if(hint.endsWith("yy")){
+            str = "请选择服务语言";
+        }else if(hint.endsWith("cx")){
+            str = "请输入车辆类型，如：经济型5座车";
+        }else if(hint.endsWith("tc")){
+            if(hint.startsWith("tsty")){
+                str = "请输入名称，如：海棠湾飞行体验";
+            }else if(hint.startsWith("ddjd")){
+                str = "请输入名称，如：经济型酒店";
+            }else if(hint.startsWith("ddmp")){
+                str = "请输入名称，如：天门山A线";
+            }else{
+                str = "请输入名称，如：中文向导服务";
+            }
+        }
+        etEditid1.setHint(str);
     }
 
 
     public void setEditHint2(String hint) {
-        etEditid2.setHint(hint);
+        String str = "";
+        if(hint.endsWith("yy")){
+            str = "请合理设置价格";
+        }else if(hint.endsWith("cx")){
+            str = "请合理设置用车价格";
+        }else if(hint.endsWith("tc")){
+            str = "请合理设置套餐价格";
+        }
+        etEditid2.setHint(str);
     }
 
     public String getHint() {

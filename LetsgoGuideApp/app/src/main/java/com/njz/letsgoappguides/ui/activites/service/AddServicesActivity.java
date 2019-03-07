@@ -152,10 +152,11 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     ImageView iv_isagreement;
     @BindView(R.id.ll_isagreement)
     LinearLayout ll_isagreement;
+    @BindView(R.id.ll_title_img_tip)
+    LinearLayout ll_title_img_tip;
 
     boolean isSelect = false;//向导陪游是否选中自驾车
 
-    List<String> sTypes;
     List<String> langages;
     List<ServerTypeModel> serverTypeModels;
     List<GuideMacroEntityList> langageTypeModels;
@@ -241,6 +242,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 if (getServeDicVoListisTrue.size() > 0) {
                     serviceType.setEditContent(serviceTypeEvent.getModel().getName());
                     serverTypeId = serviceTypeEvent.getModel().getId();
+                    serviceTitle.getEditText().setHint(getTitleHint(serverTypeId));
                     List<NjzGuideServeFormatDicVosBean> getServeFormatDicVosBeanList = serviceTypeEvent.getModel().getNjzGuideServeFormatDicVos();
                     int getServeFormatDicVosSize = getServeFormatDicVosBeanList.size();
                     ll_vai_text.removeAllViews();
@@ -276,7 +278,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     //----------服务类型选择 end
 
     public void initDate() {
-        sTypes = new ArrayList<>();
         serverTypeModels = new ArrayList<>();
         langages = new ArrayList<>();
         langageTypeModels = new ArrayList<>();
@@ -289,7 +290,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         loadingDialog = new LoadingDialog(context);
 
         if (MySelfInfo.getInstance().isLogin()) {
-            if (MySelfInfo.getInstance().getServiceIden() == 0) {//只在登录之后第一次获取服务语言、城市
+            if (MySelfInfo.getInstance().getServiceIden() == 0) {//只在登录之后第一次获取、城市
                 mGetLanguagePresenter.userGetLanguage();
                 mGetCityPresenter.getServiceCityList();
             }
@@ -331,6 +332,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 Intent intent = new Intent(context, ServicesFeatureActivity.class);
                 intent.putExtra("ID", 101);
                 intent.putExtra("myFeature", myFeature);
+                intent.putExtra("serverTypeId", serverTypeId);
                 startActivityForResult(intent, 101);
             }
         });
@@ -408,7 +410,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         if (serviceType.getEditContent().equals("")) {
             showShortToast("请选择服务类型");
             return false;
-        } else if (serviceTitle.getEditContent().equals("")) {
+        }
+        if (serviceTitle.getEditContent().equals("")) {
             showShortToast("请输入标题");
             return false;
         }
@@ -420,11 +423,17 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         if (serviceType.getEditContent().equals("")) {
             showShortToast("请选择服务类型");
             return false;
-        } else if (serviceTitle.getEditContent().equals("")) {
+        }
+        if (serviceTitle.getEditContent().equals("")) {
             showShortToast("请输入标题");
             return false;
-        } else if (upUrls.equals("")) {
+        }
+        if (upUrls.equals("")) {
             showShortToast("请上传标题图");
+            return false;
+        }
+        if (llServiceCity.getEditContent().equals("")) {
+            showShortToast("请选择城市");
             return false;
         }
         for (int a = 0; a < linears.size(); a++) {
@@ -446,33 +455,35 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 return false;
             }
         }
-        if (llServiceCity.getEditContent().equals("")) {
-            showShortToast("请选择城市");
-            return false;
-        } else if (myFeature.equals("")) {
+        if (myFeature.equals("")) {
             showShortToast("请输入服务特色");
             return false;
-        } else if (llServicePriceinfo.getText().toString().equals("")) {
+        }
+        if (llServicePriceinfo.getText().toString().equals("")) {
             showShortToast("请输入费用说明");
             return false;
-        } else if (edit_text1.getText().toString().equals("")
+        }
+        if (edit_text1.getText().toString().equals("")
                 || edit_text2.getText().toString().equals("")
                 || edit_text3.getText().toString().equals("")
                 || edit_text4.getText().toString().equals("")) {
             showShortToast("请输入违约金参数");
             return false;
-        } else if (getInt(edit_text2) < getInt(edit_text1)) {
-            showShortToast("违约金参数设置不正确");
-            return false;
-        } else if (getInt(edit_text4) < getInt(edit_text3)) {
-            showShortToast("违约金参数设置不正确");
-            return false;
-        } else if (getInt(edit_text4) <= 1) {
-            showShortToast("违约金参数设置不正确");
-            return false;
-        } else {
-            return true;
         }
+        if (getInt(edit_text2) < getInt(edit_text1)) {
+            showShortToast("违约金参数设置不正确");
+            return false;
+        }
+        if (getInt(edit_text4) < getInt(edit_text3)) {
+            showShortToast("违约金参数设置不正确");
+            return false;
+        }
+        if (getInt(edit_text4) <= 1) {
+            showShortToast("违约金参数设置不正确");
+            return false;
+        }
+        return true;
+
     }
 
     public int getInt(TextView tv){
@@ -695,9 +706,10 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         }
         mLinearServiceView.setId(uniqueId);
         mLinearServiceView.setTitleContent(formatName);
-        mLinearServiceView.setTitle2Content("价格");
-        mLinearServiceView.setEditHint1("请输入" + formatName);
-        if (formatName.equals("服务语言")) {
+        mLinearServiceView.setTitle2Content(uniqueValue);
+        mLinearServiceView.setEditHint1(uniqueValue);
+        mLinearServiceView.setEditHint2(uniqueValue);
+        if (uniqueValue.endsWith("yy")) {
             mLinearServiceView.setBtnVisibility(View.VISIBLE);
             langageTypeModels = MySelfInfo.getInstance().getServiceMacroEntityList();
             langages = MySelfInfo.getInstance().getServiceLangages();
@@ -774,7 +786,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         });
         linears.add(mLinearServiceView);
         llWaiId.addView(mLinearServiceView);
-
     }
 
     //是否允许游客自驾车------start
@@ -833,8 +844,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 for (int i = 0; i < getServeDicVoList.size(); i++) {
                     if (getServeDicVoList.get(i).isIsShow()) {
                         getServeDicVoListisTrue.add(getServeDicVoList.get(i));
-                        String name = getServeDicVoList.get(i).getName();
-                        sTypes.add(name);
                     }
                 }
                 //---服务类型 start----------
@@ -903,6 +912,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                                 NjzGuideServeFormatDicVosBean listDicVosBean = listTrue.getNjzGuideServeFormatDicVos().get(s);
                                 serviceType.setEditContent(listTrue.getName());
                                 serverTypeId = listTrue.getId();
+                                serviceTitle.getEditText().setHint(getTitleHint(serverTypeId));
                                 if (listTrue.getNjzGuideServeFormatDicVos().get(s).isIsPower()) {
                                     String formatName = listDicVosBean.getFormatName();
                                     String uniqueValue = listDicVosBean.getUniqueValue();
@@ -980,6 +990,11 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     private TackPicturesUtil tackPicUtil;
 
     private void initAddPhoto() {
+        if(selectedPhotos.size() == 0){
+            ll_title_img_tip.setVisibility(View.VISIBLE);
+        }else{
+            ll_title_img_tip.setVisibility(View.GONE);
+        }
         //------------附件
         tackPicUtil = new TackPicturesUtil(activity);
         photoAdapter = new PhotoAdapter(context, selectedPhotos);
@@ -997,7 +1012,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                                     .setSelected(selectedPhotos)
                                     .start(AddServicesActivity.this);
 //                            tackPicUtil.showDialog(context);
-
                         } else {
                             PhotoPreview.builder()
                                     .setPhotos(selectedPhotos)
@@ -1051,7 +1065,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 selectedPhotos.addAll(photos);
             }
             upUrls = "";
-            photoAdapter.notifyDataSetChanged();
             int a = 0;
             for (int i = 0; i < selectedPhotos.size(); i++) {
                 if (selectedPhotos.get(i).startsWith("http")) {
@@ -1059,14 +1072,10 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 } else {
                     a++;
                     if (a == 1) {
-//                        updateBack();
                         upFile2();
                     }
                 }
             }
-//            if(!image.equals(upUrls)){
-//                updateBack();
-//            }
             initAddPhoto();
         }
     }
@@ -1291,6 +1300,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                     infos1 = infos.getserveGroupListInfo();
                 }
                 serverTypeId = serveUpdataBean.getServeType();
+                serviceTitle.getEditText().setHint(getTitleHint(serverTypeId));
                 serviceId = serveUpdataBean.getId();
                 cityTypeId = serveUpdataBean.getAddressId();
                 myFeature = serveUpdataBean.getServeFeature();
@@ -1324,5 +1334,24 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     //------------更新服务 end------------
 
+    //--------other  start
+    public String getTitleHint(int serverType){
+        switch (serverType){
+            case Constant.SERVER_TYPE_GUIDE_ID:
+                return "尽可能的突出自己的服务亮点，如：专业持证导游带您畅游张家界；但不能出现多日游、包车、公司名称等信息。";
+            case Constant.SERVER_TYPE_FEATURE_ID:
+                return "尽可能的写明服务相关的卖点/噱头/热点关键词，如：三亚直升机飞行体验、诗词达人带您徜徉西湖美景等；但不能出现多目的地、公司名称等信息。";
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return "尽可能的突出自己的服务亮点，需包含“定制”类字样，如：圣地巡礼-张界私人定制游；但不能出现具体价格、公司名称等信息。";
+            case Constant.SERVER_TYPE_HOTEL_ID:
+                return "请填写与自己代订酒店/民宿服务相关的标题信息，但不能出现具体价格和公司名称等信息。";
+            case Constant.SERVER_TYPE_TICKET_ID:
+                return "请填写与自己代订门票（如景点、演出门票等）服务相关的标题信息，但不能出现具体价格和公司名称等信息。";
+            case Constant.SERVER_TYPE_CAR_ID:
+                return "尽可能的突出自己的服务亮点，如：张家界各大景点包车畅游；但不能出现跟团、拼团、微领队、公司名称以及具体车型等信息。";
+        }
+        return "";
+    }
+    //--------other  end
 
 }

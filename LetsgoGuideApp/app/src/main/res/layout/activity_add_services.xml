@@ -79,29 +79,60 @@
                     app:center_edit_hint="尽可能突出自己的服务亮点，如：专业持证导游带您畅游张家界；但不能出现多日游、包车、公司名称等信息。"
                     app:titles="服务标题" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="标题图" />
+                    android:paddingTop="10dp">
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp">
+                        android:orientation="vertical">
 
-                        <include layout="@layout/base_recycler_view_layout" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="标题图" />
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <include layout="@layout/base_recycler_view_layout" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_title_img_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layerType="software"
+                            android:layout_weight="2"
+                            android:lines="10"
+                            android:text="要求：\n1.纯风景或含向导本人（至少一张）的风景照，最多添加6张。\n2.所有服务禁止上传一模一样的封面图（第一张默认为封面图）。\n3.所有图片需与目的地的景、物匹配。\n4.不得上传模糊、变形、含水印、脸部缺失、过度ps、明星合照等图片。"
+                            android:textColor="@color/color_99"
+                            android:layout_marginLeft="20dp"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
 
                 <View
                     android:layout_width="match_parent"

@@ -44,7 +44,6 @@
     <com.njz.letsgoappguides.customview.widget.editorView.ServiceEditorLayout
         android:id="@+id/editorLayout"
         android:layout_width="match_parent"
-        android:layout_marginBottom="10dp"
         android:layout_height="match_parent"
         android:layout_below="@+id/tv_gushi" />
 

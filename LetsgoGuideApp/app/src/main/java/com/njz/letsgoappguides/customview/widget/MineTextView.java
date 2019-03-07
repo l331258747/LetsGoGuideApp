@@ -107,6 +107,10 @@ public class MineTextView extends LinearLayout {
         et_text.setText(content);
     }
 
+    public EditText getEditText(){
+        return et_text;
+    }
+
     public String getEditContent(){
         return et_text.getText().toString();
     }

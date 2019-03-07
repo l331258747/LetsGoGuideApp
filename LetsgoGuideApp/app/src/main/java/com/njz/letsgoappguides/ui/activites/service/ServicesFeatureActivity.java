@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.base.BaseActivity;
+import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.editorView.CamaraRequestCode;
 import com.njz.letsgoappguides.customview.widget.editorView.ServiceEditorLayout;
 import com.njz.letsgoappguides.presenter.other.UpLoadContract;
@@ -17,6 +18,7 @@ import com.njz.letsgoappguides.presenter.other.UpLoadPresenter;
 import com.njz.letsgoappguides.util.AppUtils;
 import com.njz.letsgoappguides.util.accessory.ImageUtils;
 import com.njz.letsgoappguides.util.dialog.LoadingDialog;
+import com.njz.letsgoappguides.util.log.LogUtil;
 import com.njz.letsgoappguides.util.photo.TackPicturesUtil;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
 import com.njz.letsgoappguides.util.rxbus.busEvent.UpLoadPhotos;
@@ -60,20 +62,20 @@ public class ServicesFeatureActivity extends BaseActivity implements UpLoadContr
     protected void initView() {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        switch (getIntent().getIntExtra("ID",0)){
+        switch (getIntent().getIntExtra("ID", 0)) {
             case 101://特色服务
                 titleTv.setText("服务特色说明");
-                editor.setPlaceholder("请对您提供的服务信息进行详细说明");
-                if(getIntent().getStringExtra("myFeature")!=null){
-                    String myFeature=getIntent().getStringExtra("myFeature");
+                editor.setPlaceholder(getPlaceholder());
+                if (getIntent().getStringExtra("myFeature") != null) {
+                    String myFeature = getIntent().getStringExtra("myFeature");
                     editor.setHtml(myFeature);
                 }
                 break;
             case 103://行程设计
                 titleTv.setText("行程设计");
                 editor.setPlaceholder("请根据游客提供的需求单对整个行程进行设计");
-                if(getIntent().getStringExtra("myDesingn")!=null){
-                    String myDesingn=getIntent().getStringExtra("myDesingn");
+                if (getIntent().getStringExtra("myDesingn") != null) {
+                    String myDesingn = getIntent().getStringExtra("myDesingn");
                     editor.setHtml(myDesingn);
                 }
                 break;
@@ -159,8 +161,8 @@ public class ServicesFeatureActivity extends BaseActivity implements UpLoadContr
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CamaraRequestCode.CAMARA_GET_IMG) {
-            if(null==data)return;
-            if(data.getData()==null)return;
+            if (null == data) return;
+            if (data.getData() == null) return;
             String filePath = editor.insertImg(data.getData());
             storyImg = filePath;
             upFile3();
@@ -175,29 +177,129 @@ public class ServicesFeatureActivity extends BaseActivity implements UpLoadContr
 
     @OnClick(R.id.tv_save)
     public void onViewClicked() {
-        switch (getIntent().getIntExtra("ID",0)){
+        switch (getIntent().getIntExtra("ID", 0)) {
             case 101://特色服务
-                if(editor.getEditor().getHtml()==null||editor.getEditor().getHtml().equals("")){
+                if (editor.getEditor().getHtml() == null || editor.getEditor().getHtml().equals("")) {
                     showShortToast("请对您提供的服务进行详细说明");
-                }else{
-                    String myFeature=editor.getEditor().getHtml();
+                } else {
+                    String myFeature = editor.getEditor().getHtml();
+                    LogUtil.e(editor.getEditor().getHtml());
                     Intent intent = new Intent();
                     intent.putExtra("myFeature", myFeature); //放置要传出的数据
-                    activity.setResult(101,intent);
+                    activity.setResult(101, intent);
                     activity.finish(); //关闭活动
                 }
                 break;
             case 103://行程设计
-                if(editor.getEditor().getHtml()==null||editor.getEditor().getHtml().equals("")){
+                if (editor.getEditor().getHtml() == null || editor.getEditor().getHtml().equals("")) {
                     showShortToast("请根据游客提供的需求单对整个行程进行设计");
-                }else{
-                    String myDesingn=editor.getEditor().getHtml();
+                } else {
+                    String myDesingn = editor.getEditor().getHtml();
                     Intent intent = new Intent();
                     intent.putExtra("myDesingn", myDesingn); //放置要传出的数据
-                    activity.setResult(103,intent);
+                    activity.setResult(103, intent);
                     activity.finish(); //关闭活动
                 }
                 break;
         }
+    }
+
+
+    protected String getPlaceholder() {
+        switch (getIntent().getIntExtra("serverTypeId", 0)) {
+            case Constant.SERVER_TYPE_GUIDE_ID:
+                return "数量要求：" +
+                        "1、至少2段文字描述" +
+                        "2、每段文字，字数在40-500字之间" +
+                        "质量要求：" +
+                        "1、描述必须与服务标题匹配且无错别字" +
+                        "2、建议包括：" +
+                        "     ☆服务亮点介绍" +
+                        "     ☆行程/玩法介绍" +
+                        "     ☆服务时长和服务时段" +
+                        "     ☆车辆信息介绍（提供用车服务时）" +
+                        "     ☆出游的提示信息" +
+                        "3、禁止留有微信、电话等联系方式" +
+                        "4、不得出现明星具体名字" +
+                        "5、不得出现违反《广告法》和其它法律及平台相关规定的描述";
+            case Constant.SERVER_TYPE_FEATURE_ID:
+                return "数量要求：" +
+                        "1、至少2段文字描述" +
+                        "2、每段文字，字数在40-500字之间" +
+                        "质量要求：" +
+                        "1、描述必须与服务标题匹配且无错别字；" +
+                        "2、建议包括：" +
+                        "     ☆服务亮点介绍" +
+                        "     ☆特色/行程/玩法介绍" +
+                        "     ☆场地/景点介绍" +
+                        "     ☆服务时长和服务时段" +
+                        "     ☆车辆信息介绍（提供用车服务时）" +
+                        "     ☆出游的提示信息/注意事项" +
+                        "3、禁止留有微信、电话等联系方式；" +
+                        "4、不得出现明星具体名字；" +
+                        "5、不得出现违反《广告法》和其它法律及平台相关规定的描述。";
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return "数量要求：" +
+                        "1、至少2段文字描述" +
+                        "2、每段文字，字数在40-500字之间" +
+                        "质量要求：" +
+                        "1、描述必须与服务标题匹配且无错别字；" +
+                        "2、建议包括：" +
+                        "     ☆服务亮点介绍" +
+                        "     ☆特色/行程/玩法介绍" +
+                        "     ☆景点介绍及门票购买、取票介绍" +
+                        "     ☆住宿环境、地点、是否含早餐等信息介绍" +
+                        "     ☆吃饭环境、地点及食谱相关信息介绍" +
+                        "     ☆车辆信息介绍（提供用车服务时）" +
+                        "     ☆出游的提示信息/注意事项" +
+                        "3、禁止留有微信、电话等联系方式；" +
+                        "4、不得出现明星具体名字；" +
+                        "5、不得出现违反《广告法》和其它法律及平台相关规定的描述。";
+            case Constant.SERVER_TYPE_HOTEL_ID:
+                return "数量要求：" +
+                        "1、至少2段文字描述" +
+                        "2、每段文字，字数在40-500字之间" +
+                        "质量要求：" +
+                        "1、描述必须与服务标题匹配且无错别字" +
+                        "2、建议包括：" +
+                        "     ☆酒店/民宿的场景（内景、外景均可）介绍" +
+                        "     ☆室内设施介绍" +
+                        "     ☆是否含早餐" +
+                        "     ☆地点以及使用方式" +
+                        "     ☆注意事项" +
+                        "3、禁止留有微信、电话等联系方式；" +
+                        "4、不得出现明星具体名字；" +
+                        "5、不得出现违反《广告法》和其它法律及平台相关规定的描述。";
+            case Constant.SERVER_TYPE_TICKET_ID:
+                return "数量要求：" +
+                        "1、至少2段文字描述" +
+                        "2、每段文字，字数在40-500字之间" +
+                        "质量要求：" +
+                        "1、描述必须与服务标题匹配且无错别字" +
+                        "2、建议包括：" +
+                        "     ☆门票包含的内容介绍" +
+                        "     ☆门票涉及的景点/演出介绍" +
+                        "     ☆地点以及使用方式" +
+                        "     ☆注意事项" +
+                        "3、禁止留有微信、电话等联系方式；" +
+                        "4、不得出现明星具体名字；" +
+                        "5、不得出现违反《广告法》和其它法律及平台相关规定的描述。";
+            case Constant.SERVER_TYPE_CAR_ID:
+                return "数量要求：" +
+                        "1、至少2段文字描述" +
+                        "2、每段文字，字数在40-500字之间" +
+                        "质量要求：" +
+                        "1、描述必须与服务标题匹配且无错别字；" +
+                        "2、建议包括：" +
+                        "     ☆服务亮点介绍" +
+                        "     ☆车辆信息介绍：包含车辆照片、车型、座位数以及品牌等信息" +
+                        "     ☆行程路线介绍" +
+                        "     ☆服务时长和服务时段" +
+                        "     ☆注意事项" +
+                        "3、禁止留有微信、电话等联系方式；" +
+                        "4、不得出现明星具体名字；" +
+                        "5、不得出现违反《广告法》和其它法律及平台相关规定的描述。";
+        }
+        return "请对您提供的服务信息进行详细说明";
     }
 }

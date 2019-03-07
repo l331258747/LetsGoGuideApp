@@ -53,6 +53,15 @@ public class TackPicturesUtil {
         this.activity = activity;
     }
 
+    int scalex = 1;
+    int scaley = 1;
+    //设置比例
+    public TackPicturesUtil setScale(int scalex,int scaley){
+        this.scalex = scalex;
+        this.scaley = scaley;
+        return this;
+    }
+
     /**
      * 弹出照片选择框
      */
@@ -275,15 +284,15 @@ public class TackPicturesUtil {
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
         if (Build.MANUFACTURER.equals("HUAWEI")) {
-            intent.putExtra("aspectX", 9998);
-            intent.putExtra("aspectY", 9999);
+            intent.putExtra("aspectX", 9998 * scalex);
+            intent.putExtra("aspectY", 9999 * scaley);
         } else {
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
+            intent.putExtra("aspectX", 1 * scalex);
+            intent.putExtra("aspectY", 1 * scaley);
         }
         // outputX,outputY 是剪裁图片的宽高
-        intent.putExtra("outputX", 320);
-        intent.putExtra("outputY", 320);
+        intent.putExtra("outputX", 320 * scalex);
+        intent.putExtra("outputY", 320 * scaley);
         //是否保留比例
         intent.putExtra("scale", true);
         // 取消人脸识别

@@ -205,6 +205,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     int uniqueId = 0;
     List<PriceModel> priceCalendar = new ArrayList<>();
 
+    private TackPicturesUtil tackPicUtil;
+
     @Override
     protected void initView() {
         titleTv.setText("新增服务");
@@ -288,6 +290,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         sTypePresenter = new ServerTypePresenter(context, this);
         mGetUpdateServInfoPresenter = new GetUpdateServInfoPresenter(context, this);
         loadingDialog = new LoadingDialog(context);
+        tackPicUtil = new TackPicturesUtil(activity).setScale(15,8);
 
         if (MySelfInfo.getInstance().isLogin()) {
             if (MySelfInfo.getInstance().getServiceIden() == 0) {//只在登录之后第一次获取、城市
@@ -987,8 +990,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
 
     //----------------end 多图片上传------------
-    private TackPicturesUtil tackPicUtil;
-
     private void initAddPhoto() {
         if(selectedPhotos.size() == 0){
             ll_title_img_tip.setVisibility(View.VISIBLE);
@@ -996,7 +997,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             ll_title_img_tip.setVisibility(View.GONE);
         }
         //------------附件
-        tackPicUtil = new TackPicturesUtil(activity);
+
         photoAdapter = new PhotoAdapter(context, selectedPhotos);
         mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(PhotoAdapter.IMAGE_LINE_3, OrientationHelper.VERTICAL));
         mPhotoRecyclerView.setAdapter(photoAdapter);
@@ -1005,13 +1006,13 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                     @Override
                     public void onItemClick(View view, int position) {
                         if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
-                            PhotoPicker.builder()
-                                    .setPhotoCount(PhotoAdapter.MAX)
-                                    .setShowCamera(true)
-                                    .setPreviewEnabled(false)
-                                    .setSelected(selectedPhotos)
-                                    .start(AddServicesActivity.this);
-//                            tackPicUtil.showDialog(context);
+//                            PhotoPicker.builder()
+//                                    .setPhotoCount(PhotoAdapter.MAX)
+//                                    .setShowCamera(true)
+//                                    .setPreviewEnabled(false)
+//                                    .setSelected(selectedPhotos)
+//                                    .start(AddServicesActivity.this);
+                            tackPicUtil.showDialog(context);
                         } else {
                             PhotoPreview.builder()
                                     .setPhotos(selectedPhotos)
@@ -1053,6 +1054,18 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 setPriceCalender(priceCalendar, uniqueId);
                 break;
         }
+        switch (requestCode) {
+            case TackPicturesUtil.CHOOSE_PIC:
+            case TackPicturesUtil.TACK_PIC:
+            case TackPicturesUtil.CROP_PIC:
+                String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
+                if (path == null)
+                    return;
+                selectedPhotos.add(path);
+                upFile2();
+                initAddPhoto();
+                break;
+        }
         //多图片上传图片回调
         if (resultCode == -1 &&
                 (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
@@ -1078,6 +1091,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             }
             initAddPhoto();
         }
+
     }
 
     public void upFile2() {

@@ -1062,8 +1062,21 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 if (path == null)
                     return;
                 selectedPhotos.add(path);
-                upFile2();
+
+                upUrls = "";
+                int a = 0;
+                for (int i = 0; i < selectedPhotos.size(); i++) {
+                    if (selectedPhotos.get(i).startsWith("http")) {
+                        upUrls += selectedPhotos.get(i).toString() + ",";
+                    } else {
+                        a++;
+                        if (a == 1) {
+                            upFile2();
+                        }
+                    }
+                }
                 initAddPhoto();
+
                 break;
         }
         //多图片上传图片回调

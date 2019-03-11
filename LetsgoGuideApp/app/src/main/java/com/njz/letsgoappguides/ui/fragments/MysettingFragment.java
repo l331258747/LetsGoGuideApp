@@ -20,6 +20,7 @@ import com.njz.letsgoappguides.customview.widget.MineItemView2;
 import com.njz.letsgoappguides.model.login.UserVo;
 import com.njz.letsgoappguides.presenter.mine.GetLUserinfoPresenter;
 import com.njz.letsgoappguides.presenter.mine.GetUserinfoContract;
+import com.njz.letsgoappguides.ui.activites.mine.ContactUsActivity;
 import com.njz.letsgoappguides.ui.activites.mine.MyEvaluationActivity;
 import com.njz.letsgoappguides.ui.activites.mine.MyIncomeActivity;
 import com.njz.letsgoappguides.ui.activites.mysetting.AuthenticationActivity;
@@ -206,7 +207,7 @@ public class MysettingFragment extends BaseFragment implements View.OnClickListe
                 startActivity(new Intent(context, MyIncomeActivity.class));
                 break;
             case R.id.mine_phone:
-                DialogUtil.getInstance().showCustomerMobileDialog(context);
+                startActivity(new Intent(context, ContactUsActivity.class));
                 break;
             case R.id.mine_customer:
 //                startActivity(new Intent(context, OperationGuideActivity.class));

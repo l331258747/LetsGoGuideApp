@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.njz.letsgoappguides.customview.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:TitleView_left_img="@mipmap/icon_back"
+        app:TitleView_title="联系我们" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_head"
+        android:layout_margin="10dp"
+        android:background="@drawable/card_view_bg_10"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <com.njz.letsgoappguides.customview.widget.MineItemView2
+            android:id="@+id/mine_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:home_my_item2_left_drawable="@mipmap/my_customer"
+            app:home_my_item2_right_drawable="@mipmap/my_more"
+            app:home_my_item2_title="客服电话：400-117-7169" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/color_d9" />
+
+        <com.njz.letsgoappguides.customview.widget.MineItemView2
+            android:id="@+id/mine_wxkf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:home_my_item2_left_drawable="@mipmap/ic_mine_wxkf"
+            app:home_my_item2_right_drawable="@mipmap/my_more"
+            app:home_my_item2_title="微信客服：najiuzou8" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/color_d9" />
+
+        <com.njz.letsgoappguides.customview.widget.MineItemView2
+            android:id="@+id/mine_wxgzh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:home_my_item2_left_drawable="@mipmap/ic_mine_wx"
+            app:home_my_item2_right_drawable="@mipmap/my_more"
+            app:home_my_item2_title="微信公众号：那就走" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/color_d9" />
+
+        <com.njz.letsgoappguides.customview.widget.MineItemView2
+            android:id="@+id/mine_guide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:home_my_item2_left_drawable="@mipmap/ic_mine_guide"
+            app:home_my_item2_right_drawable="@mipmap/my_more"
+            app:home_my_item2_title="申请成为那就走向导" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/color_d9" />
+
+        <com.njz.letsgoappguides.customview.widget.MineItemView2
+            android:id="@+id/mine_network"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:home_my_item2_left_drawable="@mipmap/ic_mine_network"
+            app:home_my_item2_right_drawable="@mipmap/my_more"
+            app:home_my_item2_title="网址：www.njzou.com" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/color_d9" />
+
+        <com.njz.letsgoappguides.customview.widget.MineItemView2
+            android:id="@+id/mine_tourist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:home_my_item2_left_drawable="@mipmap/ic_mine_wxxcx"
+            app:home_my_item2_right_drawable="@mipmap/my_more"
+            app:home_my_item2_title="游客端访问方式" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

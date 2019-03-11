@@ -93,6 +93,10 @@
         <activity android:name=".ui.activites.mine.OrderDetailRefundsActivity" />
         <activity android:name=".ui.activites.mine.BigImageActivity" />
         <activity android:name=".ui.activites.mine.SettlementOrderActivity" />
+        <activity android:name=".ui.activites.mine.ContactUsActivity" />
+        <activity android:name=".ui.activites.mine.ContactUsContentActivity" />
+
+
         <activity android:name=".ui.activites.mysetting.PersonalActivity" />
         <activity android:name=".ui.activites.mysetting.SettingActivity" />
         <activity android:name=".ui.activites.mysetting.SetPhoneActivity" />

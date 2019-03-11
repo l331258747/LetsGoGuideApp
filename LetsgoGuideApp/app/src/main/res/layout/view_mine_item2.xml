@@ -18,7 +18,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/iv_left_img"
+        android:layout_toEndOf="@+id/iv_left_img"
         android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
         tools:text="绑定手机" />
@@ -29,8 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
-        android:layout_toLeftOf="@+id/iv_right_img"
-         />
+        android:layout_toStartOf="@+id/iv_right_img" />
 
     <ImageView
         android:id="@+id/iv_right_img"

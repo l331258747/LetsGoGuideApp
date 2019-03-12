@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -68,13 +69,13 @@ import me.iwf.photopicker.PhotoPreview;
  * 个人资料
  */
 public class
-PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadContract.View,GetLanguageContract.View,BatchUploadContract.View,ModifyInfoContract.View {
+PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadContract.View, GetLanguageContract.View, BatchUploadContract.View, ModifyInfoContract.View {
 
     @BindView(R.id.title_tv)
     TextView titleTv;
     @BindView(R.id.iv_head)
     ImageView ivHead;
-//    @BindView(R.id.et_name)
+    //    @BindView(R.id.et_name)
     TextView etName;
     @BindView(R.id.personal_iv_more)
     ImageView personalIvMore;
@@ -88,11 +89,9 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     TextView personalTvCheckb;
     @BindView(R.id.rl_personal_language)
     RelativeLayout rlPersonalLanguage;
-    @BindView(R.id.tv_service_lan)
-    TextView tvServiceLan;
     @BindView(R.id.tv_qianming)
     TextView tvQianming;
-//    @BindView(R.id.personal_et_qianm)
+    //    @BindView(R.id.personal_et_qianm)
     EditText personalEtQianm;
     @BindView(R.id.title_layout)
     RelativeLayout titleLayout;
@@ -102,6 +101,8 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     TextView btnSubmit;
     @BindView(R.id.tit_story)
     TextView titStory;
+    @BindView(R.id.ll_title_img_tip)
+    LinearLayout ll_title_img_tip;
 
     private TackPicturesUtil tackPicUtil;
     LoadingDialog loadingDialog;
@@ -109,14 +110,14 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     private String headCompressPath;
     private Disposable disposable;
     String upUrls;
-    String headUrl="";
+    String headUrl = "";
     String image;
 
 
     private PhotoAdapter photoAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
     private ArrayList<String> upLoadPhotos = new ArrayList<>();
-    private List<String> list=new ArrayList<>();
+    private List<String> list = new ArrayList<>();
 
     UpLoadPresenter mPresenter;
     GetLanguagePresenter languagePresenter;
@@ -125,7 +126,8 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
 
     LanguageDialog dialog;
     List<GuideMacroEntityList> data;
-    boolean isEnabled=false;
+    boolean isEnabled = false;
+    int headorbgm;
 
     String myStory;
 
@@ -138,8 +140,8 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     protected void initView() {
         titleTv.setText("编辑资料");
 
-        personalEtQianm=$(R.id.personal_et_qianm);
-        etName=$(R.id.et_name);
+        personalEtQianm = $(R.id.personal_et_qianm);
+        etName = $(R.id.et_name);
 
         rlPersonal.setOnClickListener(this);
         rlPersonalLanguage.setOnClickListener(this);
@@ -148,17 +150,17 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
 
         if (MySelfInfo.getInstance().isLogin()) {
             etName.setText(MySelfInfo.getInstance().getName());
-            myStory=MySelfInfo.getInstance().getMyStory();
-            if(myStory.toString().trim().equals("")||myStory.toString().trim().equals("<br>")){
+            myStory = MySelfInfo.getInstance().getMyStory();
+            if (myStory.toString().trim().equals("") || myStory.toString().trim().equals("<br>")) {
                 titStory.setText("请点击编辑");
-            }else{
+            } else {
                 titStory.setText("已编辑");
             }
             personalEtQianm.setText(MySelfInfo.getInstance().getIntroduce());
             GlideUtil.LoadCircleImage(context, MySelfInfo.getInstance().getUserImg(), ivHead);
-            image=MySelfInfo.getInstance().getImage();
-            if(!image.equals("")){
-                selectedPhotos=StringUtils.stringToList(image);
+            image = MySelfInfo.getInstance().getImage();
+            if (!image.equals("")) {
+                selectedPhotos = StringUtils.stringToList(image);
             }
             personalTvCheckb.setText(getLanguage());
         }
@@ -171,17 +173,17 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
         getPicPermission(context);
 
         mPresenter = new UpLoadPresenter(context, this);
-        languagePresenter = new GetLanguagePresenter(context,this);
-        mBatchUploadPresenter=new BatchUploadPresenter(context,this);
-        mModifyInfoPresenter=new ModifyInfoPresenter(context,this);
+        languagePresenter = new GetLanguagePresenter(context, this);
+        mBatchUploadPresenter = new BatchUploadPresenter(context, this);
+        mModifyInfoPresenter = new ModifyInfoPresenter(context, this);
     }
 
 
-    @OnClick({R.id.left_iv,R.id.title_yulan,R.id.rl_story})
+    @OnClick({R.id.left_iv, R.id.title_yulan, R.id.rl_story})
     public void onViewClicked(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.left_iv:
-                if(isEnabled){
+                if (isEnabled) {
                     new AlertDialog.Builder(context).setTitle("您确定要放弃此次编辑？").setPositiveButton("确定",
                             new DialogInterface.OnClickListener() {
                                 @Override
@@ -190,34 +192,34 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                                     finish();
                                 }
                             }).setNegativeButton("取消", null).show();
-                }else{
+                } else {
                     finish();
                 }
                 break;
             case R.id.title_yulan:
-                PersonalInfo personalInfo=new PersonalInfo();
+                PersonalInfo personalInfo = new PersonalInfo();
                 if (upUrls != null) {
                     personalInfo.setImage(upUrls);
-                }else{
+                } else {
                     personalInfo.setImage(MySelfInfo.getInstance().getImage());
                 }
-                if(!headUrl.equals("")){
+                if (!headUrl.equals("")) {
                     personalInfo.setBase64Img(headUrl);
-                }else{
+                } else {
                     personalInfo.setBase64Img(MySelfInfo.getInstance().getUserImg());
                 }
                 personalInfo.setIntroduce(personalEtQianm.getText().toString());
                 personalInfo.setLanguage(personalTvCheckb.getText().toString());
                 personalInfo.setMyStory(myStory);
                 personalInfo.setName(etName.getText().toString());
-                Intent intent1=new Intent(context,PresonalViewActivity.class);
-                intent1.putExtra("PERSOBALINFO",personalInfo);
-                intent1.putExtra("ISENABLED",isEnabled);
+                Intent intent1 = new Intent(context, PresonalViewActivity.class);
+                intent1.putExtra("PERSOBALINFO", personalInfo);
+                intent1.putExtra("ISENABLED", isEnabled);
                 startActivity(intent1);
                 break;
             case R.id.rl_story:
-                Intent intent=new Intent(context,PersonalStoryActivity.class);
-                intent.putExtra(Constant.STORYINFO,myStory);
+                Intent intent = new Intent(context, PersonalStoryActivity.class);
+                intent.putExtra(Constant.STORYINFO, myStory);
                 startActivityForResult(intent, Constant.STORYID);
                 break;
         }
@@ -233,26 +235,26 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     private String getLable() {
         StringBuffer lables = new StringBuffer("");
         List<LabelItemModel> ss2 = MySelfInfo.getInstance().getLabels();
-        for (LabelItemModel item : ss2){
-            lables.append(item.getName()+",");
+        for (LabelItemModel item : ss2) {
+            lables.append(item.getName() + ",");
         }
         List<String> ss = GsonUtil.convertJson2Array(MySelfInfo.getInstance().getFreeLabels());
-        for (String str : ss){
-            lables.append(str+",");
+        for (String str : ss) {
+            lables.append(str + ",");
         }
         String str = lables.toString();
-        str = str.endsWith(",")?str.substring(0,str.length()-1):str;
+        str = str.endsWith(",") ? str.substring(0, str.length() - 1) : str;
         return str;
     }
 
     private String getLanguage() {
         StringBuffer languages = new StringBuffer("");
         List<GuideMacroEntityList> ss2 = MySelfInfo.getInstance().getGuideMacroEntityList();
-        for (GuideMacroEntityList item : ss2){
-            languages.append(item.getName()+",");
+        for (GuideMacroEntityList item : ss2) {
+            languages.append(item.getName() + ",");
         }
         String str = languages.toString();
-        str = str.endsWith(",")?str.substring(0,str.length()-1):str;
+        str = str.endsWith(",") ? str.substring(0, str.length() - 1) : str;
         return str;
     }
 
@@ -261,10 +263,10 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_submit:
-                String introduce=personalEtQianm.getText().toString();
-                MyInfoData infoData=new MyInfoData();
-                if(dialog!=null){
-                    data=dialog.getData();
+                String introduce = personalEtQianm.getText().toString();
+                MyInfoData infoData = new MyInfoData();
+                if (dialog != null) {
+                    data = dialog.getData();
                     infoData.setGuideMacroEntityList(data);
                 }
                 infoData.setName(etName.getText().toString());
@@ -292,10 +294,11 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     }
 
 
-
     @OnClick(R.id.iv_head)
     public void onViewClicked() {
-        tackPicUtil.showDialog(context);
+        headorbgm = 0;
+        tackPicUtil.setScale(1,1).showDialog(context);
+
 
     }
 
@@ -308,18 +311,18 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(null==data)return;
+        if (null == data) return;
         switch (requestCode) {
             case Constant.STORYID: //返回的请求码111
                 //我的故事信息
-                if(data.getExtras().getString(Constant.STORYINFO)!=null){
+                if (data.getExtras().getString(Constant.STORYINFO) != null) {
                     myStory = data.getExtras().getString(Constant.STORYINFO);
-                    if(myStory.trim().equals("")||myStory.equals("<br>")){
+                    if (myStory.trim().equals("") || myStory.equals("<br>")) {
                         titStory.setText("请点击编辑");
-                    }else{
+                    } else {
                         titStory.setText("已编辑");
                     }
-                    if(!myStory.equals(MySelfInfo.getInstance().getMyStory())){
+                    if (!myStory.equals(MySelfInfo.getInstance().getMyStory())) {
                         updateBack();
                     }
                 }
@@ -327,46 +330,72 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
             case TackPicturesUtil.CHOOSE_PIC:
             case TackPicturesUtil.TACK_PIC:
             case TackPicturesUtil.CROP_PIC:
-                String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
-                if (path == null)
-                    return;
-                headpath = path;
-                upFile();
-                updateBack();
+                if(headorbgm == 1){
+                    String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
+                    if (path == null)
+                        return;
+                    selectedPhotos.add(path);
+
+                    upUrls = "";
+                    int a = 0;
+                    for (int i = 0; i < selectedPhotos.size(); i++) {
+                        if (selectedPhotos.get(i).startsWith("http")) {
+                            upUrls += selectedPhotos.get(i).toString() + ",";
+                        } else {
+                            a++;
+                            if (a == 1) {
+                                updateBack();
+                                upFile2();
+                            }
+                        }
+
+                    }
+                    if (!image.equals(upUrls)) {
+                        updateBack();
+                    }
+                    initAddPhoto();
+                }else{
+                    String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
+                    if (path == null)
+                        return;
+                    headpath = path;
+                    upFile();
+                    updateBack();
+                }
                 break;
             default:
                 break;
         }
-        if (resultCode == -1 &&
-                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
-            List<String> photos = null;
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            upUrls="";
-            photoAdapter.notifyDataSetChanged();
-            int a=0;
-            for (int i=0;i<selectedPhotos.size();i++){
-                if(selectedPhotos.get(i).startsWith("http")){
-                    upUrls+=selectedPhotos.get(i).toString()+",";
-                }else {
-                    a++;
-                    if(a==1){
-                        updateBack();
-                        upFile2();
-                    }
-                }
-
-            }
-            if(!image.equals(upUrls)){
-                updateBack();
-            }
-            initAddPhoto();
-        }
+//        if (resultCode == -1 &&
+//                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+//            List<String> photos = null;
+//            if (data != null) {
+//                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+//            }
+//            selectedPhotos.clear();
+//            if (photos != null) {
+//                selectedPhotos.addAll(photos);
+//            }
+//            upUrls = "";
+//            photoAdapter.notifyDataSetChanged();
+//            int a = 0;
+//            for (int i = 0; i < selectedPhotos.size(); i++) {
+//                if (selectedPhotos.get(i).startsWith("http")) {
+//                    upUrls += selectedPhotos.get(i).toString() + ",";
+//                } else {
+//                    a++;
+//                    if (a == 1) {
+//                        updateBack();
+//                        upFile2();
+//                    }
+//                }
+//
+//            }
+//            if (!image.equals(upUrls)) {
+//                updateBack();
+//            }
+//            initAddPhoto();
+//        }
 
 
     }
@@ -419,7 +448,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     @Override
     public void upUploadSuccess(String datas) {
         loadingDialog.dismiss();
-        headUrl=datas;
+        headUrl = datas;
         showShortToast("头像上传成功");
         setHeadImg(headpath);
     }
@@ -432,28 +461,35 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     //-------------end 上传头像-------------
 
     //------------上传多张图片  start---------------
-    private void initAddPhoto(){
+    private void initAddPhoto() {
+        if (selectedPhotos.size() == 0) {
+            ll_title_img_tip.setVisibility(View.VISIBLE);
+        } else {
+            ll_title_img_tip.setVisibility(View.GONE);
+        }
         //------------附件
-                        photoAdapter = new PhotoAdapter(context, selectedPhotos);
-                        mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(PhotoAdapter.IMAGE_LINE, OrientationHelper.VERTICAL));
-                        mPhotoRecyclerView.setAdapter(photoAdapter);
-                        mPhotoRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,
-                                new RecyclerItemClickListener.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View view, int position) {
-                                        if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
-                                            PhotoPicker.builder()
-                                                    .setPhotoCount(PhotoAdapter.MAX)
-                                                    .setShowCamera(true)
-                                                    .setPreviewEnabled(false)
-                                                    .setSelected(selectedPhotos)
-                                                    .start(PersonalActivity.this);
-                                        } else {
-                                            PhotoPreview.builder()
-                                                    .setPhotos(selectedPhotos)
-                                                    .setCurrentItem(position)
-                                                    .start(PersonalActivity.this);
-                                        }
+        photoAdapter = new PhotoAdapter(context, selectedPhotos);
+        mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(PhotoAdapter.IMAGE_LINE_3, OrientationHelper.VERTICAL));
+        mPhotoRecyclerView.setAdapter(photoAdapter);
+        mPhotoRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
+//                            PhotoPicker.builder()
+//                                    .setPhotoCount(PhotoAdapter.MAX)
+//                                    .setShowCamera(true)
+//                                    .setPreviewEnabled(false)
+//                                    .setSelected(selectedPhotos)
+//                                    .start(PersonalActivity.this);
+                            headorbgm = 1;
+                            tackPicUtil.setScale(15,8).showDialog(context);
+                        } else {
+                            PhotoPreview.builder()
+                                    .setPhotos(selectedPhotos)
+                                    .setCurrentItem(position)
+                                    .start(PersonalActivity.this);
+                        }
                     }
                 }));
     }
@@ -480,15 +516,15 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                 upLoadPhotos.clear();
                 for (String path : selectedPhotos) {
                     list.clear();
-                    if(path.startsWith("http")){
+                    if (path.startsWith("http")) {
                         list.add(path);//添加网络图片，不需要上传
-                    }else{
+                    } else {
                         File file = new File(path);
-                        if(!file.getName().startsWith("crop") || file.length()>1024*100) {
+                        if (!file.getName().startsWith("crop") || file.length() > 1024 * 100) {
                             String savePath = TackPicturesUtil.IMAGE_CACHE_PATH + "crop" + file.getName();
                             ImageUtils.getImage(path, savePath);
                             upLoadPhotos.add(savePath);
-                        }else{
+                        } else {
                             upLoadPhotos.add(path);
                         }
                     }
@@ -501,17 +537,17 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     @Override
     public void batchUploadSuccess(BatchUploadInfo data) {
         loadingDialog.dismiss();
-        if(data!=null){
-            String[] url=data.getUrl();
-            if(list.size()>0){
-                for (int i=0;i<list.size();i++){
-                    upUrls+=list.get(i)+",";
+        if (data != null) {
+            String[] url = data.getUrl();
+            if (list.size() > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    upUrls += list.get(i) + ",";
                 }
             }
-            for (int i=0;i<url.length;i++){
-                upUrls+=url[i]+",";
+            for (int i = 0; i < url.length; i++) {
+                upUrls += url[i] + ",";
             }
-            selectedPhotos=StringUtils.stringToList(upUrls);
+            selectedPhotos = StringUtils.stringToList(upUrls);
             photoAdapter.notifyDataSetChanged();
         }
     }
@@ -525,20 +561,20 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
 
     @Override
     public void userGetLanguageSuccess(List<GuideMacroEntityList> str) {
-        if(str==null)return;
-        String text=personalTvCheckb.getText().toString();
-        ArrayList<String> list=new ArrayList<>();
-        if(!text.equals("")){
-            list=StringUtils.stringToList(text);
+        if (str == null) return;
+        String text = personalTvCheckb.getText().toString();
+        ArrayList<String> list = new ArrayList<>();
+        if (!text.equals("")) {
+            list = StringUtils.stringToList(text);
         }
-        for (int i=0;i<list.size();i++){
-            if(list.get(i).equals(str.get(i).getName())){
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).equals(str.get(i).getName())) {
                 str.get(i).setSelect(true);
-            }else{
+            } else {
                 str.get(i).setSelect(false);
             }
         }
-        dialog = new LanguageDialog(activity,personalTvCheckb);
+        dialog = new LanguageDialog(activity, personalTvCheckb);
         dialog.setData(str);
         dialog.show();
     }
@@ -551,17 +587,17 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     @Override
     public void userUpdateSuccess(String datas) {
         showShortToast("修改成功");
-        if(dialog!=null){
-            data=dialog.getData();
+        if (dialog != null) {
+            data = dialog.getData();
             MySelfInfo.getInstance().setGuideMacroEntityList(data);
         }
         MySelfInfo.getInstance().setMyStory(myStory);
         MySelfInfo.getInstance().setIntroduce(personalEtQianm.getText().toString());
         MySelfInfo.getInstance().setName(etName.getText().toString());
-        if(!headUrl.equals("")){
+        if (!headUrl.equals("")) {
             MySelfInfo.getInstance().setUserImg(headUrl);
         }
-        if(upUrls!=null){
+        if (upUrls != null) {
             MySelfInfo.getInstance().setImage(upUrls);
         }
         finish();
@@ -576,19 +612,20 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     public void getCheckLanguageSuccess(List<GuideMacroEntityList> str) {
 
     }
+
     @Override
     public void getCheckLanguageFailed(String msg) {
 
     }
 
-    public  void updateBack(){//设置按钮可点击并且改变背景颜色
-        isEnabled=true;
+    public void updateBack() {//设置按钮可点击并且改变背景颜色
+        isEnabled = true;
         btnSubmit.setEnabled(isEnabled);
         btnSubmit.setTextColor(getResources().getColor(R.color.white));
         btnSubmit.setBackgroundResource(R.drawable.login_btn_style);
     }
 
-    TextWatcher textWatcher=new TextWatcher() {
+    TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -604,7 +641,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
 
         }
     };
-    TextWatcher textWatcher2=new TextWatcher() {
+    TextWatcher textWatcher2 = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -612,7 +649,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if(!getLanguage().equals(personalTvCheckb.getText().toString())){
+            if (!getLanguage().equals(personalTvCheckb.getText().toString())) {
                 updateBack();
             }
         }

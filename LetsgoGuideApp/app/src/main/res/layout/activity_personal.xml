@@ -1,44 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/title_layout"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        >
+        android:background="@color/white">
+
         <ImageView
-            android:layout_marginLeft="10dp"
-            android:padding="10dp"
-            android:layout_centerVertical="true"
             android:id="@+id/left_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back"
-            />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:src="@mipmap/icon_back" />
 
         <TextView
             android:id="@+id/title_tv"
-            android:textSize="16sp"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="编辑资料"/>
+            android:layout_centerInParent="true"
+            android:text="编辑资料"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/title_yulan"
-            android:layout_marginRight="16dp"
-            android:textSize="14sp"
-            android:layout_centerInParent="true"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="预览"/>
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="16dp"
+            android:text="预览"
+            android:textSize="14sp" />
 
     </RelativeLayout>
 
@@ -59,18 +56,21 @@
                 android:background="@color/white"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:orientation="vertical">
-
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="10dp">
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:id="@+id/iv_head"
@@ -88,18 +88,27 @@
                             android:src="@mipmap/my_uphead" />
                     </RelativeLayout>
 
+                    <TextView
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint="请输入姓名"
+                        android:maxLength="5" />
+
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/et_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="17dp"
-                    android:background="@null"
-                    android:gravity="center"
-                    android:hint="请输入姓名"
-                    android:padding="5dp" />
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:hint="图片要求：\n1、需上传本人正面的半身照（腰部以上）\n2、 头像需与手持证件照/证件照中人物相符一致\n3、严格按照头像上传的方框来调准头像\n4、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片"
+                    android:textSize="11sp" />
+
             </LinearLayout>
 
 
@@ -108,14 +117,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_personal"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_id"
@@ -138,28 +150,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="22dp"
-                        android:layout_toRightOf="@+id/tv_id"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_toEndOf="@+id/tv_id"
                         android:gravity="right"
-                        android:text="请选择（多选）" />
+                        android:hint="让游客更能快速的了解您（多选）"
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
-                <ImageView
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:id="@+id/bottom_view1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/lines" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_d9" />
 
                 <RelativeLayout
                     android:id="@+id/rl_personal_language"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_ids"
@@ -182,62 +192,86 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="22dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:layout_toRightOf="@+id/tv_ids"
                         android:gravity="right"
-                        android:text="请选择（多选）" />
+                        android:hint="对能提供服务的语言进行选择（多选）"
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
-                <ImageView
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/lines" />
-
-                <LinearLayout
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_service_lan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="形象图" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp">
-
-                        <include layout="@layout/base_recycler_view_layout" />
-                    </LinearLayout>
-                </LinearLayout>
-                <ImageView
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/lines" />
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_d9" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="标题图" />
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <include layout="@layout/base_recycler_view_layout" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_title_img_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="2"
+                            android:layerType="software"
+                            android:lines="10"
+                            android:text="要求：\n1、本人单人清晰横版照片，最多添加6张（第一张默认为封面图）\n2、人像在图片右侧，左侧适当留白，半身照或全身照能体现当地景色为佳\n3、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片"
+                            android:textColor="@color/color_99"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_d9" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tv_qianming"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:text="个性签名" />
 
                     <EditText
@@ -245,22 +279,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_qianming"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/person_et_style"
                         android:gravity="top"
-                        android:hint="请填写您的个性签名（该签名会显示在主页上，200字以内）"
+                        android:hint="该签名会显示在个人主页上，为自己拉拉票吧！\n个性签名需披露自身特色，体现个人亮点，不可披露其他无关信息，最多展示200字\n要求：\n1、不允许披露任何联系方式（如电话、微信、QQ等）\n2、不允许披露“优秀，高级，首席”等难以评定的修饰形容词（如国家中级/高级导游等需出示相应证件经平台认证）\n3、不允许披露和旅游不相关的业务"
                         android:lines="4"
                         android:padding="10dp"
                         android:src="@mipmap/my_add"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rl_story"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_story"
@@ -285,17 +319,15 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="10dp"
                         android:layout_toRightOf="@+id/tv_story"
-                        android:gravity="right"
-                         />
+                        android:gravity="right" />
 
                 </RelativeLayout>
 
                 <ImageView
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/lines" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -311,18 +343,18 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/color_d9"/>
+            android:background="@color/color_d9" />
 
         <TextView
             android:id="@+id/btn_submit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/save_btn_style"
             android:gravity="center"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:text="保存"
             android:textColor="@color/color_99"
             android:textSize="16sp" />

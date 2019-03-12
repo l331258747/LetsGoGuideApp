@@ -1069,30 +1069,30 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 break;
         }
         //多图片上传图片回调
-        if (resultCode == -1 &&
-                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
-            List<String> photos = null;
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            upUrls = "";
-            int a = 0;
-            for (int i = 0; i < selectedPhotos.size(); i++) {
-                if (selectedPhotos.get(i).startsWith("http")) {
-                    upUrls += selectedPhotos.get(i).toString() + ",";
-                } else {
-                    a++;
-                    if (a == 1) {
-                        upFile2();
-                    }
-                }
-            }
-            initAddPhoto();
-        }
+//        if (resultCode == -1 &&
+//                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+//            List<String> photos = null;
+//            if (data != null) {
+//                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+//            }
+//            selectedPhotos.clear();
+//            if (photos != null) {
+//                selectedPhotos.addAll(photos);
+//            }
+//            upUrls = "";
+//            int a = 0;
+//            for (int i = 0; i < selectedPhotos.size(); i++) {
+//                if (selectedPhotos.get(i).startsWith("http")) {
+//                    upUrls += selectedPhotos.get(i).toString() + ",";
+//                } else {
+//                    a++;
+//                    if (a == 1) {
+//                        upFile2();
+//                    }
+//                }
+//            }
+//            initAddPhoto();
+//        }
 
     }
 

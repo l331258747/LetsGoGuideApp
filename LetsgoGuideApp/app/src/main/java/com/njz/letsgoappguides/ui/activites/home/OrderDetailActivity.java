@@ -438,24 +438,24 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
 
                 isShowNoEdit(str.getOrderNote());
             break;
-            case Constant.ORDER_PAY_CANCEL:
-                fl_order_allprice.setVisibility(View.GONE);
-                cv_refund_reason.setVisibility(View.VISIBLE);
-                fl_order_times.setVisibility(View.VISIBLE);
-                ll_order_no.setVisibility(View.VISIBLE);//订单编号
-                ll_order_create_time.setVisibility(View.VISIBLE);//创建时间
-                ll_order_refund_time.setVisibility(View.VISIBLE);//取消时间
-                tv_order_refund_time_title.setText("取消时间");
-                tv_order_no.setText(str.getOrderNo());
-                tv_order_create_time.setText(str.getCreateTime());
-                tv_order_refund_time.setText(str.getCancelTime());
-                tv_refund_reason_title.setText("取消原因");
-                tv_refund_explain_title .setText("取消说明");
-                tv_refund_reason .setText(str.getCancelReason());
-                tv_refund_explain .setText(str.getCancelExplain());
-
-                isShowNoEdit(str.getOrderNote());
-                break;
+//            case Constant.ORDER_PAY_CANCEL:
+//                fl_order_allprice.setVisibility(View.GONE);
+//                cv_refund_reason.setVisibility(View.VISIBLE);
+//                fl_order_times.setVisibility(View.VISIBLE);
+//                ll_order_no.setVisibility(View.VISIBLE);//订单编号
+//                ll_order_create_time.setVisibility(View.VISIBLE);//创建时间
+//                ll_order_refund_time.setVisibility(View.VISIBLE);//取消时间
+//                tv_order_refund_time_title.setText("取消时间");
+//                tv_order_no.setText(str.getOrderNo());
+//                tv_order_create_time.setText(str.getCreateTime());
+//                tv_order_refund_time.setText(str.getCancelTime());
+//                tv_refund_reason_title.setText("取消原因");
+//                tv_refund_explain_title .setText("取消说明");
+//                tv_refund_reason .setText(str.getCancelReason());
+//                tv_refund_explain .setText(str.getCancelExplain());
+//
+//                isShowNoEdit(str.getOrderNote());
+//                break;
         }
 
         if(str.getNjzChildOrderVOS().size()>0) {//私人订制

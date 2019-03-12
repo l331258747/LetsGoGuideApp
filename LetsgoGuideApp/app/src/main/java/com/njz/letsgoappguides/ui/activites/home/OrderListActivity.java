@@ -172,11 +172,6 @@ public class OrderListActivity extends BaseActivity implements OrderListContract
                     intent.putExtra("ORDER_ID",refundId);
                     startActivity(intent);
                 }
-//                if(payStatus==Constant.ORDER_PAY_REFUND&&refundStatus==Constant.ORDER_REFUND_WAIT){
-//
-//                }else{
-//
-//                }
             }
         });
 

@@ -30,8 +30,6 @@ public class OrderListRefundActivity extends OrderListActivity implements OrderR
 
     @Override
     public void initData() {
-        titleView.getTitleTv().setText("退款单");
-
         refundPresenter = new OrderRefundListPresenter(context, this);
         getRefreshData();
     }

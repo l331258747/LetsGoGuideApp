@@ -1,6 +1,8 @@
 package com.njz.letsgoappguides.ui.activites.mine;
 
 
+import android.view.View;
+
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.customview.widget.TitleView;
@@ -43,6 +45,13 @@ public class ContactUsContentActivity extends BaseActivity {
     @Override
     public void initView() {
         titleView = $(R.id.titleView);
+        titleView.getLeftIv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         switch (type) {
             case CODE_WXGZH:
                 titleView.setTitle("微信公众号");

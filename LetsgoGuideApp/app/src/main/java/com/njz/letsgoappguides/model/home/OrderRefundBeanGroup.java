@@ -162,8 +162,8 @@ public class OrderRefundBeanGroup {
                         return "已退款";
                 }
                 return "退款";
-            case Constant.ORDER_PAY_CANCEL:
-                return "已取消";
+//            case Constant.ORDER_PAY_CANCEL:
+//                return "已取消";
         }
         return "";
     }

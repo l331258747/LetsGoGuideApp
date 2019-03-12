@@ -55,7 +55,7 @@ public class PersonalStoryActivity extends BaseActivity implements UpLoadContrac
     @Override
     protected void initView() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        editor.setPlaceholder("介绍您的导游工作、您的服务、您的特长");
+        editor.setPlaceholder(getPlaceholder());
         mPresenter = new UpLoadPresenter(context, this);
 
         tackPicUtil = new TackPicturesUtil(this);
@@ -156,5 +156,16 @@ public class PersonalStoryActivity extends BaseActivity implements UpLoadContrac
     public void upUploadFailed(String msg) {
         loadingDialog.dismiss();
         showShortToast(msg);
+    }
+
+    protected String getPlaceholder(){
+        return "填写要求：" +
+                "1、对自己的旅行体验、行业经验、兴趣爱好、职业特长等方面进行详细介绍，需满100字以上" +
+                "2、描述的内容/图片需真实可靠，图片不可有水印" +
+                "3、禁止留有微信、电话等联系方式" +
+                "4、不允许出现“那就走认证、那就走官方认证、那就走官方推荐、那就走指定、xx地区唯一、那就走明星向导、那就走VIP向导”字样" +
+                "5、图片不可相似重复，不可披露证件信息以免信息泄露" +
+                "6、不得出现明星具体名字；" +
+                "7、不得出现违反《广告法》和其它法律及平台相关规定的描述。";
     }
 }

@@ -233,9 +233,9 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                         }
                     }
                     break;
-                case Constant.ORDER_PAY_CANCEL:
-
-                    break;
+//                case Constant.ORDER_PAY_CANCEL:
+//
+//                    break;
             }
 
             ((FootHolder) holder).btn_call.setOnClickListener(new View.OnClickListener() {

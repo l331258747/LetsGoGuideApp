@@ -25,13 +25,9 @@ public class Constant {
     public static final int ORDER_PAY_WAIT = 0;//待付款
     public static final int ORDER_PAY_ALREADY = 1;//已支付
     public static final int ORDER_PAY_FINISH = 2;//已完成
+//  public static final int ORDER_PAY_CANCEL = 3;//已取消
     public static final int ORDER_PAY_REFUND = 4;//退款单（包含已取消 ）
-    public static final int ORDER_PAY_CANCEL = 3;//已取消
     public static final int ORDER_PAY_ALL = 100;//所有的
-
-
-    public static final int ORDER_NOSEELT_WAIT = 0;//待结算
-    public static final int ORDER_SEELT_WAIT = 1;//已结算
 
     public static final int ORDER_WAIT_PAY = 0;//待付款
     public static final int ORDER_WAIT_PAYING = 1;//付款中
@@ -53,6 +49,12 @@ public class Constant {
     public static final int ORDER_REFUND_WAIT = 0;//导游待审核
     public static final int ORDER_REFUND_PROCESS = 1;//退款中
     public static final int ORDER_REFUND_FINISH = 2;//已退款
+    public static final int ORDER_REFUND_CANCEL = 3;//已取消
+    public static final int ORDER_REFUND_PLAN_REFUSE = 4;//私人定制，导游拒绝
+
+    //结算
+    public static final int ORDER_NOSEELT_WAIT = 0;//待结算
+    public static final int ORDER_SEELT_WAIT = 1;//已结算
 
     public static final int SERVER_TYPE_GUIDE_ID = 1;
     public static final int SERVER_TYPE_FEATURE_ID = 4;

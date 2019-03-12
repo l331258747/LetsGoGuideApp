@@ -68,7 +68,6 @@ public class OrderListModel {
     private int refundId;
     private List<OrderListChildModel> njzChildOrderListVOS;
 
-
     public int getRefundStatus() {
         return refundStatus;
     }
@@ -185,34 +184,4 @@ public class OrderListModel {
         return njzChildOrderListVOS;
     }
 
-    @Override
-    public String toString() {
-        return "OrderListModel{" +
-                "guideSureTime='" + guideSureTime + '\'' +
-                ", beBalancedDate='" + beBalancedDate + '\'' +
-                ", payTime='" + payTime + '\'' +
-                ", guideId=" + guideId +
-                ", orderStatus=" + orderStatus +
-                ", payPrice=" + payPrice +
-                ", orderPrice=" + orderPrice +
-                ", id=" + id +
-                ", sureTime='" + sureTime + '\'' +
-                ", balancePrice=" + balancePrice +
-                ", beforTravel='" + beforTravel + '\'' +
-                ", guideMobile='" + guideMobile + '\'' +
-                ", guideName='" + guideName + '\'' +
-                ", orderNo='" + orderNo + '\'' +
-                ", specialRequire='" + specialRequire + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", balanceTime='" + balanceTime + '\'' +
-                ", payingStatus=" + payingStatus +
-                ", cancelTime='" + cancelTime + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", reviewStatus=" + reviewStatus +
-                ", payStatus=" + payStatus +
-                ", njzChildOrderListVOS=" + njzChildOrderListVOS +
-                '}';
-    }
 }

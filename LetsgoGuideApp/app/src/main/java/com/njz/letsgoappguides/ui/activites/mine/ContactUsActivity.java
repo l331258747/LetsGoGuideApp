@@ -7,6 +7,7 @@ import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.MineItemView2;
+import com.njz.letsgoappguides.customview.widget.TitleView;
 import com.njz.letsgoappguides.ui.activites.other.WebViewActivity;
 import com.njz.letsgoappguides.util.dialog.DialogUtil;
 
@@ -19,9 +20,17 @@ import com.njz.letsgoappguides.util.dialog.DialogUtil;
 public class ContactUsActivity extends BaseActivity implements View.OnClickListener {
 
     MineItemView2 mine_customer, mine_wxgzh, mine_wxkf, mine_network, mine_guide, mine_tourist;
+    TitleView titleView;
 
     @Override
     protected void initView() {
+        titleView = $(R.id.titleView);
+        titleView.getLeftIv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         mine_customer = $(R.id.mine_customer);
         mine_wxgzh = $(R.id.mine_wxgzh);

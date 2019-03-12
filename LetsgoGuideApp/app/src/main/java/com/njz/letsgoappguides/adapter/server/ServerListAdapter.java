@@ -54,14 +54,13 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
         final ServerListModel data = datas.get(pos);
         if (data == null) return;
 
-        if(!TextUtils.isEmpty(data.getTitleImg())){
-            String titleImg=data.getTitleImg();
-            ArrayList<String> list= StringUtils.stringToList(titleImg);
+        if (!TextUtils.isEmpty(data.getTitleImg())) {
+            String titleImg = data.getTitleImg();
+            ArrayList<String> list = StringUtils.stringToList(titleImg);
             GlideUtil.LoadRoundImage(context, list.get(0), holder.iv_img, 0);
         }
         holder.tv_server_name.setText(data.getTitle());
         holder.tv_server_status.setText(data.getStatusStr());
-        holder.tv_count.setText("已售:"+data.getSaleNum());
         holder.tv_location.setText(data.getAddress());
         holder.tv_server_type.setText(data.getServeTypeName());
         holder.pv_price.setPrice(data.getServePrice());
@@ -72,16 +71,16 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
         holder.tv_modify.setVisibility(View.GONE);
         holder.tv_copy.setVisibility(View.GONE);
 
-        switch (data.getStatus()){
+        switch (data.getStatus()) {
             case 0:
-                holder.tv_server_status.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
+                holder.tv_server_status.setTextColor(ContextCompat.getColor(context, R.color.color_theme));
                 holder.tv_up.setVisibility(View.VISIBLE);
                 holder.tv_modify.setVisibility(View.VISIBLE);
                 holder.tv_copy.setVisibility(View.VISIBLE);
                 holder.cardView.setBackgroundResource(R.drawable.card_view_bg_10);
                 break;
             case 1:
-                holder.tv_server_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+                holder.tv_server_status.setTextColor(ContextCompat.getColor(context, R.color.color_green));
                 holder.tv_down.setVisibility(View.VISIBLE);
                 holder.tv_modify.setVisibility(View.VISIBLE);
                 holder.tv_copy.setVisibility(View.VISIBLE);
@@ -90,7 +89,7 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
             case 2:
             case -1:
                 holder.cardView.setBackgroundResource(R.drawable.card_view_bg_10_gray);
-                holder.tv_server_status.setTextColor(ContextCompat.getColor(context,R.color.color_red));
+                holder.tv_server_status.setTextColor(ContextCompat.getColor(context, R.color.color_red));
                 break;
         }
 
@@ -104,14 +103,14 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
         holder.tv_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//上架
-                mOnItemClickListener.onItemClickToUp(data.getId(),data.getServePrice());
+                mOnItemClickListener.onItemClickToUp(data.getId(), data.getServePrice());
             }
         });
 
         holder.tv_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//下架
-                mOnItemClickListener.onItemClickToDown(data.getId(),data.getServePrice());
+                mOnItemClickListener.onItemClickToDown(data.getId(), data.getServePrice());
             }
         });
 
@@ -161,9 +160,9 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         FrameLayout cardView;
         ImageView iv_img;
-        TextView tv_server_name, tv_server_status, tv_count, tv_location, tv_server_type;
+        TextView tv_server_name, tv_server_status, tv_location, tv_server_type, tv_verify_failed;
         PriceView pv_price;
-        TextView tv_delete,tv_down,tv_up,tv_modify,tv_copy;
+        TextView tv_delete, tv_down, tv_up, tv_modify, tv_copy;
         LinearLayout ll_deail;
 
 
@@ -174,7 +173,6 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_server_name = itemView.findViewById(R.id.tv_server_name);
             tv_server_status = itemView.findViewById(R.id.tv_server_status);
-            tv_count = itemView.findViewById(R.id.tv_count);
             tv_location = itemView.findViewById(R.id.tv_location);
             tv_server_type = itemView.findViewById(R.id.tv_server_type);
             pv_price = itemView.findViewById(R.id.pv_price);
@@ -182,6 +180,7 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
             tv_down = itemView.findViewById(R.id.tv_down);
             tv_up = itemView.findViewById(R.id.tv_up);
             tv_modify = itemView.findViewById(R.id.tv_modify);
+            tv_verify_failed = itemView.findViewById(R.id.tv_verify_failed);
             ll_deail = itemView.findViewById(R.id.ll_deail);
             tv_copy = itemView.findViewById(R.id.tv_copy);
         }
@@ -192,10 +191,15 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
 
     public interface OnItemClickListener {
         void onItemClick(int njzGuideServeId);
+
         void onItemClickDelete(int njzGuideServeId);
-        void onItemClickToUp(int njzGuideServeId,float price);
-        void onItemClickToDown(int njzGuideServeId,float price);
+
+        void onItemClickToUp(int njzGuideServeId, float price);
+
+        void onItemClickToDown(int njzGuideServeId, float price);
+
         void onItemClickPreview(int njzGuideServeId);
+
         void onItemClickCopy(int njzGuideServeId);
     }
 
@@ -204,6 +208,7 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
     }
 
     ServerListAdapter.OnDetailClickListener onDetailClickListener;
+
     public interface OnDetailClickListener {
         void onItemClick(int orderId);
     }

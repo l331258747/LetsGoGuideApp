@@ -59,38 +59,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_car"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="包车接送"
-                    android:textColor="@color/color_theme"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="10dp"
-                    android:drawableRight="@mipmap/my_more"
-                    android:text="包车接送类服务是以车辆为核心的服务产品，主要通过车辆+司机的形式提供火车站、机场以及各景点之间点对点的接送服务。"
-                    android:textSize="12sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/color_d9" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/ll_feature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,6 +121,39 @@
                     android:background="@color/color_d9" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_car"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="包车接送"
+                    android:textColor="@color/color_theme"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@mipmap/my_more"
+                    android:text="包车接送类服务是以车辆为核心的服务产品，主要通过车辆+司机的形式提供火车站、机场以及各景点之间点对点的接送服务。"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_d9" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/ll_ticket"

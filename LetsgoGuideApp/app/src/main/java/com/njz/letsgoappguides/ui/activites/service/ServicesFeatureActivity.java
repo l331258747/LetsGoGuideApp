@@ -73,7 +73,7 @@ public class ServicesFeatureActivity extends BaseActivity implements UpLoadContr
                 break;
             case 103://行程设计
                 titleTv.setText("行程设计");
-                editor.setPlaceholder("请根据游客提供的需求单对整个行程进行设计");
+                editor.setPlaceholder(getPlaceholder2());
                 if (getIntent().getStringExtra("myDesingn") != null) {
                     String myDesingn = getIntent().getStringExtra("myDesingn");
                     editor.setHtml(myDesingn);
@@ -204,6 +204,23 @@ public class ServicesFeatureActivity extends BaseActivity implements UpLoadContr
         }
     }
 
+    protected String getPlaceholder2(){
+        return "数量要求：" +
+                "1、至少2段文字描述" +
+                "2、每段文字，字数在40-500字之间" +
+                "质量要求：" +
+                "1、描述必须真实可靠并与线下提供服务内容一致，且无错别字；" +
+                "2、建议包括：" +
+                "     ☆根据游客行程安排对每天的行程/玩法进行详细介绍" +
+                "     ☆对行程中的景点、门票购买、取票等信息进行介绍" +
+                "     ☆对行程中的住宿环境、地点、是否含早餐等信息介绍" +
+                "     ☆对行程中的吃饭环境、地点及食谱相关信息介绍" +
+                "     ☆对行程中的车辆信息介绍（提供用车服务时）" +
+                "     ☆出游的提示信息/注意事项" +
+                "3、禁止留有微信、电话等联系方式；" +
+                "4、不得出现明星具体名字；" +
+                "5、不得出现违反《广告法》和其它法律及平台相关规定的描述。";
+    }
 
     protected String getPlaceholder() {
         switch (getIntent().getIntExtra("serverTypeId", 0)) {

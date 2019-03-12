@@ -23,7 +23,6 @@ import com.njz.letsgoappguides.presenter.home.OrderDesingnContract;
 import com.njz.letsgoappguides.presenter.home.OrderDesingnPresenter;
 import com.njz.letsgoappguides.ui.activites.service.ServicesFeatureActivity;
 import com.njz.letsgoappguides.util.ServiceUtil;
-import com.njz.letsgoappguides.util.StringUtils;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
 import com.njz.letsgoappguides.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoappguides.util.rxbus.busEvent.RefreshOrderListEvent;
@@ -60,18 +59,18 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
     TextView tvQianming;
     @BindView(R.id.ll_desingn_priceinfo)
     EditText llDesingnPriceinfo;
-    @BindView(R.id.tv_textid)
-    TextView tvTextid;
-    @BindView(R.id.edit_text_1)
-    EditText editText1;
-    @BindView(R.id.edit_text_2)
-    EditText editText2;
-    @BindView(R.id.tv_textid2)
-    TextView tvTextid2;
-    @BindView(R.id.edit_text_3)
-    EditText editText3;
-    @BindView(R.id.edit_text_4)
-    EditText editText4;
+    @BindView(R.id.edit_text_11)
+    EditText editText11;
+    @BindView(R.id.edit_text_12)
+    EditText editText12;
+    @BindView(R.id.edit_text_13)
+    EditText editText13;
+    @BindView(R.id.edit_text_21)
+    EditText editText21;
+    @BindView(R.id.edit_text_22)
+    EditText editText22;
+    @BindView(R.id.edit_text_23)
+    EditText editText23;
     @BindView(R.id.ll_penalty)
     LinearLayout llPenalty;
     @BindView(R.id.desingn_btn_sub)
@@ -168,10 +167,10 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                         markDays=markerDays.toString().substring(1,markerDays.toString().length()-1);
                     }
                     designInfo.setTravelDate(markDays);
-                    String edit1=editText1.getText().toString().trim();
-                    String edit2=editText2.getText().toString().trim();
-                    String edit3=editText3.getText().toString().trim();
-                    String edit4=editText4.getText().toString().trim();
+                    String edit1= editText11.getText().toString().trim();
+                    String edit2= editText12.getText().toString().trim();
+                    String edit3= editText21.getText().toString().trim();
+                    String edit4= editText22.getText().toString().trim();
                     designInfo.setRenegePriceThree(edit1+","+edit2);
                     designInfo.setRenegePriceFive(edit3+","+edit4);
                     designInfo.setServePrice(Float.valueOf(desingnPrice.getText().toString()));
@@ -199,10 +198,10 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
         }else if(llDesingnPriceinfo.getText().toString().equals("")){
             showShortToast("请输入报价明细");
             return false;
-        }else if(editText1.getText().toString().equals("")
-                ||editText2.getText().toString().equals("")
-                ||editText3.getText().toString().equals("")
-                ||editText4.getText().toString().equals("")){
+        }else if(editText11.getText().toString().equals("")
+                || editText12.getText().toString().equals("")
+                || editText21.getText().toString().equals("")
+                || editText22.getText().toString().equals("")){
             showShortToast("请输入违约金参数");
             return false;
         }else{
@@ -255,16 +254,16 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                     if(!TextUtils.isEmpty(three)){
                         String[] threes=three.split(",");
                         if(threes.length>=2) {
-                            editText1.setText(threes[0]);
-                            editText2.setText(threes[1]);
+                            editText11.setText(threes[0]);
+                            editText12.setText(threes[1]);
                         }
                     }
                     String five=infos.getRenegePriceFive();
                     if(TextUtils.isEmpty(five)){
                         String[] fives=five.split(",");
                         if(fives.length>=2){
-                            editText3.setText(fives[0]);
-                            editText4.setText(fives[1]);
+                            editText21.setText(fives[0]);
+                            editText22.setText(fives[1]);
                         }
                     }
                     //-----------违约金end-----------

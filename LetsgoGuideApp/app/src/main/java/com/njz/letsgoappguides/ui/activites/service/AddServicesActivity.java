@@ -107,7 +107,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     @BindView(R.id.service_title)
     MineTextView serviceTitle;
     @BindView(R.id.service_price)//私人订制价格
-            MineTextView servicePrice;
+    MineTextView servicePrice;
     @BindView(R.id.recycler_view)
     RecyclerView mPhotoRecyclerView;
     @BindView(R.id.ll_vai_text)
@@ -126,20 +126,18 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     TextView serveBtnSave;
     @BindView(R.id.serve_btn_save_sub)
     TextView serveBtnSaveSub;
-    @BindView(R.id.tv_textid)
-    TextView tv_textid;
-    @BindView(R.id.tv_textid2)
-    TextView tv_textid2;
-    @BindView(R.id.edit_text_1)
-    TextView edit_text1;
-    @BindView(R.id.edit_text_2)
-    EditText edit_text2;
-    @BindView(R.id.edit_text_3)
-    TextView edit_text3;
-    @BindView(R.id.edit_text_4)
-    EditText edit_text4;
-    //    @BindView(R.id.ll_car_id1)
-//    LinearLayout llPCarId1;
+    @BindView(R.id.edit_text_11)
+    TextView edit_text11;
+    @BindView(R.id.edit_text_12)
+    EditText edit_text12;
+    @BindView(R.id.edit_text_13)
+    EditText edit_text13;
+    @BindView(R.id.edit_text_21)
+    TextView edit_text21;
+    @BindView(R.id.edit_text_22)
+    EditText edit_text22;
+    @BindView(R.id.edit_text_23)
+    EditText edit_text23;
     @BindView(R.id.ll_langage_id1)
     LinearLayout llLangageId1;
     @BindView(R.id.ll_wai_id)
@@ -290,7 +288,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         sTypePresenter = new ServerTypePresenter(context, this);
         mGetUpdateServInfoPresenter = new GetUpdateServInfoPresenter(context, this);
         loadingDialog = new LoadingDialog(context);
-        tackPicUtil = new TackPicturesUtil(activity).setScale(15,8);
+        tackPicUtil = new TackPicturesUtil(activity).setScale(15, 8);
 
         if (MySelfInfo.getInstance().isLogin()) {
             if (MySelfInfo.getInstance().getServiceIden() == 0) {//只在登录之后第一次获取、城市
@@ -364,30 +362,26 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     //初始化退款条款内容
     private void initRefundContent() {
-        edit_text1.setEnabled(false);
-        edit_text3.setEnabled(false);
-        edit_text4.addTextChangedListener(new MyTextWatcherAfter() {
+        edit_text22.addTextChangedListener(new MyTextWatcherAfter() {
             @Override
             public void callback(Editable s) {
-                if (TextUtils.isEmpty(edit_text4.getText().toString())) return;
-                if (getInt(edit_text4) > 10) {
-                    edit_text4.setText("");
+                if (TextUtils.isEmpty(edit_text22.getText().toString())) return;
+                if (getInt(edit_text22) > 10) {
+                    edit_text22.setText("");
                     showShortToast("天数不能超过10日");
-                }
-                if (TextUtils.isEmpty(edit_text4.getText().toString())) return;
-                if (getInt(edit_text4) <= 10) {
-                    edit_text1.setText(getInt(edit_text4) + 1 + "");
+                }else {
+                    edit_text11.setText(getInt(edit_text22) + 1 + "");
                 }
             }
         });
 
 
-        edit_text2.addTextChangedListener(new MyTextWatcherAfter() {
+        edit_text12.addTextChangedListener(new MyTextWatcherAfter() {
             @Override
             public void callback(Editable s) {
-                if (TextUtils.isEmpty(edit_text2.getText().toString())) return;
-                if (getInt(edit_text2) > 15) {
-                    edit_text2.setText("");
+                if (TextUtils.isEmpty(edit_text12.getText().toString())) return;
+                if (getInt(edit_text12) > 15) {
+                    edit_text12.setText("");
                     showShortToast("天数不能超过15日");
                 }
             }
@@ -466,22 +460,17 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             showShortToast("请输入费用说明");
             return false;
         }
-        if (edit_text1.getText().toString().equals("")
-                || edit_text2.getText().toString().equals("")
-                || edit_text3.getText().toString().equals("")
-                || edit_text4.getText().toString().equals("")) {
+        if (edit_text11.getText().toString().equals("")
+                || edit_text12.getText().toString().equals("")
+                || edit_text21.getText().toString().equals("")
+                || edit_text22.getText().toString().equals("")
+                || edit_text13.getText().toString().equals("")
+                || edit_text23.getText().toString().equals("")) {
             showShortToast("请输入违约金参数");
             return false;
         }
-        if (getInt(edit_text2) < getInt(edit_text1)) {
-            showShortToast("违约金参数设置不正确");
-            return false;
-        }
-        if (getInt(edit_text4) < getInt(edit_text3)) {
-            showShortToast("违约金参数设置不正确");
-            return false;
-        }
-        if (getInt(edit_text4) <= 1) {
+
+        if (getInt(edit_text12) < getInt(edit_text11)) {
             showShortToast("违约金参数设置不正确");
             return false;
         }
@@ -489,11 +478,11 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     }
 
-    public int getInt(TextView tv){
+    public int getInt(TextView tv) {
         return Integer.valueOf(tv.getText().toString());
     }
 
-    public int getInt(EditText et){
+    public int getInt(EditText et) {
         return Integer.valueOf(et.getText().toString());
     }
 
@@ -509,8 +498,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             model.setServeFeature(myFeature);
             model.setServeType(serverTypeId);
             model.setTitle(serviceTitle.getEditContent());
-            model.setRenegePriceThree(edit_text1.getText().toString() + "," + edit_text2.getText().toString());//违约金参数
-            model.setRenegePriceFive(edit_text3.getText().toString() + "," + edit_text4.getText().toString());// 违约金参数
+            model.setRenegePriceThree(edit_text11.getText().toString() + "," + edit_text12.getText().toString());//违约金参数
+            model.setRenegePriceFive(edit_text21.getText().toString() + "," + edit_text22.getText().toString());// 违约金参数
             model.setAddress(llServiceCity.getEditContent());
             model.setAddressId(cityTypeId);
             model.setServeTypeName(serviceType.getEditContent());
@@ -607,8 +596,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             model.setServeType(serverTypeId);
             model.setNjzGuideServeFormatDtos(serveFormatList);
             model.setTitle(serviceTitle.getEditContent());
-            model.setRenegePriceThree(edit_text1.getText().toString() + "," + edit_text2.getText().toString());//违约金参数
-            model.setRenegePriceFive(edit_text3.getText().toString() + "," + edit_text4.getText().toString());// 违约金参数
+            model.setRenegePriceThree(edit_text11.getText().toString() + "," + edit_text12.getText().toString());//违约金参数
+            model.setRenegePriceFive(edit_text21.getText().toString() + "," + edit_text22.getText().toString());// 违约金参数
             model.setAddress(llServiceCity.getEditContent());
             model.setAddressId(cityTypeId);
             model.setServeTypeName(serviceType.getEditContent());
@@ -991,9 +980,9 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     //----------------end 多图片上传------------
     private void initAddPhoto() {
-        if(selectedPhotos.size() == 0){
+        if (selectedPhotos.size() == 0) {
             ll_title_img_tip.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             ll_title_img_tip.setVisibility(View.GONE);
         }
         //------------附件
@@ -1298,8 +1287,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 llServiceCity.setEditContent(serveUpdataBean.getAddress());
                 servicePrice.setEditContent("" + serveUpdataBean.getServePrice());
                 llServicePriceinfo.setText(serveUpdataBean.getCostExplain());
-                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceThree(), edit_text1, edit_text2);
-                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(), edit_text3, edit_text4);
+                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceThree(), edit_text11, edit_text12);
+                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(), edit_text21, edit_text22);
                 String image = serveUpdataBean.getTitleImg();
                 if (!image.equals("")) {
                     upUrls = image;
@@ -1362,8 +1351,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     //------------更新服务 end------------
 
     //--------other  start
-    public String getTitleHint(int serverType){
-        switch (serverType){
+    public String getTitleHint(int serverType) {
+        switch (serverType) {
             case Constant.SERVER_TYPE_GUIDE_ID:
                 return "尽可能的突出自己的服务亮点，如：专业持证导游带您畅游张家界；但不能出现多日游、包车、公司名称等信息。";
             case Constant.SERVER_TYPE_FEATURE_ID:

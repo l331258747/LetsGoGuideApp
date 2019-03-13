@@ -157,7 +157,7 @@ public class OrderSettleBeanGroup {
             case Constant.ORDER_PAY_REFUND:
                 switch (refundStatus){
                     case Constant.ORDER_REFUND_WAIT:
-                        return "待确认";
+                        return "退款待确认";
                     case Constant.ORDER_REFUND_PROCESS:
                         return "退款中";
                     case Constant.ORDER_REFUND_FINISH:

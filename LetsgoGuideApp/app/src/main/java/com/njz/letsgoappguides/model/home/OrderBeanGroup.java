@@ -155,12 +155,11 @@ public class OrderBeanGroup {
     }
 
     public String getOrderPriceStr(){
-        if (payStatus == Constant.ORDER_PAY_WAIT
-                && payingStatus == Constant.ORDER_WAIT_PAY
-                && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
+        if (payStatus == Constant.ORDER_PAY_WAIT &&
+                planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING) {
             return ("报价待确定");
         } else {
-            return ("￥" + orderPrice);
+            return ("￥" + orderPrice);//orderPrice通过setOrderPrice传入可能为orderprice可能为payprice
         }
     }
 
@@ -230,14 +229,18 @@ public class OrderBeanGroup {
                         return "";
                 }
             case Constant.ORDER_PAY_REFUND:
-                switch (refundStatus){
+                switch (refundStatus) {
                     case Constant.ORDER_REFUND_WAIT:
                         return "退款待确认";
-                    default:
-                        return "退款";
+                    case Constant.ORDER_REFUND_PROCESS:
+                        return "退款中";
+                    case Constant.ORDER_REFUND_FINISH:
+                        return "已退款";
+                    case Constant.ORDER_REFUND_CANCEL:
+                    case Constant.ORDER_REFUND_PLAN_REFUSE:
+                        return "已取消";
                 }
-//            case Constant.ORDER_PAY_CANCEL:
-//                return "已取消";
+                return "退款";
         }
         return "";
     }
@@ -260,6 +263,13 @@ public class OrderBeanGroup {
 
     public void setOrderChildModel(OrderListChildModel orderChildModel) {
         this.orderChildModel = orderChildModel;
+    }
+
+    public boolean isCustom(){
+        if (orderChildModel.getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)) {//私人订制
+            return true;
+        }
+        return false;
     }
 
 

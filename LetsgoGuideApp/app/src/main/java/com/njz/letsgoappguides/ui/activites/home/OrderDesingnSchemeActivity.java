@@ -60,13 +60,13 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
     @BindView(R.id.ll_desingn_priceinfo)
     EditText llDesingnPriceinfo;
     @BindView(R.id.edit_text_11)
-    EditText editText11;
+    TextView editText11;
     @BindView(R.id.edit_text_12)
     EditText editText12;
     @BindView(R.id.edit_text_13)
     EditText editText13;
     @BindView(R.id.edit_text_21)
-    EditText editText21;
+    TextView editText21;
     @BindView(R.id.edit_text_22)
     EditText editText22;
     @BindView(R.id.edit_text_23)

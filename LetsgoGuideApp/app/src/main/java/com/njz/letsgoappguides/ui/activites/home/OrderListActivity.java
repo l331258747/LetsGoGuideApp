@@ -47,11 +47,9 @@ public class OrderListActivity extends BaseActivity implements OrderListContract
     public TitleView titleView;
     @BindView(R.id.recycler_view)
     public RecyclerView recyclerView;
-//    @BindView(R.id.swipe_refresh_layout)
     public SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.layout_parent)
     public LinearLayout layoutParent;
-//    @BindView(R.id.view_empty)
     public EmptyView emptyView;
 
     public LoadMoreWrapper loadMoreWrapper;
@@ -96,6 +94,8 @@ public class OrderListActivity extends BaseActivity implements OrderListContract
             titleView.getTitleTv().setText("已取消订单");
         else if(payStatus==Constant.ORDER_PAY_ALL)
             titleView.getTitleTv().setText("总订单");
+        else if(payStatus==Constant.ORDER_PAY_TOTAL)
+            titleView.getTitleTv().setText("今日订单");
 
         initSwipeLayout();
         initRecycler();

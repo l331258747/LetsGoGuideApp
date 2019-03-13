@@ -56,24 +56,16 @@ public class OrderListRefundActivity extends OrderListActivity implements OrderR
 
         mAdapter.setOnItemClickListener(new OrderRefundListAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int ids,int payStatus,int orderId) {//ids==0已取消   退款
-                if(ids==0){
-                    Intent intent = new Intent(context, OrderDetailActivity.class);
-                    intent.putExtra("ORDER_ID",orderId);
-                    startActivity(intent);
-                }else{
-                    Intent intent = new Intent(context, OrderDetailRefundActivity.class);
-                    intent.putExtra("ORDER_ID",ids);
-                    intent.putExtra("PAYSTATUS",payStatus);
-                    startActivity(intent);
-                }
+            public void onClick(int ids) {//ids==0已取消   退款
+                Intent intent = new Intent(context, OrderDetailRefundActivity.class);
+                intent.putExtra("ORDER_ID",ids);
+                startActivity(intent);
             }
         });
 
         mAdapter.setOnConfirmClickListener(new OrderRefundListAdapter.OnConfirmClickListener() {
             @Override
             public void onClick(final int orderId) {//确认退款
-
                 Intent intent = new Intent(context, OrderRefundActivity.class);
                 intent.putExtra("REFUND_ID",orderId);
                 startActivity(intent);

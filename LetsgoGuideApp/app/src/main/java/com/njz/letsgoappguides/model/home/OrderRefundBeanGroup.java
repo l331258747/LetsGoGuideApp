@@ -21,7 +21,7 @@ public class OrderRefundBeanGroup {
     private float payPrice;
     private int orderStatus;
     private String location;
-    private float orderPrice;
+    private String orderPrice;
     private float refundMoney;
     private int reviewStatus;
     private int refundStatus;
@@ -104,12 +104,12 @@ public class OrderRefundBeanGroup {
         this.location = location;
     }
 
-    public float getOrderPrice() {
-        return orderPrice;
+    public void setOrderPrice(String orderPrice) {
+        this.orderPrice = orderPrice;
     }
 
-    public void setOrderPrice(float orderPrice) {
-        this.orderPrice = orderPrice;
+    public String getOrderPrice() {
+        return orderPrice;//orderPrice 是通过setOrderPrice获得的数据
     }
 
     public int getId() {
@@ -155,15 +155,16 @@ public class OrderRefundBeanGroup {
             case Constant.ORDER_PAY_REFUND:
                 switch (refundStatus){
                     case Constant.ORDER_REFUND_WAIT:
-                        return "待确认";
+                        return "退款待确认";
                     case Constant.ORDER_REFUND_PROCESS:
                         return "退款中";
                     case Constant.ORDER_REFUND_FINISH:
                         return "已退款";
+                    case Constant.ORDER_REFUND_CANCEL:
+                    case Constant.ORDER_REFUND_PLAN_REFUSE:
+                        return "已取消";
                 }
                 return "退款";
-//            case Constant.ORDER_PAY_CANCEL:
-//                return "已取消";
         }
         return "";
     }
@@ -194,5 +195,12 @@ public class OrderRefundBeanGroup {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public boolean isCustom(){
+        if(orderChildModel.getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)){
+            return true;
+        }
+        return false;
     }
 }

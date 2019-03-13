@@ -56,13 +56,24 @@ public class OrderRefundChildModel {
     private String value;
     private int useDay;
     private int serveId;
+    private int planStatus;
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public void setPlanStatus(int planStatus) {
+        this.planStatus = planStatus;
+    }
 
     public int getServeId() {
         return serveId;
     }
 
-    public float getOrderPrice() {
-        return orderPrice;
+    public String getOrderPrice() {
+        if(planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)
+            return "报价待确定";
+        return "￥" + orderPrice;
     }
 
     public void setOrderPrice(float orderPrice) {

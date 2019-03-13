@@ -185,12 +185,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 ((DefaultHolder) holder).ll_order_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {//int orderId,int refundId,int payStatus,int refundStatus
-                        mOnItemClickListener.onClick(orderBeanGroups.get(pos).getId(),
-                                orderBeanGroups.get(pos).getRefundId());
+                        mOnItemClickListener.onClick(orderBeanGroups.get(pos).getId(), orderBeanGroups.get(pos).getRefundId());
                     }
                 });
             }
-
         }
 
         if (holder instanceof TitleHolder) {
@@ -244,7 +242,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 case Constant.ORDER_PAY_WAIT://代付款订单
                     ((FootHolder) holder).btn_call.setVisibility(View.VISIBLE);
                     if (data.getOrderChildModel() != null) {
-                        if (data.getOrderChildModel().getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)) {//私人订制
+                        if (data.isCustom()) {//私人订制
                             switch (data.getPlanStatus()) {
                                 case Constant.ORDER_PLAN_GUIDE_WAIT:
                                     ((FootHolder) holder).btn_desingn_scheme.setVisibility(View.GONE);//设计方案
@@ -277,7 +275,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 case Constant.ORDER_PAY_ALREADY://待确认订单  已确认订单 未出行  行程中
                     ((FootHolder) holder).btn_call.setVisibility(View.VISIBLE);
                     if (data.getOrderChildModel() != null) {
-                        if (data.getOrderChildModel().getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)) {//私人订制
+                        if (data.isCustom()) {//私人订制
                             ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.VISIBLE);
                         } else {
                             ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.GONE);
@@ -294,26 +292,29 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 case Constant.ORDER_PAY_FINISH:
                     ((FootHolder) holder).foot_btns.setVisibility(View.GONE);
                     if (data.getOrderChildModel() != null) {
-                        if (data.getOrderChildModel().getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)) {//私人订制
+                        if (data.isCustom()) {//私人订制
+                            ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.VISIBLE);
                         }
                     }
                     break;
                 case Constant.ORDER_PAY_REFUND:
+                    ((FootHolder) holder).foot_btns.setVisibility(View.GONE);
                     ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.GONE);
                     if (data.getOrderChildModel() != null) {
-                        if (data.getOrderChildModel().getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)) {//私人订制
+                        if (data.isCustom()) {//私人订制
+                            ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.VISIBLE);
                         }
                     }
                     switch (data.getRefundStatus()){
                         case Constant.ORDER_REFUND_WAIT:
+                            ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_refund.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_call.setVisibility(View.VISIBLE);
                             break;
                     }
                     break;
-
             }
 
             ((FootHolder) holder).btn_refund.setOnClickListener(new View.OnClickListener() {

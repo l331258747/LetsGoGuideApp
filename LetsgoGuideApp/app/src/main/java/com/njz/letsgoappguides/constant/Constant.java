@@ -28,6 +28,7 @@ public class Constant {
 //  public static final int ORDER_PAY_CANCEL = 3;//已取消
     public static final int ORDER_PAY_REFUND = 4;//退款单（包含已取消 ）
     public static final int ORDER_PAY_ALL = 100;//所有的
+    public static final int ORDER_PAY_TOTAL = 11;//所有的
 
     public static final int ORDER_WAIT_PAY = 0;//待付款
     public static final int ORDER_WAIT_PAYING = 1;//付款中

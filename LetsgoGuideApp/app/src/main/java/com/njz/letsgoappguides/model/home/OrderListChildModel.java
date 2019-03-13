@@ -198,34 +198,4 @@ public class OrderListChildModel {
         this.planStatus = planStatus;
     }
 
-    public String getPlanStatusStr(){
-        switch (planStatus){
-            case 0:
-            case 1:
-                return "报价待确定";
-        }
-        return "";
-    }
-
-    @Override
-    public String toString() {
-        return "OrderListChildModel{" +
-                "titleImg='" + titleImg + '\'' +
-                ", roomNum=" + roomNum +
-                ", payPrice=" + payPrice +
-                ", price=" + price +
-                ", ticketNum=" + ticketNum +
-                ", dayNum=" + dayNum +
-                ", orderPrice=" + orderPrice +
-                ", id=" + id +
-                ", personNum=" + personNum +
-                ", title='" + title + '\'' +
-                ", serveType=" + serveType +
-                ", value='" + value + '\'' +
-                ", payStatus=" + payStatus +
-                ", childOrderStatus=" + childOrderStatus +
-                ", payingStatus=" + payingStatus +
-                ", planStatus=" + planStatus +
-                '}';
-    }
 }

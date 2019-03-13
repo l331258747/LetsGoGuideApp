@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_img"
             android:layout_marginLeft="10dp"
+            android:layout_marginBottom="8dp"
             android:layout_toRightOf="@+id/iv_img"
             android:orientation="horizontal">
 

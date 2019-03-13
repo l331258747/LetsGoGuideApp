@@ -1,5 +1,7 @@
 package com.njz.letsgoappguides.model.home;
 
+import com.njz.letsgoappguides.constant.Constant;
+
 import java.util.List;
 
 /**
@@ -66,6 +68,7 @@ public class OrderListModel {
     private int planStatus;
     private int refundStatus;
     private int refundId;
+    private float refundMoney;
     private List<OrderListChildModel> njzChildOrderListVOS;
 
     public int getRefundStatus() {
@@ -101,7 +104,21 @@ public class OrderListModel {
     }
 
     public float getOrderPrice() {
-        return orderPrice;
+        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){//私人定制待付款
+            return orderPrice;
+        }else if(payStatus == Constant.ORDER_PAY_REFUND){//退款单
+            if(refundStatus == Constant.ORDER_REFUND_CANCEL || refundStatus == Constant.ORDER_REFUND_PLAN_REFUSE)//取消单
+                return orderPrice;
+            return refundMoney;
+        }
+        return payPrice;
+    }
+
+    public boolean isCustom() {
+        if(njzChildOrderListVOS !=null && njzChildOrderListVOS.size()==1 && njzChildOrderListVOS.get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            return true;
+        }
+        return false;
     }
 
     public int getId() {

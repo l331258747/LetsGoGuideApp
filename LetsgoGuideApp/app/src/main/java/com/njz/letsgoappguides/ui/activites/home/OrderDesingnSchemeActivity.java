@@ -167,12 +167,14 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                         markDays=markerDays.toString().substring(1,markerDays.toString().length()-1);
                     }
                     designInfo.setTravelDate(markDays);
-                    String edit1= editText11.getText().toString().trim();
-                    String edit2= editText12.getText().toString().trim();
-                    String edit3= editText21.getText().toString().trim();
-                    String edit4= editText22.getText().toString().trim();
-                    designInfo.setRenegePriceThree(edit1+","+edit2);
-                    designInfo.setRenegePriceFive(edit3+","+edit4);
+                    String edit11= editText11.getText().toString().trim();
+                    String edit12= editText12.getText().toString().trim();
+                    float edit13= Float.valueOf(editText13.getText().toString().trim());
+                    String edit21= editText21.getText().toString().trim();
+                    String edit22= editText22.getText().toString().trim();
+                    float edit23= Float.valueOf(editText23.getText().toString().trim());
+                    designInfo.setRenegePriceThree(edit11+","+edit12+","+(edit13/100));
+                    designInfo.setRenegePriceFive(edit21+","+edit22+","+(edit23/100));
                     designInfo.setServePrice(Float.valueOf(desingnPrice.getText().toString()));
                     designInfo.setTravelDesign(myDesingn);
                     designInfo.setOfferDetail(llDesingnPriceinfo.getText().toString());
@@ -200,8 +202,10 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
             return false;
         }else if(editText11.getText().toString().equals("")
                 || editText12.getText().toString().equals("")
+                || editText13.getText().toString().equals("")
                 || editText21.getText().toString().equals("")
-                || editText22.getText().toString().equals("")){
+                || editText22.getText().toString().equals("")
+                || editText23.getText().toString().equals("")){
             showShortToast("请输入违约金参数");
             return false;
         }else{
@@ -256,6 +260,9 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                         if(threes.length>=2) {
                             editText11.setText(threes[0]);
                             editText12.setText(threes[1]);
+                            if(threes.length == 3){
+                                editText13.setText(getProportion(threes[2]));
+                            }
                         }
                     }
                     String five=infos.getRenegePriceFive();
@@ -264,13 +271,20 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                         if(fives.length>=2){
                             editText21.setText(fives[0]);
                             editText22.setText(fives[1]);
+                            if(fives.length == 3){
+                                editText23.setText(getProportion(fives[2]));
+                            }
                         }
                     }
                     //-----------违约金end-----------
                     break;
             }
         }
+    }
 
+    public String getProportion(String str){
+        int value = (int) (Float.valueOf(str)*100);
+        return value+"";
     }
 
     @Override

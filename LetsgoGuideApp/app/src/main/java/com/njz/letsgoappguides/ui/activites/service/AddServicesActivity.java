@@ -66,6 +66,7 @@ import com.njz.letsgoappguides.util.accessory.ImageUtils;
 import com.njz.letsgoappguides.util.accessory.PhotoAdapter;
 import com.njz.letsgoappguides.util.accessory.RecyclerItemClickListener;
 import com.njz.letsgoappguides.util.dialog.LoadingDialog;
+import com.njz.letsgoappguides.util.log.LogUtil;
 import com.njz.letsgoappguides.util.photo.TackPicturesUtil;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
 import com.njz.letsgoappguides.util.rxbus.busEvent.ServiceTypeEvent;
@@ -486,6 +487,10 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         return Integer.valueOf(et.getText().toString());
     }
 
+    public float getFloat(EditText et){
+        return Float.valueOf(et.getText().toString());
+    }
+
     //预览
     @OnClick(R.id.title_yulan)
     public void yulan() {
@@ -498,8 +503,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             model.setServeFeature(myFeature);
             model.setServeType(serverTypeId);
             model.setTitle(serviceTitle.getEditContent());
-            model.setRenegePriceThree(edit_text11.getText().toString() + "," + edit_text12.getText().toString());//违约金参数
-            model.setRenegePriceFive(edit_text21.getText().toString() + "," + edit_text22.getText().toString());// 违约金参数
+            model.setRenegePriceThree(getInt(edit_text11) + "," + getInt(edit_text12) + "," + (getFloat(edit_text13)/100));//违约金参数
+            model.setRenegePriceFive(getInt(edit_text21) + "," + getInt(edit_text22) + "," + (getFloat(edit_text23)/100));// 违约金参数
             model.setAddress(llServiceCity.getEditContent());
             model.setAddressId(cityTypeId);
             model.setServeTypeName(serviceType.getEditContent());
@@ -596,8 +601,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             model.setServeType(serverTypeId);
             model.setNjzGuideServeFormatDtos(serveFormatList);
             model.setTitle(serviceTitle.getEditContent());
-            model.setRenegePriceThree(edit_text11.getText().toString() + "," + edit_text12.getText().toString());//违约金参数
-            model.setRenegePriceFive(edit_text21.getText().toString() + "," + edit_text22.getText().toString());// 违约金参数
+            model.setRenegePriceThree(getInt(edit_text11) + "," + getInt(edit_text12) + "," + (getFloat(edit_text13)/100));//违约金参数
+            model.setRenegePriceFive(getInt(edit_text21) + "," + getInt(edit_text22) + "," + (getFloat(edit_text23)/100));// 违约金参数
             model.setAddress(llServiceCity.getEditContent());
             model.setAddressId(cityTypeId);
             model.setServeTypeName(serviceType.getEditContent());
@@ -1287,8 +1292,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 llServiceCity.setEditContent(serveUpdataBean.getAddress());
                 servicePrice.setEditContent("" + serveUpdataBean.getServePrice());
                 llServicePriceinfo.setText(serveUpdataBean.getCostExplain());
-                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceThree(), edit_text11, edit_text12);
-                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(), edit_text21, edit_text22);
+                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceThree(), edit_text11, edit_text12,edit_text13);
+                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(), edit_text21, edit_text22,edit_text23);
                 String image = serveUpdataBean.getTitleImg();
                 if (!image.equals("")) {
                     upUrls = image;

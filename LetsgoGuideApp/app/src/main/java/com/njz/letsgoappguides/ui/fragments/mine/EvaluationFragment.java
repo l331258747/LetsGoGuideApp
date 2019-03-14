@@ -259,7 +259,7 @@ public class EvaluationFragment extends BaseFragment  implements MyEvaluationCon
 
         if(mAdapter.getDatas().size() == 0){
             view_empty.setVisible(true);
-            view_empty.setEmptyData(R.mipmap.empty_dynamic_my,"还没有人给您评价哦~");
+            view_empty.setEmptyData(R.mipmap.empty_evaluate,"还没有人给您评价哦~");
         }else{
             view_empty.setVisible(false);
         }

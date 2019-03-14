@@ -27,6 +27,7 @@ import com.njz.letsgoappguides.util.glide.GlideUtil;
 import com.njz.letsgoappguides.util.webview.LWebView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,7 +41,7 @@ public class ServicePreviewActivity extends BaseActivity implements ServerDetail
     TextView titleTv;
     @BindView(R.id.convenientBanner)
     ConvenientBanner convenientBanner;
-//    ServicePreviewInfo infos;
+    //    ServicePreviewInfo infos;
     @BindView(R.id.left_iv)
     ImageView leftIv;
     @BindView(R.id.title_layout)
@@ -82,15 +83,15 @@ public class ServicePreviewActivity extends BaseActivity implements ServerDetail
     protected void initView() {
         titleTv.setText("服务详情预览");
 
-        previewId=intent.getIntExtra("PREVIEWID",0);
-        switch (previewId){
+        previewId = intent.getIntExtra("PREVIEWID", 0);
+        switch (previewId) {
             case Constant.PREVIEWID:
                 ServicePreviewInfo infos = intent.getParcelableExtra("ServicePreviewInfo");
                 initDate(infos);
                 break;
             case Constant.PREVIEWIDDETAIL:
-                service_id=intent.getIntExtra("SERVICE_ID",0);
-                mServerDetailPresenter=new ServerDetailPresenter(context,this);
+                service_id = intent.getIntExtra("SERVICE_ID", 0);
+                mServerDetailPresenter = new ServerDetailPresenter(context, this);
                 mServerDetailPresenter.getServeDetail(service_id);
                 break;
         }
@@ -99,7 +100,7 @@ public class ServicePreviewActivity extends BaseActivity implements ServerDetail
     public void initDate(ServicePreviewInfo infos) {
         if (infos == null) return;
         String img = infos.getTitleImg();
-        if (!TextUtils.isEmpty(img) ){
+        if (!TextUtils.isEmpty(img)) {
             ArrayList<String> list = StringUtils.stringToList(img);
             initBanner(list);
         } else {
@@ -117,21 +118,40 @@ public class ServicePreviewActivity extends BaseActivity implements ServerDetail
 
         if (!TextUtils.isEmpty(infos.getCostExplain()))
             priceIntroduceContent.setText(infos.getCostExplain());
-        if (!TextUtils.isEmpty(infos.getRenegePriceThree()))
-            tvRefundRule30.setText(String.format(getResources().getString(R.string.refund_rule_30), infos.getRenegePriceThree().replace(",", "-")));
-        if (!TextUtils.isEmpty(infos.getRenegePriceFive()))
-            tvRefundRule50.setText(String.format(getResources().getString(R.string.refund_rule_50), infos.getRenegePriceFive().replace(",", "-")));
-        if(Constant.PREVIEWID==previewId){
-            tvScore.setText("已售："+infos.getSaleNum());
+        if (!TextUtils.isEmpty(infos.getRenegePriceThree())) {
+            List<String> lists = getValue(infos.getRenegePriceThree());
+            tvRefundRule30.setText(String.format(getResources().getString(R.string.refund_rule_30),
+                    lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
         }
-        pvPrice.setPrice((float)infos.getServePrice());
+        if (!TextUtils.isEmpty(infos.getRenegePriceFive())) {
+            List<String> lists = getValue(infos.getRenegePriceFive());
+            tvRefundRule50.setText(String.format(getResources().getString(R.string.refund_rule_50),
+                    lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+        }
+        if (Constant.PREVIEWID == previewId) {
+            tvScore.setText("已售：" + infos.getSaleNum());
+        }
+        pvPrice.setPrice(infos.getServePrice());
 
-        if(infos.getStatus() == -1){
+        if (infos.getStatus() == -1) {
             ll_down_parent.setVisibility(View.VISIBLE);
             tv_down_time.setText(infos.getForceDownDate());
             tv_down_reason.setText(infos.getForceDownReason());
         }
+    }
 
+    public String getProportion(String str){
+        int value = (int) (Float.valueOf(str) * 100);
+        return value + "";
+    }
+
+    public List<String> getValue(String str) {
+        String[] strs = str.split(",");
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        if (lists.size() != 3) {
+            lists.add("0");
+        }
+        return lists;
     }
 
     @Override
@@ -184,15 +204,13 @@ public class ServicePreviewActivity extends BaseActivity implements ServerDetail
     //-------------得到服务详情start------------
     @Override
     public void getServeDetailSuccess(ServiceDetailInfo datas) {
-        Log.e("test",datas.getNjzGuideServeEntity().toString());
-        if(datas==null)return;
-        if(datas.getNjzGuideServeEntity()==null)return;
-        tvScore.setText("已售："+datas.getSaleNum());
+        Log.e("test", datas.getNjzGuideServeEntity().toString());
+        if (datas == null) return;
+        if (datas.getNjzGuideServeEntity() == null) return;
+        tvScore.setText("已售：" + datas.getSaleNum());
 
 
-
-
-        ServicePreviewInfo infos=datas.getNjzGuideServeEntity();
+        ServicePreviewInfo infos = datas.getNjzGuideServeEntity();
         initDate(infos);
 
     }

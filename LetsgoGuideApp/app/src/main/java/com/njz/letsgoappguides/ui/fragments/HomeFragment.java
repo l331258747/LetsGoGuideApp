@@ -250,7 +250,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Rev
 
         if (datas.size() == 0) {
             emptyView.setVisible(true);
-            emptyView.setEmptyData(R.mipmap.empty_follow, "这里还是空空哒~");
+            emptyView.setEmptyData(R.mipmap.empty_evaluate, "这里还是空空哒~");
             emptyView.setEmptyBackground(R.color.white);
         } else {
             emptyView.setVisible(false);

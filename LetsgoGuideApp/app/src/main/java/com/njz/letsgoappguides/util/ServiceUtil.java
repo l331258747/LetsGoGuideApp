@@ -90,22 +90,17 @@ public class ServiceUtil {
     }
 
     //违约金参数设置
-    public static void strSplitNum(String numStr, EditText text1, EditText text2){
+    public static void strSplitNum(String numStr, TextView text1, EditText text2, EditText text3){
         if(TextUtils.isEmpty(numStr))return;
         String[] threes=numStr.split(",");
         if(threes.length>=2) {
             text1.setText(threes[0]);
             text2.setText(threes[1]);
         }
-    }
-
-    //违约金参数设置
-    public static void strSplitNum(String numStr, TextView text1, EditText text2){
-        if(TextUtils.isEmpty(numStr))return;
-        String[] threes=numStr.split(",");
-        if(threes.length>=2) {
-            text1.setText(threes[0]);
-            text2.setText(threes[1]);
+        if(threes.length == 3){
+            text3.setText(threes[2]);
+        }else{
+            text3.setText("0");
         }
     }
 

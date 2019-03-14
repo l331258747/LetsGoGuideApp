@@ -52,8 +52,8 @@
     <string name="order_item_date_hotel">入住时间&#8195;</string>
     <string name="order_item_date_ticket">日期&#8195;&#8195;&#8195;</string>
 
-    <string name="refund_rule_30">行程开始前%s日取消订单，收取游客已付费用30%%的违约金</string>
-    <string name="refund_rule_50">行程开始前%s日取消订单，收取游客已付费用50%%的违约金</string>
+    <string name="refund_rule_30">行程开始前%1$s日取消订单，收取游客已付费用%2$s%%的违约金</string>
+    <string name="refund_rule_50">行程开始前%1$s日取消订单，收取游客已付费用%2$s%%的违约金</string>
     <string name="title_activity_service_preview">ServicePreviewActivity</string>
     <string name="title_activity_aplash2">Aplash2Activity</string>
 

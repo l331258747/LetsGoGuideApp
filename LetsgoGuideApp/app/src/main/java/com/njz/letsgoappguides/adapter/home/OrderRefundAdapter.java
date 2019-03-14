@@ -56,7 +56,6 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
         GlideUtil.LoadRoundImage(context, data.getTitleImg(), holder.iv_img, 5);
         holder.tv_title.setText(data.getTitle());
         holder.tv_one_price.setText(data.getValuestr());
-//        holder.setNum(data,holder.tv_num);
         holder.tv_total_price.setText("￥" + data.getOrderPrice());
 
         holder.tv_not_travel_price.setText("￥" + data.getDefaultMoney());

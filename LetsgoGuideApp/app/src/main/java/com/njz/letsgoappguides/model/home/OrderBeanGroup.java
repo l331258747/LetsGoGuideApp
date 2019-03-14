@@ -155,7 +155,7 @@ public class OrderBeanGroup {
     }
 
     public String getOrderPriceStr(){
-        if (payStatus == Constant.ORDER_PAY_WAIT &&
+        if (isCustom() &&
                 planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING) {
             return ("报价待确定");
         } else {
@@ -266,11 +266,11 @@ public class OrderBeanGroup {
     }
 
     public boolean isCustom(){
-        if (orderChildModel.getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)) {//私人订制
-            return true;
-        }
-        return false;
+        return isCustom;
     }
 
-
+    boolean isCustom;
+    public void setCustom(boolean isCustom) {
+        this.isCustom = isCustom;
+    }
 }

@@ -198,9 +198,11 @@ public class OrderRefundBeanGroup {
     }
 
     public boolean isCustom(){
-        if(orderChildModel.getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)){
-            return true;
-        }
-        return false;
+        return isCustom;
+    }
+
+    boolean isCustom;
+    public void setCustom(boolean isCustom) {
+        this.isCustom = isCustom;
     }
 }

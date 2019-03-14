@@ -91,6 +91,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                     OrderRefundBeanGroup serviceInfoGroup2 = new OrderRefundBeanGroup();
                     OrderRefundChildModel orderChildModel = orderModel.getNjzChildOrderToRefundVOS().get(j);
                     orderChildModel.setPlanStatus(orderModel.getPlanStatus());
+                    orderChildModel.setrefundStatus(orderModel.getRefundStatus());
                     serviceInfoGroup2.setLabelTab(OrderRefundBeanGroup.LABEL_TAB_DEFAULT);
                     serviceInfoGroup2.setOrderChildModel(orderChildModel);
                     serviceInfoGroup2.setId(orderModel.getId());
@@ -112,9 +113,12 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 serviceInfoGroup3.setRefundMoney(orderModel.getRefundMoney());
                 serviceInfoGroup3.setMobile(orderModel.getMobile());
                 serviceInfoGroup3.setOrderId(orderModel.getOrderId());
-                OrderRefundChildModel infos=new OrderRefundChildModel();
-                infos.setValue(orderModel.getNjzChildOrderToRefundVOS().get(0).getValue());
-                serviceInfoGroup3.setOrderChildModel(infos);
+
+                if(orderModel.getNjzChildOrderToRefundVOS()!= null
+                        && orderModel.getNjzChildOrderToRefundVOS().size() == 1
+                        && orderModel.getNjzChildOrderToRefundVOS().get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                    serviceInfoGroup3.setCustom(true);
+                }
                 orderBeanGroups.add(serviceInfoGroup3);
             }
         }

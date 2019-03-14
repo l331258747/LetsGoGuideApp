@@ -71,13 +71,18 @@ public class OrderRefundDetailChildModel {
     private int isDefaultMoney;
     private int refundStatus;
     private int planStatus;
+    private int adultNum;
+    private int childrenNum;
 
-    public int getIsDefaultMoney() {
-        return isDefaultMoney;
+    public String getAdultChildren() {
+        if (adultNum > 0 || childrenNum > 0) {
+            return adultNum + "成人" + childrenNum + "儿童";
+        }
+        return "";
     }
 
-    public boolean isPlatformCancel(){
-        if(isDefaultMoney == 1 && guideOrPlatform == 0){
+    public boolean isPlatformCancel() {
+        if (isDefaultMoney == 1 && guideOrPlatform == 0) {
             return true;
         }
         return false;
@@ -87,8 +92,8 @@ public class OrderRefundDetailChildModel {
         return location;
     }
 
-    public String getTimeTitle(){
-        switch (serveType){
+    public String getTimeTitle() {
+        switch (serveType) {
             case Constant.SERVER_TYPE_GUIDE_ID:
                 return "行程时间";
             case Constant.SERVER_TYPE_HOTEL_ID:
@@ -105,8 +110,8 @@ public class OrderRefundDetailChildModel {
         return "";
     }
 
-    public String getCountContent(){
-        switch (serveType){
+    public String getCountContent() {
+        switch (serveType) {
             case Constant.SERVER_TYPE_HOTEL_ID:
                 return serveNum + "间";
             case Constant.SERVER_TYPE_TICKET_ID:
@@ -121,10 +126,6 @@ public class OrderRefundDetailChildModel {
 
     public int getChildRefundId() {
         return childRefundId;
-    }
-
-    public void setChildRefundId(int childRefundId) {
-        this.childRefundId = childRefundId;
     }
 
     public boolean isCheck() {
@@ -147,14 +148,10 @@ public class OrderRefundDetailChildModel {
         return defaultMoney;
     }
 
-    public void setDefaultMoney(float defaultMoney) {
-        this.defaultMoney = defaultMoney;
-    }
-
     public String getTitleImg() {
-        if(!TextUtils.isEmpty(titleImg)){
-            ArrayList<String> list= StringUtils.stringToList(titleImg);
-            titleImg=list.get(0);
+        if (!TextUtils.isEmpty(titleImg)) {
+            ArrayList<String> list = StringUtils.stringToList(titleImg);
+            titleImg = list.get(0);
         }
         return titleImg;
     }
@@ -167,141 +164,51 @@ public class OrderRefundDetailChildModel {
         return childOrderStatus;
     }
 
-    public void setChildOrderStatus(int childOrderStatus) {
-        this.childOrderStatus = childOrderStatus;
-    }
-
     public int getOrderId() {
         return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
     }
 
     public int getServeType() {
         return serveType;
     }
 
-    public void setServeType(int serveType) {
-        this.serveType = serveType;
-    }
-
     public int getUnUseDay() {
         return unUseDay;
-    }
-
-    public void setUnUseDay(int unUseDay) {
-        this.unUseDay = unUseDay;
     }
 
     public float getRefundMoney() {
         return refundMoney;
     }
 
-    public void setRefundMoney(float refundMoney) {
-        this.refundMoney = refundMoney;
-    }
-
-    public int getPersonNum() {
-        return personNum;
-    }
-
-    public void setPersonNum(int personNum) {
-        this.personNum = personNum;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getRoomNum() {
-        return roomNum;
-    }
-
-    public void setRoomNum(int roomNum) {
-        this.roomNum = roomNum;
     }
 
     public String getTravelDate() {
         return travelDate;
     }
 
-    public void setTravelDate(String travelDate) {
-        this.travelDate = travelDate;
-    }
-
-    public float getPayPrice() {
-        return payPrice;
-    }
-
-    public void setPayPrice(float payPrice) {
-        this.payPrice = payPrice;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public int getTicketNum() {
-        return ticketNum;
-    }
-
-    public void setTicketNum(int ticketNum) {
-        this.ticketNum = ticketNum;
-    }
-
-    public int getDayNum() {
-        return dayNum;
-    }
-
-    public void setDayNum(int dayNum) {
-        this.dayNum = dayNum;
-    }
-
     public float getUseMoney() {
         return useMoney;
-    }
-
-    public void setUseMoney(float useMoney) {
-        this.useMoney = useMoney;
     }
 
     public float getOrderPrice() {
         return orderPrice;
     }
 
-    public void setOrderPrice(float orderPrice) {
-        this.orderPrice = orderPrice;
+    public String getOrderPriceStr(){
+        if((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING) && orderPrice == 0){
+            return ("报价待确定");
+        }
+        return "￥" + orderPrice;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPayStatus() {
-        return payStatus;
-    }
-
-    public void setPayStatus(int payStatus) {
-        this.payStatus = payStatus;
-    }
-
     public String getValue() {
-        if(value==null)
-        {
+        if (value == null) {
             return "";
         }
         return value;
@@ -309,7 +216,7 @@ public class OrderRefundDetailChildModel {
 
 
     public String getValuestr() {
-        switch (getValue()){
+        switch (getValue()) {
             case Constant.SERVICE_TYPE_SHORT_GUIDE:
                 return "向导陪游";
             case Constant.SERVICE_TYPE_SHORT_CUSTOM:
@@ -328,14 +235,6 @@ public class OrderRefundDetailChildModel {
         return getValue();
     }
 
-    public int getBugGet() {
-        return bugGet;
-    }
-
-    public void setBugGet(int bugGet) {
-        this.bugGet = bugGet;
-    }
-
     public void setValue(String value) {
         this.value = value;
     }
@@ -344,13 +243,10 @@ public class OrderRefundDetailChildModel {
         return useDay;
     }
 
-    public void setUseDay(int useDay) {
-        this.useDay = useDay;
-    }
-
     public void setRefundStatus(int refundStatus) {
         this.refundStatus = refundStatus;
     }
+
     public void setPlanStatus(int planStatus) {
         this.planStatus = planStatus;
     }

@@ -261,29 +261,24 @@ public class MethodApi {
 
     //orderList 订单
     public static void orderList(int payStatus,int orderStatus, int page,int limit,String search,DisposableObserver subscriber) {
-        if(payStatus==Constant.ORDER_PAY_ALL){
-            Observable observable = RetrofitUtil.getInstance().getRetrofitApiService().orderList(payStatus,orderStatus,page,limit,search); //在HttpServer中
-            RetrofitUtil.getInstance().toSubscribe(observable, subscriber);
-        }else{
-            int type  = 0;
-            if(payStatus == Constant.ORDER_PAY_WAIT){
-                type = 0;
-            }else if(payStatus == Constant.ORDER_PAY_ALREADY && orderStatus == Constant.ORDER_TRAVEL_WAIT){
-                type = 1;
-            }else if(payStatus == Constant.ORDER_PAY_ALREADY && orderStatus == Constant.ORDER_TRAVEL_NO_GO){
-                type = 2;
-            }else if(payStatus == Constant.ORDER_PAY_ALREADY && orderStatus == Constant.ORDER_TRAVEL_GOING){
-                type = 3;
-            }else if(payStatus == Constant.ORDER_PAY_FINISH){
-                type = 4;
-            }else if(payStatus == Constant.ORDER_PAY_FINISH){
-                type = 4;
-            }
-            Observable observable = RetrofitUtil.getInstance().getRetrofitApiService().orderList(type,payStatus,orderStatus,page,limit,search); //在HttpServer中
-            RetrofitUtil.getInstance().toSubscribe(observable, subscriber);
+        int type  = 0;
+        if(payStatus == Constant.ORDER_PAY_WAIT){
+            type = 0;
+        }else if(payStatus == Constant.ORDER_PAY_ALREADY && orderStatus == Constant.ORDER_TRAVEL_WAIT){
+            type = 1;
+        }else if(payStatus == Constant.ORDER_PAY_ALREADY && orderStatus == Constant.ORDER_TRAVEL_NO_GO){
+            type = 2;
+        }else if(payStatus == Constant.ORDER_PAY_ALREADY && orderStatus == Constant.ORDER_TRAVEL_GOING){
+            type = 3;
+        }else if(payStatus == Constant.ORDER_PAY_FINISH){
+            type = 4;
+        }else if(payStatus==Constant.ORDER_PAY_ALL){
+            type = 8;
+        }else if(payStatus==Constant.ORDER_PAY_TOTAL){
+            type = 11;
         }
-
-
+        Observable observable = RetrofitUtil.getInstance().getRetrofitApiService().orderList(type,payStatus,orderStatus,page,limit,search); //在HttpServer中
+        RetrofitUtil.getInstance().toSubscribe(observable, subscriber);
     }
 
     //orderQueryOrder 订单详情

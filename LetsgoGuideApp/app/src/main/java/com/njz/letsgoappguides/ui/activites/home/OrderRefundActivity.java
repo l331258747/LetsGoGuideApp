@@ -208,7 +208,7 @@ public class OrderRefundActivity extends BaseActivity implements OrderRefundDeta
         fixedViewCity.setText(datas.getLocation());
         loginViewName.setContent(datas.getName());
         loginViewPhone.setContent(datas.getMobile());
-        fixed_view_personl.setContent(datas.getPersonNum()+"");
+        fixed_view_personl.setContent(datas.getPersonNum());
 
         tvOrderPrice.setText(datas.getOrderPrice() + "");
         tvRefundPenalty.setText(datas.getDefaultMoney() + "");

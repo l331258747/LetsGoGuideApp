@@ -102,8 +102,10 @@ public class OrderRefundDetailModel {
     }
 
     public String getOrderPrice() {
-        if((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING) && orderPrice == 0){
-            return ("报价待确定");
+        if(refundStatus == Constant.ORDER_REFUND_CANCEL || refundStatus == Constant.ORDER_REFUND_PLAN_REFUSE){
+            if((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING) && orderPrice == 0){
+                return ("报价待确定");
+            }
         }
         return "￥"+orderPrice;
     }
@@ -336,6 +338,8 @@ public class OrderRefundDetailModel {
     public String getPersonNum() {
         if(isCustom() && (adult>0 || children > 0)){
             return adult+"成人"+children+"儿童";
+        }else if(isCustom() && !TextUtils.isEmpty(njzRefundDetailsChildVOS.get(0).getAdultChildren())){
+            return njzRefundDetailsChildVOS.get(0).getAdultChildren();
         }
         return personNum + "";
     }
@@ -356,36 +360,4 @@ public class OrderRefundDetailModel {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "OrderRefundDetailModel{" +
-                "orderNo='" + orderNo + '\'' +
-                ", defaultMoney=" + defaultMoney +
-                ", specialRequire='" + specialRequire + '\'' +
-                ", coupon=" + coupon +
-                ", orderId=" + orderId +
-                ", refundReason='" + refundReason + '\'' +
-                ", refundTime='" + refundTime + '\'' +
-                ", guideCheckTime='" + guideCheckTime + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", refundStatus=" + refundStatus +
-                ", refundMoney=" + refundMoney +
-                ", refundContent='" + refundContent + '\'' +
-                ", mainly=" + mainly +
-                ", name='" + name + '\'' +
-                ", childOrderId=" + childOrderId +
-                ", useMoney=" + useMoney +
-                ", location='" + location + '\'' +
-                ", id=" + id +
-                ", applyTime='" + applyTime + '\'' +
-                ", guideName='" + guideName + '\'' +
-                ", guideMobile='" + guideMobile + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", payTime='" + payTime + '\'' +
-                ", payType='" + payType + '\'' +
-                ", sureTime='" + sureTime + '\'' +
-                ", personNum=" + personNum +
-                ", njzRefundDetailsChildVOS=" + njzRefundDetailsChildVOS +
-                '}';
-    }
 }

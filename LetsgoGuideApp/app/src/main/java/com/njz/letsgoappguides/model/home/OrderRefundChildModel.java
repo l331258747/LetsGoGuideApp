@@ -57,6 +57,7 @@ public class OrderRefundChildModel {
     private int useDay;
     private int serveId;
     private int planStatus;
+    private int refundStatus;
 
     public int getPlanStatus() {
         return planStatus;
@@ -71,8 +72,10 @@ public class OrderRefundChildModel {
     }
 
     public String getOrderPrice() {
-        if(planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)
-            return "报价待确定";
+        if(refundStatus == Constant.ORDER_REFUND_CANCEL || refundStatus == Constant.ORDER_REFUND_PLAN_REFUSE){
+            if(planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)
+                return "报价待确定";
+        }
         return "￥" + orderPrice;
     }
 
@@ -251,5 +254,9 @@ public class OrderRefundChildModel {
 
         }
         return value;
+    }
+
+    public void setrefundStatus(int refundStatus) {
+        this.refundStatus = refundStatus;
     }
 }

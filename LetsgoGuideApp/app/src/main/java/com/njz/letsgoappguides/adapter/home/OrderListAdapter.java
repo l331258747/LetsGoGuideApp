@@ -132,10 +132,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup3.setPlanStatus(orderModel.getPlanStatus());
                 serviceInfoGroup3.setRefundStatus(orderModel.getRefundStatus());
                 serviceInfoGroup3.setRefundId(orderModel.getRefundId());
-                OrderListChildModel infos = new OrderListChildModel();
-                if (orderModel.getNjzChildOrderListVOS() != null && orderModel.getNjzChildOrderListVOS().size() > 0) {
-                    infos.setValue(orderModel.getNjzChildOrderListVOS().get(0).getValue());
-                    serviceInfoGroup3.setOrderChildModel(infos);
+                if(orderModel.getNjzChildOrderListVOS()!= null
+                        && orderModel.getNjzChildOrderListVOS().size() == 1
+                        && orderModel.getNjzChildOrderListVOS().get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                    serviceInfoGroup3.setCustom(true);
                 }
                 orderBeanGroups.add(serviceInfoGroup3);
             }
@@ -304,6 +304,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                         case Constant.ORDER_REFUND_WAIT:
                             ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_refund.setVisibility(View.VISIBLE);
+                            ((FootHolder) holder).btn_call.setVisibility(View.VISIBLE);
+                            break;
+                        case Constant.ORDER_REFUND_CANCEL:
+                        case Constant.ORDER_REFUND_PLAN_REFUSE:
+                            ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_call.setVisibility(View.VISIBLE);
                             break;
                     }

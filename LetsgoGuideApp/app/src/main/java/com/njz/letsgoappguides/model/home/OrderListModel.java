@@ -104,9 +104,9 @@ public class OrderListModel {
     }
 
     public float getOrderPrice() {
-        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){//私人定制待付款
+        if(getPayStatus() == Constant.ORDER_PAY_WAIT && isCustom()){//私人定制待付款
             return orderPrice;
-        }else if(payStatus == Constant.ORDER_PAY_REFUND){//退款单
+        }else if(getPayStatus() == Constant.ORDER_PAY_REFUND){//退款单
             if(refundStatus == Constant.ORDER_REFUND_CANCEL || refundStatus == Constant.ORDER_REFUND_PLAN_REFUSE)//取消单
                 return orderPrice;
             return refundMoney;
@@ -186,6 +186,9 @@ public class OrderListModel {
     }
 
     public int getPayStatus() {
+        if(payStatus == 3){
+            return Constant.ORDER_PAY_REFUND;
+        }
         return payStatus;
     }
 

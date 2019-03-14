@@ -76,8 +76,7 @@ public class OrderDetailChildModel {
     }
 
     public String getOrderPriceStr(){
-        if (payStatus == Constant.ORDER_PAY_WAIT
-                && payingStatus == Constant.ORDER_WAIT_PAY
+        if (serveType == Constant.SERVER_TYPE_CUSTOM_ID
                 && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
             return ("报价待确定");
         } else {

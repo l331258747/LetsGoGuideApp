@@ -70,8 +70,9 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
         holder.tv_up.setVisibility(View.GONE);
         holder.tv_modify.setVisibility(View.GONE);
         holder.tv_copy.setVisibility(View.GONE);
+        holder.tv_verify_failed.setVisibility(View.GONE);
 
-        switch (data.getStatus()) {
+        switch (data.getStatus()) {//1上架  0下架  -1强制下架  2审核中  3审核未通过
             case 0:
                 holder.tv_server_status.setTextColor(ContextCompat.getColor(context, R.color.color_theme));
                 holder.tv_up.setVisibility(View.VISIBLE);
@@ -87,6 +88,22 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Vi
                 holder.cardView.setBackgroundResource(R.drawable.card_view_bg_10);
                 break;
             case 2:
+                holder.tv_server_status.setTextColor(ContextCompat.getColor(context, R.color.color_theme));
+                holder.tv_down.setVisibility(View.VISIBLE);
+                holder.tv_modify.setVisibility(View.VISIBLE);
+                holder.tv_copy.setVisibility(View.VISIBLE);
+                holder.cardView.setBackgroundResource(R.drawable.card_view_bg_10);
+                break;
+            case 3:
+                holder.tv_server_status.setTextColor(ContextCompat.getColor(context, R.color.color_red));
+                holder.tv_down.setVisibility(View.VISIBLE);
+                holder.tv_modify.setVisibility(View.VISIBLE);
+                holder.tv_copy.setVisibility(View.VISIBLE);
+                holder.cardView.setBackgroundResource(R.drawable.card_view_bg_10);
+
+                holder.tv_verify_failed.setVisibility(View.VISIBLE);
+                holder.tv_verify_failed.setText(data.getCantPassReason());
+                break;
             case -1:
                 holder.cardView.setBackgroundResource(R.drawable.card_view_bg_10_gray);
                 holder.tv_server_status.setTextColor(ContextCompat.getColor(context, R.color.color_red));

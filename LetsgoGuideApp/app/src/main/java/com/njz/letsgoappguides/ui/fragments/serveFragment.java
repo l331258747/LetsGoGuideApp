@@ -378,23 +378,37 @@ public class serveFragment extends BaseFragment  implements GetCityContract.View
         setSelectes(sTypes,serverTypeId);
     }
 
-    public void setServerStatus(){//服务状态 1：上架 0：下架
-        PopupSelectModel mode9 = new PopupSelectModel();
-        mode9.setId(-2);
-        mode9.setName("全部");
-        sStatus.add(mode9);
+    public void setServerStatus(){//服务状态 1上架  0下架  -1强制下架  2审核中  3审核未通过
+        PopupSelectModel mode12 = new PopupSelectModel();
+        mode12.setId(-2);
+        mode12.setName("全部");
+        sStatus.add(mode12);
+
+        PopupSelectModel model11 = new PopupSelectModel();
+        model11.setId(-1);
+        model11.setName("强制下架");
+        sStatus.add(model11);
+
         PopupSelectModel model0 = new PopupSelectModel();
-        model0.setId(-1);
-        model0.setName("强制下架");
+        model0.setId(0);
+        model0.setName("未上架");
         sStatus.add(model0);
+
         PopupSelectModel model1 = new PopupSelectModel();
         model1.setId(1);
         model1.setName("已上架");
         sStatus.add(model1);
+
         PopupSelectModel model2 = new PopupSelectModel();
-        model2.setId(0);
-        model2.setName("未上架");
+        model2.setId(2);
+        model2.setName("审核中");
         sStatus.add(model2);
+
+        PopupSelectModel model3 = new PopupSelectModel();
+        model3.setId(3);
+        model3.setName("审核未通过");
+        sStatus.add(model3);
+
         setSelectes(sStatus,serverStatusId);
     }
 

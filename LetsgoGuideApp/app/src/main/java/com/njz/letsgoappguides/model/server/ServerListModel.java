@@ -31,8 +31,9 @@ public class ServerListModel {
     private int saleNum;
     private float servePrice;
     private String titleImg;
+    private String cantPassReason;
 
-    public String getStatusStr() {
+    public String getStatusStr() {//1上架  0下架  -1强制下架  2审核中  3审核未通过
         switch (status){
             case -1:
                 return "强制下架";
@@ -41,14 +42,13 @@ public class ServerListModel {
             case 1:
                 return "已上架";
             case 2:
-                return "强制下架";
+                return "审核中";
+            case 3:
+                return "审核未通过";
             default:
                 return "status:" + status;
         }
-
     }
-
-
 
     public int getId() {
         return id;
@@ -145,5 +145,9 @@ public class ServerListModel {
                 ", servePrice=" + servePrice +
                 ", titleImg='" + titleImg + '\'' +
                 '}';
+    }
+
+    public String getCantPassReason() {
+        return cantPassReason;
     }
 }

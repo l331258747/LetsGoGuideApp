@@ -356,11 +356,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Rev
                 startActivity(new Intent(context, MyEvaluationActivity.class));
                 break;
             case R.id.ll_home_allOrder:
-                Intent intent1=new Intent(context,OrderListActivity.class);
-                intent1.putExtra("PAY_STATUS",Constant.ORDER_PAY_ALL);
-                startActivity(intent1);
+                intent=new Intent(context,OrderListActivity.class);
+                intent.putExtra("PAY_STATUS",Constant.ORDER_PAY_ALL);
+                startActivity(intent);
                 break;
             case R.id.ll_home_dayOrder:
+                intent=new Intent(context,OrderListActivity.class);
+                intent.putExtra("PAY_STATUS",Constant.ORDER_PAY_TOTAL);
+                startActivity(intent);
                 break;
             case R.id.ll_home_nofinshOrder:
                 startActivity(new Intent(context, SettlementOrderActivity.class));

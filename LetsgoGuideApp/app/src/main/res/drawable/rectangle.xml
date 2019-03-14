@@ -6,10 +6,4 @@
         android:width="0.5dp"
         android:color="@color/color_d9" />
 
-    <padding
-
-        android:bottom="10dp"
-        android:left="10dp"
-        android:right="10dp"
-        android:top="10dp" />
 </shape>

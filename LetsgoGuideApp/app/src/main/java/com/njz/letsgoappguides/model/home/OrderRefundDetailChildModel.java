@@ -69,6 +69,8 @@ public class OrderRefundDetailChildModel {
     private int serveNum;
     private String location;
     private int isDefaultMoney;
+    private int refundStatus;
+    private int planStatus;
 
     public int getIsDefaultMoney() {
         return isDefaultMoney;
@@ -344,5 +346,16 @@ public class OrderRefundDetailChildModel {
 
     public void setUseDay(int useDay) {
         this.useDay = useDay;
+    }
+
+    public void setRefundStatus(int refundStatus) {
+        this.refundStatus = refundStatus;
+    }
+    public void setPlanStatus(int planStatus) {
+        this.planStatus = planStatus;
+    }
+
+    public int getRefundStatus() {
+        return refundStatus;
     }
 }

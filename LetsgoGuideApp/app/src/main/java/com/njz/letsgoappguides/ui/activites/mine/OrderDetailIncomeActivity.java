@@ -122,99 +122,11 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
 
     }
 
-//    @Override
-//    public void orderQueryOrderSuccess(final OrderDetailModel str) {
-//        refundModel = str;
-//
-//        Log.e("test",refundModel.toString());
-//
-//        ll_order_no.setVisibility(View.VISIBLE);
-//        tv_order_no.setText(str.getOrderNo());
-//        ll_order_create_time.setVisibility(View.VISIBLE);
-//        ll_order_pay_time.setVisibility(View.VISIBLE);
-//        ll_order_pay_method.setVisibility(View.VISIBLE);
-//        tv_order_create_time.setText(str.getCreateTime());
-//        tv_order_pay_time.setText(str.getPayTime());
-//        tv_order_pay_method.setText(str.getPayType());
-//
-//        ll_order_refund_apply.setVisibility(View.VISIBLE);
-////        tv_order_refund_apply.setText(str.getApplyTime());
-////
-////        switch (str.getRefundStatus()){
-////            case Constant.ORDER_REFUND_WAIT:
-////                //底部按钮
-////                btn_call.setVisibility(View.VISIBLE);
-////                btn_refund.setVisibility(View.VISIBLE);
-////
-////                //倒计时
-////                tv_countdown.setVisibility(View.VISIBLE);
-////                tv_countdown.setText(str.getSureTime());
-////                break;
-////            case Constant.ORDER_REFUND_PROCESS:
-////                //底部按钮
-////                ll_bottom.setVisibility(View.GONE);
-////                break;
-////            case Constant.ORDER_REFUND_FINISH:
-////                //底部按钮
-////                ll_bottom.setVisibility(View.GONE);
-////                //订单状态
-////                ll_order_refund_time.setVisibility(View.VISIBLE);
-////                tv_order_refund_time.setText(str.getRefundTime());
-////                break;
-////        }
-//
-//        //信息
-//        tv_guide_name.setText(str.getOrderNo());
-//        tv_order_status.setText(str.getPayStatusStr());
-//        fixed_view_city.setContent(str.getLocation());
-//        login_view_name.setContent(str.getName());
-//        login_view_phone.setContent(str.getMobile());
-//        login_view_phone.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DialogUtil.getInstance().showGuideMobileDialog(context,str.getMobile());
-//            }
-//        });
-//        et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
-//
-////        tv_refund_penalty.setText(str.getDefaultMoney() + "");
-////        tv_refund_price.setText(str.getRefundMoney() + "");
-////
-////        //已消费金额
-////        boolean isTravelGoing = false;
-////        for(int i = 0;i<str.getNjzRefundDetailsChildVOS().size();i++){
-////            if(str.getNjzRefundDetailsChildVOS().get(i).getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
-////                isTravelGoing = true;
-////            }
-////        }
-////        if(isTravelGoing){
-////            rl_refund_used_price.setVisibility(View.VISIBLE);
-////            tv_refund_used_price.setText(str.getUseMoney()+"");
-////        }else{
-////            rl_refund_used_price.setVisibility(View.GONE);
-////        }
-////
-////        tv_refund_reason.setText(str.getRefundReason());
-////        tv_refund_explain.setText(str.getRefundContent());
-//
-//        refundAdapter.setData(str.getNjzChildOrderVOS());
-//    }
-//
-//    @Override
-//    public void orderQueryOrderFailed(String msg) {
-//        showShortToast(msg);
-//    }
-
-
     //---------已完成详细订单start--------------
     @Override
     public void querySettleFinDetailSuccess( final OrderSettleBalanceChildModel str) {
 
-
         //-------待结算订单详情start
-        Log.e("test","+______________订单详情"+str.toString());
-
-//                refundModel = str;
 
         rl_refund_price.setVisibility(View.GONE);
         rl_order_price.setVisibility(View.VISIBLE);
@@ -244,11 +156,11 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         //center_botom
-        tv_settle_price.setText(""+str.getOrderPrice());//优惠券
-        tv_nosettle_moneys .setText(""+str.getBalancePrice());//结算金额
-        tv_settle_date.setText(""+str.getBeBalancedDate());//结算日期
-        tv_settle_sermoney .setText(""+str.getBalancePrice());//平台服务费
-        tv_order_price.setText(""+str.getOrderPrice());//合计
+        tv_settle_price.setText("￥"+str.getOrderPrice());//优惠券
+        tv_nosettle_moneys .setText("￥"+str.getBalancePrice());//结算金额
+        tv_settle_date.setText("￥"+str.getBeBalancedDate());//结算日期
+        tv_settle_sermoney .setText("￥"+str.getBalancePrice());//平台服务费
+        tv_order_price.setText("￥"+str.getOrderPrice());//合计
         if(id==10){
             tv_nosettle_money.setText("结算金额");//结算金额
             tv_nosettle_date .setText("结算日期");//结算日期

@@ -234,7 +234,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             final OrderBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
-            ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPriceStr());
+            ((FootHolder) holder).tv_order_price_content.setText(data.getOrderPriceStr());
             ((FootHolder) holder).tv_order.setText(data.getOrderNo());
 
             ((FootHolder) holder).setbtn();
@@ -258,13 +258,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                                 case Constant.ORDER_PLAN_USER_WAIT://游客待确认，修改方案
                                     ((FootHolder) holder).btn_desingn_scheme.setText("修改方案");
                                     ((FootHolder) holder).btn_desingn_scheme.setVisibility(View.VISIBLE);//设计方案
-                                    ((FootHolder) holder).btn_refuse_order.setVisibility(View.GONE);//拒绝
-                                    ((FootHolder) holder).btn_confirm_order.setVisibility(View.GONE);//确认接单
-                                    break;
-                                case 3:
-                                case 4://不应该在待订单列表里显示
-                                case 5:
-                                    ((FootHolder) holder).btn_desingn_scheme.setVisibility(View.GONE);//设计方案
                                     ((FootHolder) holder).btn_refuse_order.setVisibility(View.GONE);//拒绝
                                     ((FootHolder) holder).btn_confirm_order.setVisibility(View.GONE);//确认接单
                                     break;

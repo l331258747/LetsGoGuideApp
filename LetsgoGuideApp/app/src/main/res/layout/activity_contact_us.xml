@@ -5,13 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.njz.letsgoappguides.customview.widget.TitleView
-        android:id="@+id/titleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:TitleView_left_img="@mipmap/icon_back"
-        app:TitleView_title="联系我们" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,8 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:home_my_item2_left_drawable="@mipmap/ic_mine_guide"
-            app:home_my_item2_right_drawable="@mipmap/my_more"
-            app:home_my_item2_title="申请成为那就走向导" />
+            app:home_my_item2_title="web访问：www.njiuzou.com" />
 
         <View
             android:layout_width="match_parent"
@@ -87,8 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:home_my_item2_left_drawable="@mipmap/ic_mine_network"
-            app:home_my_item2_right_drawable="@mipmap/my_more"
-            app:home_my_item2_title="网址：www.njzou.com" />
+            app:home_my_item2_title="官网：www.njiuzou.com" />
 
         <View
             android:layout_width="match_parent"
@@ -106,6 +97,13 @@
             app:home_my_item2_title="游客端访问方式" />
 
     </LinearLayout>
+
+    <com.njz.letsgoappguides.customview.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:TitleView_left_img="@mipmap/icon_back"
+        app:TitleView_title="联系我们" />
 
 
 </LinearLayout>

@@ -68,16 +68,23 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             holder.tv_price_unit.setText(data.getValuestr());
             holder.tv_price_total.setText("￥" + data.getOrderPrice());
 
+            holder.ll_count.setVisibility(View.VISIBLE);
             if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                 holder.ll_count.setVisibility(View.GONE);
             }
             holder.tv_count_content.setText(data.getCountContent());
+
             holder.tv_time_title.setText(data.getTimeTitle());
             holder.tv_time_content.setText(data.getTravelDate());
             holder.tv_location_content.setText(data.getLocation());
 
-            holder.tv_penalty_content.setText("￥"+data.getDefaultMoney());
-            holder.tv_refund_price_content.setText("￥"+data.getRefundMoney());
+            if(data.getRefundStatus() == Constant.ORDER_REFUND_CANCEL ||  data.getRefundStatus() == Constant.ORDER_REFUND_PLAN_REFUSE){
+                holder.ll_travel_money.setVisibility(View.GONE);
+            }else{
+                holder.ll_travel_money.setVisibility(View.VISIBLE);
+                holder.tv_penalty_content.setText("￥"+data.getDefaultMoney());
+                holder.tv_refund_price_content.setText("￥"+data.getRefundMoney());
+            }
 
             if(data.getGuideOrPlatform() == 0){
                 holder.tv_GM_cancel.setVisibility(View.VISIBLE);

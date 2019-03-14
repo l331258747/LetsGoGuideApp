@@ -194,7 +194,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             if (data == null) return;
 
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
-            ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
+            ((FootHolder) holder).tv_order_price_content.setText(data.getOrderPrice());
             ((FootHolder) holder).tv_order.setText(data.getOrderNo());
 
             ((FootHolder) holder).setbtn();

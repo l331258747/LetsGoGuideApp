@@ -88,6 +88,11 @@ public class OrderDetailModel {
     private String cancelExplain;
     private String orderNote;
     private int refundStatus;
+    private String planDesignTime;
+
+    public String getPlanDesignTime() {
+        return planDesignTime;
+    }
 
     public int getRefundStatus() {
         return refundStatus;
@@ -137,12 +142,16 @@ public class OrderDetailModel {
         return payType;
     }
 
-    public float getPayPrice() {
-        return payPrice;
-    }
-
-    public float getOrderPrice() {
-        return orderPrice;
+    public String getOrderPriceStr() {
+        if (payStatus == Constant.ORDER_PAY_WAIT
+                && payingStatus == Constant.ORDER_WAIT_PAY
+                && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
+            return ("报价待确定");
+        } else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+            return ("￥" + orderPrice);
+        }else {
+            return ("￥" + payPrice);
+        }
     }
 
     public int getId() {
@@ -228,6 +237,13 @@ public class OrderDetailModel {
         return startDate;
     }
 
+    public boolean isCustom() {
+        if(njzChildOrderVOS !=null && njzChildOrderVOS.size()==1 && njzChildOrderVOS.get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            return true;
+        }
+        return false;
+    }
+
     public List<OrderDetailChildModel> getNjzChildOrderVOS() {
         return njzChildOrderVOS;
     }
@@ -275,8 +291,6 @@ public class OrderDetailModel {
                 }
             case Constant.ORDER_PAY_REFUND:
                 return "退款";
-//            case Constant.ORDER_PAY_CANCEL:
-//                return "已取消";
         }
         return "";
     }
@@ -290,18 +304,12 @@ public class OrderDetailModel {
         return "";
     }
 
-    public int getPersonNum() {
-        return personNum;
-    }
-
-    public String getPersonNumStr1() {
+    public String getPersonNum() {
+        if(isCustom()){
+            return adult+"成人"+children+"儿童";
+        }
         return personNum+"人";
     }
-
-    public String getPersonNumStr2(){
-        return adult+"成人"+children+"儿童";
-    }
-
 
     public int getPlanStatus() {
         return planStatus;

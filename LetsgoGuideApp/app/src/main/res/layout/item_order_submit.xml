@@ -33,49 +33,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/iv_img"
+                android:layout_toStartOf="@+id/btn_cancel"
                 android:maxLines="2"
-                android:layout_marginRight="10dp"
-                tools:text="那就走标题那就标题标题那就走标题那就标题标题"
-                android:layout_toRightOf="@+id/iv_img" />
+                tools:text="那就走标题那就标题标题那就走标题那就标题标题" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/iv_img"
-                android:layout_margin="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/iv_img">
-
 
                 <TextView
                     android:id="@+id/tv_price_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    tools:text="￥270"
-                    android:textColor="@color/color_99" />
-
-
-
-<!--                <TextView
-                    android:id="@+id/tv_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_alignParentBottom="true"
                     android:textColor="@color/color_99"
-                    android:layout_centerHorizontal="true"
-                    tools:text="4天" />-->
-
+                    tools:text="向导陪游" />
 
                 <TextView
                     android:id="@+id/tv_price_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/color_price"
                     android:textStyle="bold"
-                    tools:text="￥1080"
-                    android:textColor="@color/color_price" />
+                    tools:text="￥1080" />
 
             </RelativeLayout>
 
@@ -86,13 +73,13 @@
             android:id="@+id/ll_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/color_d9" />
 
             <RelativeLayout
@@ -104,8 +91,8 @@
                     android:id="@+id/tv_count_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_99"
-                    android:text="数量" />
+                    android:text="数量"
+                    android:textColor="@color/color_99" />
 
                 <TextView
                     android:id="@+id/tv_count_content"
@@ -124,13 +111,13 @@
             android:id="@+id/ll_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/color_d9" />
 
             <RelativeLayout
@@ -143,37 +130,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/color_99"
-                    android:text="出行日期" />
+                    android:text="出行日期"
+                    android:textColor="@color/color_99" />
 
                 <TextView
                     android:id="@+id/tv_time_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/tv_time_title"
+                    android:gravity="right"
                     android:textSize="12sp"
-                    tools:text="aeageagwegaadgawegaege"
-                    android:layout_toRightOf="@+id/tv_time_title" />
+                    tools:text="aeageagwegaadgawegaege" />
 
 
             </RelativeLayout>
 
         </LinearLayout>
+
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/color_d9" />
 
             <RelativeLayout
@@ -185,8 +174,8 @@
                     android:id="@+id/tv_num_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_99"
-                    android:text="数量" />
+                    android:text="数量"
+                    android:textColor="@color/color_99" />
 
                 <TextView
                     android:id="@+id/tv_num_content"
@@ -204,14 +193,14 @@
             android:id="@+id/ll_bug_get"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/color_d9" />
 
             <RelativeLayout
@@ -223,18 +212,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/color_99"
-                    android:text="预估人均预算" />
+                    android:text="预估人均预算"
+                    android:textColor="@color/color_99" />
 
                 <TextView
-                    android:textColor="@color/color_theme"
-                    android:textStyle="bold"
                     android:id="@+id/tv_bug_get"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
+                    android:textColor="@color/color_theme"
+                    android:textStyle="bold"
                     tools:text="400" />
 
 
@@ -246,13 +235,14 @@
             android:id="@+id/ll_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+
             android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/color_d9" />
 
             <RelativeLayout
@@ -263,8 +253,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_99"
-                    android:text="目的地" />
+                    android:text="目的地"
+                    android:textColor="@color/color_99" />
 
                 <TextView
                     android:id="@+id/tv_location_content"

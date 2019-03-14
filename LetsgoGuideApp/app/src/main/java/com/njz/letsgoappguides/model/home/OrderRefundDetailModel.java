@@ -70,6 +70,29 @@ public class OrderRefundDetailModel {
     private int adult;
     private int userId;
     private String orderNote;
+    private String guideSureTime;
+    private String planDesignTime;
+    private int planStatus;
+    private List<OrderRefundDetailChildModel> njzRefundDetailsChildVOS;
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public String getGuideSureTime() {
+        return guideSureTime;
+    }
+
+    public String getPlanDesignTime() {
+        return planDesignTime;
+    }
+
+    public boolean isCustom() {
+        if(njzRefundDetailsChildVOS !=null && njzRefundDetailsChildVOS.size()==1 && njzRefundDetailsChildVOS.get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            return true;
+        }
+        return false;
+    }
 
     public String getOrderNote() {
         if(orderNote==null){
@@ -78,8 +101,11 @@ public class OrderRefundDetailModel {
         return orderNote;
     }
 
-    public float getOrderPrice() {
-        return orderPrice;
+    public String getOrderPrice() {
+        if((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING) && orderPrice == 0){
+            return ("报价待确定");
+        }
+        return "￥"+orderPrice;
     }
 
     public String getSureTime() {
@@ -88,7 +114,6 @@ public class OrderRefundDetailModel {
         return sureTime;
     }
 
-    private List<OrderRefundDetailChildModel> njzRefundDetailsChildVOS;
 
     public String getPayType() {
         if(TextUtils.equals(payType,"WxPay")){
@@ -289,6 +314,9 @@ public class OrderRefundDetailModel {
                 return "退款中";
             case Constant.ORDER_REFUND_FINISH:
                 return "已退款";
+            case Constant.ORDER_REFUND_CANCEL:
+            case Constant.ORDER_REFUND_PLAN_REFUSE:
+                return "已取消";
         }
         return "退款";
     }
@@ -305,16 +333,11 @@ public class OrderRefundDetailModel {
         this.njzRefundDetailsChildVOS = njzRefundDetailsChildVOS;
     }
 
-    public int getPersonNum() {
-        return personNum;
-    }
-
-    public String getPersonNumStr1() {
-        return personNum+"人";
-    }
-
-    public String getPersonNumStr2(){
-        return adult+"成人"+children+"儿童";
+    public String getPersonNum() {
+        if(isCustom() && (adult>0 || children > 0)){
+            return adult+"成人"+children+"儿童";
+        }
+        return personNum + "";
     }
 
     public int getChildren() {

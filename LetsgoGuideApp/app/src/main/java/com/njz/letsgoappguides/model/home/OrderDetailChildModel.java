@@ -175,14 +175,6 @@ public class OrderDetailChildModel {
         return travelDate;
     }
 
-    public String getTravelDateText() {
-        if(TextUtils.isEmpty(travelDate)){
-            return "0天";
-        }
-        String[] dates = travelDate.split(",");
-        return dates[0] + " 共" + dates.length + "天 " + dates[dates.length - 1];
-    }
-
     public float getPayPrice() {
         return payPrice;
     }

@@ -68,12 +68,12 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
                 startContent(ContactUsContentActivity.CODE_TOURIST);
                 break;
             case R.id.mine_guide://导游
-                startContent(ContactUsContentActivity.CODE_GUIDE);
+//                startContent(ContactUsContentActivity.CODE_GUIDE);
                 break;
             case R.id.mine_network:
-                Intent intent = new Intent(context, WebViewActivity.class);
-                intent.putExtra(Constant.EXTRA_URL, "www.njzou.com");
-                startActivity(intent);
+//                Intent intent = new Intent(context, WebViewActivity.class);
+//                intent.putExtra(Constant.EXTRA_URL, "www.njzou.com");
+//                startActivity(intent);
                 break;
         }
     }

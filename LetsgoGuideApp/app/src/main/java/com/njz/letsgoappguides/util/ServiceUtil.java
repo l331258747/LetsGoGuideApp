@@ -128,7 +128,7 @@ public class ServiceUtil {
 //        for (int i=0;i<serveFormatList.size();i++){
             switch (serverTypeId){
                 case 1://向导陪游
-                    minprice=getMin(serveFormatList,"xdpy_yy");
+                    minprice=getMin(serveFormatList,"xdpy_tc");
                     break;
                 case 2://包车接送
                     minprice=getMin(serveFormatList,"jsjz_cx");

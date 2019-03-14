@@ -132,9 +132,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup3.setPlanStatus(orderModel.getPlanStatus());
                 serviceInfoGroup3.setRefundStatus(orderModel.getRefundStatus());
                 serviceInfoGroup3.setRefundId(orderModel.getRefundId());
-                if(orderModel.getNjzChildOrderListVOS()!= null
+                if (orderModel.getNjzChildOrderListVOS() != null
                         && orderModel.getNjzChildOrderListVOS().size() == 1
-                        && orderModel.getNjzChildOrderListVOS().get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                        && orderModel.getNjzChildOrderListVOS().get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID) {
                     serviceInfoGroup3.setCustom(true);
                 }
                 orderBeanGroups.add(serviceInfoGroup3);
@@ -204,14 +204,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 ((TitleHolder) holder).rl_status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mOnItemClickListener.onClick(data.getId(),data.getRefundId());
+                        mOnItemClickListener.onClick(data.getId(), data.getRefundId());
                     }
                 });
             }
 
             switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_REFUND:
-                    switch (data.getRefundStatus()){
+                    switch (data.getRefundStatus()) {
                         case Constant.ORDER_REFUND_WAIT:
                             ((TitleHolder) holder).tv_countdown.setText(data.getSureTime());
                             ((TitleHolder) holder).tv_countdown.setVisibility(View.VISIBLE);
@@ -241,38 +241,34 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_WAIT://代付款订单
                     ((FootHolder) holder).btn_call.setVisibility(View.VISIBLE);
-                    if (data.getOrderChildModel() != null) {
-                        if (data.isCustom()) {//私人订制
-                            switch (data.getPlanStatus()) {
-                                case Constant.ORDER_PLAN_GUIDE_WAIT:
-                                    ((FootHolder) holder).btn_desingn_scheme.setVisibility(View.GONE);//设计方案
-                                    ((FootHolder) holder).btn_refuse_order.setVisibility(View.VISIBLE);//拒绝
-                                    ((FootHolder) holder).btn_confirm_order.setVisibility(View.VISIBLE);//确认接单
-                                    break;
-                                case Constant.ORDER_PLAN_PLANING:
-                                    ((FootHolder) holder).btn_desingn_scheme.setText("设计方案");
-                                    ((FootHolder) holder).btn_desingn_scheme.setVisibility(View.VISIBLE);//设计方案
-                                    ((FootHolder) holder).btn_refuse_order.setVisibility(View.GONE);//拒绝
-                                    ((FootHolder) holder).btn_confirm_order.setVisibility(View.GONE);//确认接单
-                                    break;
-                                case Constant.ORDER_PLAN_USER_WAIT://游客待确认，修改方案
-                                    ((FootHolder) holder).btn_desingn_scheme.setText("修改方案");
-                                    ((FootHolder) holder).btn_desingn_scheme.setVisibility(View.VISIBLE);//设计方案
-                                    ((FootHolder) holder).btn_refuse_order.setVisibility(View.GONE);//拒绝
-                                    ((FootHolder) holder).btn_confirm_order.setVisibility(View.GONE);//确认接单
-                                    break;
-                            }
+                    if (data.isCustom()) {//私人订制
+                        switch (data.getPlanStatus()) {
+                            case Constant.ORDER_PLAN_GUIDE_WAIT:
+                                ((FootHolder) holder).btn_desingn_scheme.setVisibility(View.GONE);//设计方案
+                                ((FootHolder) holder).btn_refuse_order.setVisibility(View.VISIBLE);//拒绝
+                                ((FootHolder) holder).btn_confirm_order.setVisibility(View.VISIBLE);//确认接单
+                                break;
+                            case Constant.ORDER_PLAN_PLANING:
+                                ((FootHolder) holder).btn_desingn_scheme.setText("设计方案");
+                                ((FootHolder) holder).btn_desingn_scheme.setVisibility(View.VISIBLE);//设计方案
+                                ((FootHolder) holder).btn_refuse_order.setVisibility(View.GONE);//拒绝
+                                ((FootHolder) holder).btn_confirm_order.setVisibility(View.GONE);//确认接单
+                                break;
+                            case Constant.ORDER_PLAN_USER_WAIT://游客待确认，修改方案
+                                ((FootHolder) holder).btn_desingn_scheme.setText("修改方案");
+                                ((FootHolder) holder).btn_desingn_scheme.setVisibility(View.VISIBLE);//设计方案
+                                ((FootHolder) holder).btn_refuse_order.setVisibility(View.GONE);//拒绝
+                                ((FootHolder) holder).btn_confirm_order.setVisibility(View.GONE);//确认接单
+                                break;
                         }
                     }
                     break;
                 case Constant.ORDER_PAY_ALREADY://待确认订单  已确认订单 未出行  行程中
                     ((FootHolder) holder).btn_call.setVisibility(View.VISIBLE);
-                    if (data.getOrderChildModel() != null) {
-                        if (data.isCustom()) {//私人订制
-                            ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.VISIBLE);
-                        } else {
-                            ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.GONE);
-                        }
+                    if (data.isCustom()) {//私人订制
+                        ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.VISIBLE);
+                    } else {
+                        ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.GONE);
                     }
                     switch (data.getOrderStatus()) {
                         case Constant.ORDER_TRAVEL_WAIT:
@@ -284,23 +280,19 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     break;
                 case Constant.ORDER_PAY_FINISH:
                     ((FootHolder) holder).foot_btns.setVisibility(View.GONE);
-                    if (data.getOrderChildModel() != null) {
-                        if (data.isCustom()) {//私人订制
-                            ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
-                            ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.VISIBLE);
-                        }
+                    if (data.isCustom()) {//私人订制
+                        ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
+                        ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.VISIBLE);
                     }
                     break;
                 case Constant.ORDER_PAY_REFUND:
                     ((FootHolder) holder).foot_btns.setVisibility(View.GONE);
                     ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.GONE);
-                    if (data.getOrderChildModel() != null) {
-                        if (data.isCustom()) {//私人订制
-                            ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
-                            ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.VISIBLE);
-                        }
+                    if (data.isCustom()) {//私人订制
+                        ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
+                        ((FootHolder) holder).btn_view_desingn_scheme.setVisibility(View.VISIBLE);
                     }
-                    switch (data.getRefundStatus()){
+                    switch (data.getRefundStatus()) {
                         case Constant.ORDER_REFUND_WAIT:
                             ((FootHolder) holder).foot_btns.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_refund.setVisibility(View.VISIBLE);
@@ -319,7 +311,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, OrderRefundActivity.class);
-                    intent.putExtra("REFUND_ID",data.getRefundId());
+                    intent.putExtra("REFUND_ID", data.getRefundId());
                     mContext.startActivity(intent);
                 }
             });
@@ -382,7 +374,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     }
 
     public class TitleHolder extends OrderListAdapter.BaseViewHolder implements View.OnClickListener {
-        TextView tv_order, tv_status, tv_name,tv_countdown;
+        TextView tv_order, tv_status, tv_name, tv_countdown;
         RelativeLayout rl_status;
 
         TitleHolder(View itemView) {
@@ -419,7 +411,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
 
     public class FootHolder extends OrderListAdapter.BaseViewHolder {
-        TextView tv_order_price_content, tv_order_price_title ,tv_order;
+        TextView tv_order_price_content, tv_order_price_title, tv_order;
         TextView btn_refuse_order, btn_call, btn_confirm_order, btn_refund, btn_desingn_scheme, btn_view_desingn_scheme;
         HorizontalScrollView foot_btns;
 
@@ -454,7 +446,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
-        void onClick(int orderId,int refundId);
+        void onClick(int orderId, int refundId);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

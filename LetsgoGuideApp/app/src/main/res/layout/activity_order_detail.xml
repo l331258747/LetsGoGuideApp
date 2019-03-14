@@ -419,7 +419,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-
                         <RelativeLayout
                             android:id="@+id/rl_order_price"
                             android:layout_width="match_parent"
@@ -443,7 +442,7 @@
                                     android:id="@+id/tv_order_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="11234.9"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textStyle="bold" />
 
@@ -476,7 +475,7 @@
                                     android:id="@+id/tv_refund_used_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="11234.9"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textStyle="bold" />
 
@@ -509,7 +508,7 @@
                                     android:id="@+id/tv_refund_penalty"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="11234.9"
+                                    android:text="0"
                                     android:textColor="@color/color_red"
                                     android:textStyle="bold" />
 
@@ -542,7 +541,7 @@
                                     android:id="@+id/tv_refund_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="11234.9"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textStyle="bold" />
 
@@ -575,7 +574,7 @@
                                     android:id="@+id/tv_settle_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="11234.9"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textStyle="bold" />
 
@@ -608,7 +607,7 @@
                                     android:id="@+id/tv_settle_sermoney"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="11234.9"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textStyle="bold" />
 
@@ -642,7 +641,7 @@
                                     android:id="@+id/tv_nosettle_moneys"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="11234.9"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textStyle="bold" />
 
@@ -677,7 +676,7 @@
                                     android:id="@+id/tv_settle_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="11234.9"
+                                    android:text="0"
                                     android:textColor="@color/color_theme"
                                     android:textStyle="bold" />
 

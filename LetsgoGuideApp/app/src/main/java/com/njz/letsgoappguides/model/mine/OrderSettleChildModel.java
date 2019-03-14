@@ -131,14 +131,6 @@ public class OrderSettleChildModel {
         this.roomNum = roomNum;
     }
 
-    public float getPayPrice() {
-        return payPrice;
-    }
-
-    public void setPayPrice(float payPrice) {
-        this.payPrice = payPrice;
-    }
-
     public float getPrice() {
         return price;
     }

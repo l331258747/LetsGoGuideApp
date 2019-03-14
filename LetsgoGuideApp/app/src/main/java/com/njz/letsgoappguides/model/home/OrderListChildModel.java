@@ -57,14 +57,6 @@ public class OrderListChildModel {
         this.childOrderStatus = childOrderStatus;
     }
 
-    public float getPayPrice() {
-        return payPrice;
-    }
-
-    public void setPayPrice(float payPrice) {
-        this.payPrice = payPrice;
-    }
-
     public float getPrice() {
         return price;
     }

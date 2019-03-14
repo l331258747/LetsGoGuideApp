@@ -390,14 +390,6 @@ public class IncomeListInfo {
         this.earlyOrderPrice = earlyOrderPrice;
     }
 
-    public float getPayPrice() {
-        return payPrice;
-    }
-
-    public void setPayPrice(float payPrice) {
-        this.payPrice = payPrice;
-    }
-
     public float getOrderPrice() {
         return orderPrice;
     }

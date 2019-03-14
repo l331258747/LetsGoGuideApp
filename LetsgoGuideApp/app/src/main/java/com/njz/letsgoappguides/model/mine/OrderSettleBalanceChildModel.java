@@ -177,14 +177,6 @@ public class OrderSettleBalanceChildModel {
         this.payType = payType;
     }
 
-    public float getPayPrice() {
-        return payPrice;
-    }
-
-    public void setPayPrice(float payPrice) {
-        this.payPrice = payPrice;
-    }
-
     public float getOrderPrice() {
         return orderPrice;
     }
@@ -534,14 +526,6 @@ public class OrderSettleBalanceChildModel {
 
         public void setRoomNum(int roomNum) {
             this.roomNum = roomNum;
-        }
-
-        public float getPayPrice() {
-            return payPrice;
-        }
-
-        public void setPayPrice(float payPrice) {
-            this.payPrice = payPrice;
         }
 
         public float getPrice() {

@@ -99,10 +99,6 @@ public class OrderListModel {
         return orderStatus;
     }
 
-    public float getPayPrice() {
-        return payPrice;
-    }
-
     public float getOrderPrice() {
         if(getPayStatus() == Constant.ORDER_PAY_WAIT && isCustom()){//私人定制待付款
             return orderPrice;
@@ -111,7 +107,7 @@ public class OrderListModel {
                 return orderPrice;
             return refundMoney;
         }
-        return payPrice;
+        return orderPrice;
     }
 
     public boolean isCustom() {

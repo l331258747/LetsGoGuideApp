@@ -134,14 +134,6 @@ public class OrderBeanGroup {
         this.orderNo = orderNo;
     }
 
-    public float getPayPrice() {
-        return payPrice;
-    }
-
-    public void setPayPrice(float payPrice) {
-        this.payPrice = payPrice;
-    }
-
     public String getLocation() {
         return location;
     }

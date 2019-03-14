@@ -174,14 +174,6 @@ public class OrderDetailChildModel {
         return travelDate;
     }
 
-    public float getPayPrice() {
-        return payPrice;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
     public int getTicketNum() {
         return ticketNum;
     }

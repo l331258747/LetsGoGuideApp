@@ -148,7 +148,7 @@ public class OrderDetailModel {
         } else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
             return ("￥" + orderPrice);
         }else {
-            return ("￥" + payPrice);
+            return ("￥" + orderPrice);
         }
     }
 

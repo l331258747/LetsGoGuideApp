@@ -187,14 +187,6 @@ public class OrderSettltRefundChildModel {
             this.payType = payType;
         }
 
-        public float getPayPrice() {
-            return payPrice;
-        }
-
-        public void setPayPrice(float payPrice) {
-            this.payPrice = payPrice;
-        }
-
         public float getOrderPrice() {
             return orderPrice;
         }
@@ -484,14 +476,6 @@ public class OrderSettltRefundChildModel {
 
             public void setRoomNum(int roomNum) {
                 this.roomNum = roomNum;
-            }
-
-            public float getPayPrice() {
-                return payPrice;
-            }
-
-            public void setPayPrice(float payPrice) {
-                this.payPrice = payPrice;
             }
 
             public float getPrice() {
@@ -1363,14 +1347,6 @@ public class OrderSettltRefundChildModel {
 
             public void setTravelDate(String travelDate) {
                 this.travelDate = travelDate;
-            }
-
-            public float getPayPrice() {
-                return payPrice;
-            }
-
-            public void setPayPrice(float payPrice) {
-                this.payPrice = payPrice;
             }
 
             public float getPrice() {

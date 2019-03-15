@@ -327,7 +327,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, OrderRefuseActivity.class);
                     intent.putExtra("ORDER_ID", data.getId());
-                    intent.putExtra("VALUE", data.getOrderChildModel().getValue());
+                    intent.putExtra("IS_CUSTOM", data.isCustom());
                     mContext.startActivity(intent);
                 }
             });
@@ -335,7 +335,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 @Override
                 public void onClick(View v) {
                     if (onConfirmClickListener != null) {
-                        onConfirmClickListener.onClick(data.getId(), data.getOrderChildModel().getValue());
+                        onConfirmClickListener.onClick(data.getId(), data.isCustom());
                     }
                 }
             });
@@ -456,7 +456,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     OnConfirmClickListener onConfirmClickListener;
 
     public interface OnConfirmClickListener {
-        void onClick(int orderId, String value);
+        void onClick(int orderId, boolean isCustom);
     }
 
     public void setOnConfirmClickListener(OnConfirmClickListener onConfirmClickListener) {

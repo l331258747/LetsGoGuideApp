@@ -155,6 +155,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     LinearLayout ll_isagreement;
     @BindView(R.id.ll_title_img_tip)
     LinearLayout ll_title_img_tip;
+    @BindView(R.id.tv_title_img_tip)
+    TextView tv_title_img_tip;
 
     boolean isSelect = false;//向导陪游是否选中自驾车
 
@@ -248,6 +250,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                     serviceType.setEditContent(serviceTypeEvent.getModel().getName());
                     serverTypeId = serviceTypeEvent.getModel().getId();
                     serviceTitle.getEditText().setHint(getTitleHint(serverTypeId));
+                    tv_title_img_tip.setHint(getImgTitleTipHint(serverTypeId));
                     List<NjzGuideServeFormatDicVosBean> getServeFormatDicVosBeanList = serviceTypeEvent.getModel().getNjzGuideServeFormatDicVos();
                     int getServeFormatDicVosSize = getServeFormatDicVosBeanList.size();
                     ll_vai_text.removeAllViews();
@@ -391,6 +394,28 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 }
             }
         });
+
+        edit_text13.addTextChangedListener(new MyTextWatcherAfter() {
+            @Override
+            public void callback(Editable s) {
+                if (TextUtils.isEmpty(edit_text13.getText().toString())) return;
+                if (getInt(edit_text13) == 0) {
+                    edit_text13.setText("");
+                    showShortToast("比例不能为0");
+                }
+            }
+        });
+
+        edit_text23.addTextChangedListener(new MyTextWatcherAfter() {
+            @Override
+            public void callback(Editable s) {
+                if (TextUtils.isEmpty(edit_text23.getText().toString())) return;
+                if (getInt(edit_text23) == 0) {
+                    edit_text23.setText("");
+                    showShortToast("比例不能为0");
+                }
+            }
+        });
     }
 
 
@@ -467,9 +492,9 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         }
         if (edit_text11.getText().toString().equals("")
                 || edit_text12.getText().toString().equals("")
+                || edit_text13.getText().toString().equals("")
                 || edit_text21.getText().toString().equals("")
                 || edit_text22.getText().toString().equals("")
-                || edit_text13.getText().toString().equals("")
                 || edit_text23.getText().toString().equals("")) {
             showShortToast("请输入违约金参数");
             return false;
@@ -914,6 +939,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                                 serviceType.setEditContent(listTrue.getName());
                                 serverTypeId = listTrue.getId();
                                 serviceTitle.getEditText().setHint(getTitleHint(serverTypeId));
+                                tv_title_img_tip.setHint(getImgTitleTipHint(serverTypeId));
                                 if (listTrue.getNjzGuideServeFormatDicVos().get(s).isIsPower()) {
                                     String formatName = listDicVosBean.getFormatName();
                                     String uniqueValue = listDicVosBean.getUniqueValue();
@@ -1296,8 +1322,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 llServiceCity.setEditContent(serveUpdataBean.getAddress());
                 servicePrice.setEditContent("" + serveUpdataBean.getServePrice());
                 llServicePriceinfo.setText(serveUpdataBean.getCostExplain());
-                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceThree(), edit_text11, edit_text12,edit_text13);
-                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(), edit_text21, edit_text22,edit_text23);
+                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceThree(), edit_text11, edit_text12,edit_text13,"0.3");
+                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(), edit_text21, edit_text22,edit_text23,"0.5");
                 String image = serveUpdataBean.getTitleImg();
                 if (!image.equals("")) {
                     upUrls = image;
@@ -1326,6 +1352,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 }
                 serverTypeId = serveUpdataBean.getServeType();
                 serviceTitle.getEditText().setHint(getTitleHint(serverTypeId));
+                tv_title_img_tip.setHint(getImgTitleTipHint(serverTypeId));
                 serviceId = serveUpdataBean.getId();
                 cityTypeId = serveUpdataBean.getAddressId();
                 myFeature = serveUpdataBean.getServeFeature();
@@ -1374,6 +1401,24 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 return "请填写与自己代订门票（如景点、演出门票等）服务相关的标题信息，但不能出现具体价格和公司名称等信息。";
             case Constant.SERVER_TYPE_CAR_ID:
                 return "尽可能的突出自己的服务亮点，如：张家界各大景点包车畅游；但不能出现跟团、拼团、微领队、公司名称以及具体车型等信息。";
+        }
+        return "";
+    }
+
+    public String getImgTitleTipHint(int serverType){
+        switch (serverType) {
+            case Constant.SERVER_TYPE_GUIDE_ID:
+                return "要求：\\n1、纯风景或含向导本人（至少一张）的风景照，最多添加6张\\n2、所有服务禁止上传一模一样的封面图（第一张默认为封面图）\\n3、所有图片需与目的地的景、物匹配\\n4、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片";
+            case Constant.SERVER_TYPE_FEATURE_ID:
+                return "要求：\\n1、所有图片需与特色体验服务内容匹配，最多添加6张\\n2、所有服务禁止上传一模一样的封面图（第一张默认为封面图）\\n3、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片";
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return "要求：\\n1、所有图片需与行程中的景、物匹配，最多添加6张\\n2、所有服务禁止上传一模一样的封面图（第一张默认为封面图）\\n3、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片";
+            case Constant.SERVER_TYPE_HOTEL_ID:
+                return "要求：\\n1、所有图片必须是服务介绍中民宿/酒店相关的照片（内景、外景都可以），最多添加6张\\n2、所有服务禁止上传一模一样的封面图（第一张默认为封面图）\\n3、所有图片必须与目的地的实体一致\\n4、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片";
+            case Constant.SERVER_TYPE_TICKET_ID:
+                return "要求：\\n1、所有图片必须是服务介绍中景点/演出等相关的照片（内景、外景都可以），最多添加6张\\n2、所有服务禁止上传一模一样的封面图（第一张默认为封面图）\\n3、所有图片必须与目的地的实体一致\\n4、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片";
+            case Constant.SERVER_TYPE_CAR_ID:
+                return "要求：\\n1、纯风景或含单辆车（至少一张且勿露出车牌号）的照片，最多添加6张\\n2、所有服务禁止上传一模一样的封面图（第一张默认为封面图）\\n3、所有图片需与目的地的景、物匹配\\n4、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片";
         }
         return "";
     }

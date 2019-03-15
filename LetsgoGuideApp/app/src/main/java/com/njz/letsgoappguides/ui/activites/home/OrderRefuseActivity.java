@@ -47,7 +47,7 @@ public class OrderRefuseActivity extends BaseActivity implements OrderRefuseCont
 
     List<String> reasons;
     int orderId;
-    String value="";
+    boolean isCustom;
 
     OrderRefusePresenter mPresenter;
     OrderConfirmPresenter mOrderConfirmPresenter;
@@ -55,9 +55,7 @@ public class OrderRefuseActivity extends BaseActivity implements OrderRefuseCont
     @Override
     protected void initView() {
         orderId = getIntent().getIntExtra("ORDER_ID",0);
-        if(!TextUtils.isEmpty(getIntent().getStringExtra("VALUE"))){
-            value = getIntent().getStringExtra("VALUE");
-        }
+        isCustom = getIntent().getBooleanExtra("IS_CUSTOM",false);
 
 
         titleView.getLeftIv().setOnClickListener(new View.OnClickListener() {
@@ -105,7 +103,7 @@ public class OrderRefuseActivity extends BaseActivity implements OrderRefuseCont
                     showShortToast("请选择取消原因");
                     return;
                 }
-                if(value.equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)){
+                if(isCustom){
                     mOrderConfirmPresenter.guideSurePersonalServe(orderId,4,tvRefuseReason.getText().toString(),etRefuseExplain.getText().toString());
                 }else{
                     mPresenter.orderRefuseOrder(orderId,tvRefuseReason.getText().toString(),etRefuseExplain.getText().toString());

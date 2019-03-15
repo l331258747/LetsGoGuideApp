@@ -90,7 +90,7 @@ public class ServiceUtil {
     }
 
     //违约金参数设置
-    public static void strSplitNum(String numStr, TextView text1, EditText text2, EditText text3){
+    public static void strSplitNum(String numStr, TextView text1, EditText text2, EditText text3,String defualt){
         if(TextUtils.isEmpty(numStr))return;
         String[] threes=numStr.split(",");
         if(threes.length>=2) {
@@ -98,10 +98,19 @@ public class ServiceUtil {
             text2.setText(threes[1]);
         }
         if(threes.length == 3){
-            text3.setText(threes[2]);
+            if(Float.valueOf(threes[2]) <= 0){
+                text3.setText(getProportion(defualt));
+            }else{
+                text3.setText(getProportion(threes[2]));
+            }
         }else{
-            text3.setText("0");
+            text3.setText(getProportion(defualt));
         }
+    }
+
+    public static String getProportion(String str){
+        int value = (int) (Float.valueOf(str) * 100);
+        return value + "";
     }
 
     public static float getMin(List<NjzGuideServeFormatDtosBean> in, String dic){

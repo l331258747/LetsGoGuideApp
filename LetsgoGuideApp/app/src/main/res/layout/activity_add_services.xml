@@ -119,6 +119,7 @@
                             android:layout_weight="1" />
 
                         <TextView
+                            android:id="@+id/tv_title_img_tip"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -214,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="是否允许游客自驾车" />
+                        android:text="允许游客自驾车" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -238,7 +239,7 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:bottom_lines_visible="true"
-                    app:center_edit_hint="请输入价格"
+                    app:center_edit_hint="请合理设置价格"
                     app:titles="价格"
                     tools:visibility="visible" />
 

@@ -3,6 +3,7 @@ package com.njz.letsgoappguides.ui.activites.home;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.njz.letsgoappguides.util.StringUtils;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
 import com.njz.letsgoappguides.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoappguides.util.rxbus.busEvent.RefreshOrderListEvent;
+import com.njz.letsgoappguides.util.textWatcher.MyTextWatcherAfter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,6 +142,32 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
 
         String content1 = "行程开始当天取消订单，收取游客已付费用<font color='#ff7c00'>100%</font>的违约金；";
         StringUtils.setHtml(tv_refund_100,content1);
+
+        editText13.addTextChangedListener(new MyTextWatcherAfter() {
+            @Override
+            public void callback(Editable s) {
+                if (TextUtils.isEmpty(editText13.getText().toString())) return;
+                if (getInt(editText13) == 0) {
+                    editText13.setText("");
+                    showShortToast("比例不能为0");
+                }
+            }
+        });
+
+        editText23.addTextChangedListener(new MyTextWatcherAfter() {
+            @Override
+            public void callback(Editable s) {
+                if (TextUtils.isEmpty(editText23.getText().toString())) return;
+                if (getInt(editText23) == 0) {
+                    editText23.setText("");
+                    showShortToast("比例不能为0");
+                }
+            }
+        });
+    }
+
+    public int getInt(EditText et) {
+        return Integer.valueOf(et.getText().toString());
     }
 
     @Override
@@ -263,22 +291,34 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                     String three=infos.getRenegePriceThree();
                     if(!TextUtils.isEmpty(three)){
                         String[] threes=three.split(",");
-                        if(threes.length>=2) {
+                        if(threes.length>=3) {
                             editText11.setText(threes[0]);
                             editText12.setText(threes[1]);
                             if(threes.length == 3){
-                                editText13.setText(getProportion(threes[2]));
+                                if(Float.valueOf(threes[2]) <= 0){
+                                    editText13.setText(getProportion("0.3"));
+                                }else{
+                                    editText13.setText(getProportion(threes[2]));
+                                }
+                            }else{
+                                editText13.setText(getProportion("0.3"));
                             }
                         }
                     }
                     String five=infos.getRenegePriceFive();
                     if(TextUtils.isEmpty(five)){
                         String[] fives=five.split(",");
-                        if(fives.length>=2){
+                        if(fives.length>=3){
                             editText21.setText(fives[0]);
                             editText22.setText(fives[1]);
                             if(fives.length == 3){
-                                editText23.setText(getProportion(fives[2]));
+                                if(Float.valueOf(fives[2]) <= 0){
+                                    editText23.setText(getProportion("0.5"));
+                                }else{
+                                    editText23.setText(getProportion(fives[2]));
+                                }
+                            }else{
+                                editText23.setText(getProportion("0.5"));
                             }
                         }
                     }

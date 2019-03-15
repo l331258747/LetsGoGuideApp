@@ -272,7 +272,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Rev
         tvPayNo.setVisibility(TextUtils.isEmpty(counts.getBeforePayCount()) ? View.GONE : View.VISIBLE);
         tvSubmitNo.setVisibility(TextUtils.isEmpty(counts.getBeforeSureCount()) ? View.GONE : View.VISIBLE);
         tvSubmitYes.setVisibility(View.GONE);
-        tvRefund.setVisibility(TextUtils.isEmpty(counts.getRefundCount()) ? View.GONE : View.VISIBLE);
+//        tvRefund.setVisibility(TextUtils.isEmpty(counts.getRefundCount()) ? View.GONE : View.VISIBLE);
+        tvRefund.setVisibility(View.GONE);
     }
 
     //----------banner start

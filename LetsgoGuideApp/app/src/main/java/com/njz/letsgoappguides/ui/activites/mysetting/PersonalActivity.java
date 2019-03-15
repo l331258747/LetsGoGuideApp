@@ -311,9 +311,9 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (null == data) return;
         switch (requestCode) {
             case Constant.STORYID: //返回的请求码111
+                if (null == data) return;
                 //我的故事信息
                 if (data.getExtras().getString(Constant.STORYINFO) != null) {
                     myStory = data.getExtras().getString(Constant.STORYINFO);

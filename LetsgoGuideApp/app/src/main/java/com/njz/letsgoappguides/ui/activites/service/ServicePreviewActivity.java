@@ -119,12 +119,12 @@ public class ServicePreviewActivity extends BaseActivity implements ServerDetail
         if (!TextUtils.isEmpty(infos.getCostExplain()))
             priceIntroduceContent.setText(infos.getCostExplain());
         if (!TextUtils.isEmpty(infos.getRenegePriceThree())) {
-            List<String> lists = getValue(infos.getRenegePriceThree());
+            List<String> lists = getValue(infos.getRenegePriceThree(),"0.3");
             tvRefundRule30.setText(String.format(getResources().getString(R.string.refund_rule_30),
                     lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
         }
         if (!TextUtils.isEmpty(infos.getRenegePriceFive())) {
-            List<String> lists = getValue(infos.getRenegePriceFive());
+            List<String> lists = getValue(infos.getRenegePriceFive(),"0.5");
             tvRefundRule50.setText(String.format(getResources().getString(R.string.refund_rule_50),
                     lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
         }
@@ -145,11 +145,15 @@ public class ServicePreviewActivity extends BaseActivity implements ServerDetail
         return value + "";
     }
 
-    public List<String> getValue(String str) {
+    public List<String> getValue(String str,String def) {
         String[] strs = str.split(",");
         List<String> lists = new ArrayList<>(Arrays.asList(strs));
         if (lists.size() != 3) {
-            lists.add("0");
+            lists.add(def);
+        }else{
+            if(Float.valueOf(lists.get(2)) <= 0){
+                lists.set(2,def);
+            }
         }
         return lists;
     }

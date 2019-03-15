@@ -71,7 +71,7 @@ public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDe
                 ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
             }
 
-            if(data.getValue().equals(Constant.SERVICE_TYPE_SHORT_GUIDE)){
+            if(data.getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)){
                 ((ViewHolder) holder).ll_bug_get.setVisibility(View.VISIBLE);
                 ((ViewHolder) holder).tv_bug_get_content.setText("￥"+data.getBugGet());
             }

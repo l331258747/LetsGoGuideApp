@@ -177,11 +177,11 @@ public class OrderListActivity extends BaseActivity implements OrderListContract
 
         mAdapter.setOnConfirmClickListener(new OrderListAdapter.OnConfirmClickListener() {
             @Override
-            public void onClick(final int orderId,final String value) {
+            public void onClick(final int orderId,final boolean isCustom) {
                 DialogUtil.getInstance().getDefaultDialog(context, "是否确认接单", new DialogUtil.DialogCallBack() {
                     @Override
                     public void exectEvent(DialogInterface alterDialog) {
-                        if(value.equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)){
+                        if(isCustom){
                             confirmPresenter.guideSurePersonalServe(orderId,1,"","");
                         }else{
                             confirmPresenter.orderSureOrder(orderId);

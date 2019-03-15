@@ -139,6 +139,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     EditText edit_text22;
     @BindView(R.id.edit_text_23)
     EditText edit_text23;
+    @BindView(R.id.tv_refund_100)
+    TextView tv_refund_100;
     @BindView(R.id.ll_langage_id1)
     LinearLayout llLangageId1;
     @BindView(R.id.ll_wai_id)
@@ -216,6 +218,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         initAddPhoto();//先执行
         initDate();
 
+        String content1 = "行程开始当天取消订单，收取游客已付费用<font color='#ff7c00'>100%</font>的违约金；";
+        StringUtils.setHtml(tv_refund_100,content1);
     }
 
     @Override

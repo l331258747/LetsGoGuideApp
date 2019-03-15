@@ -4,195 +4,262 @@
     android:id="@+id/ll_penalty"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="10dp"
     android:background="@color/white"
     android:orientation="vertical"
+    android:paddingBottom="10dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:text="退订条款" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="向导确认订单前不收取违约金；"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_refund_100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="行程开始当天取消订单，收取游客已付费用100%的违约金；"
+        android:textSize="13sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@drawable/person_et_style"
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="向导确认订单前不收取违约金；" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="行程开始前" />
 
-            <TextView
-                android:id="@+id/edit_text_11"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:gravity="center"
-                android:inputType="number"
-                android:text="8"
-                android:textColor="@color/color_green" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="至"/>
+                <EditText
+                    android:id="@+id/edit_text_22"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/btn_32_hollow"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:text="7"
+                    android:textColor="@color/color_theme" />
 
-            <EditText
-                android:id="@+id/edit_text_12"
-                android:layout_width="40dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="@drawable/add_service_green"
-                android:gravity="center"
-                android:inputType="number"
-                android:text="15"
-                android:textColor="@color/color_green" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="至" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="(含)日取消订单，" />
+                <TextView
+                    android:id="@+id/edit_text_21"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:text="1"
+                    android:textColor="@color/color_theme" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日退款" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_d9" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="扣除违约金比例" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="收取游客已付费用" />
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/edit_text_13"
-                android:layout_width="40dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="@drawable/add_service_theme"
-                android:gravity="center"
-                android:inputType="number"
-                android:maxLength="2"
-                android:text="30"
-                android:textColor="@color/color_theme" />
+                <EditText
+                    android:id="@+id/edit_text_23"
+                    android:layout_width="125dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/btn_32_hollow"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:text="50"
+                    android:textColor="@color/color_theme" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="%的违约金；" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="%" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="行程开始前" />
-
-            <TextView
-                android:id="@+id/edit_text_21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:gravity="center"
-                android:inputType="number"
-                android:text="1"
-                android:textColor="@color/color_red" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="至" />
-
-            <EditText
-                android:id="@+id/edit_text_22"
-                android:layout_width="40dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="@drawable/add_service_red"
-                android:gravity="center"
-                android:inputType="number"
-                android:text="7"
-                android:textColor="@color/color_red" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(含)日取消订单，"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="收取游客已付费用" />
-
-            <EditText
-                android:id="@+id/edit_text_23"
-                android:layout_width="40dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="@drawable/add_service_theme"
-                android:gravity="center"
-                android:inputType="number"
-                android:maxLength="2"
-                android:text="50"
-                android:textColor="@color/color_theme" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="%的违约金；" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="行程开始当天取消订单，收取游客已付费用100%的违约金；"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="行程开始前其他时间取消订单，不收取违约金。"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/person_et_style"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="行程开始前" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_text_12"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/btn_32_hollow"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:text="15"
+                    android:textColor="@color/color_theme" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="至" />
+
+                <TextView
+                    android:id="@+id/edit_text_11"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:text="8"
+                    android:textColor="@color/color_theme" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="日退款" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_d9" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="扣除违约金比例" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_text_13"
+                    android:layout_width="125dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/btn_32_hollow"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:text="30"
+                    android:textColor="@color/color_theme" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="%" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="行程开始前其他时间取消订单，不收取违约金。"
+        android:textSize="13sp" />
 
 
 </LinearLayout>

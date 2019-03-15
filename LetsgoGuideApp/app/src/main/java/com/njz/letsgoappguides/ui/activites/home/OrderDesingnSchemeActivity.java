@@ -23,6 +23,7 @@ import com.njz.letsgoappguides.presenter.home.OrderDesingnContract;
 import com.njz.letsgoappguides.presenter.home.OrderDesingnPresenter;
 import com.njz.letsgoappguides.ui.activites.service.ServicesFeatureActivity;
 import com.njz.letsgoappguides.util.ServiceUtil;
+import com.njz.letsgoappguides.util.StringUtils;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
 import com.njz.letsgoappguides.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoappguides.util.rxbus.busEvent.RefreshOrderListEvent;
@@ -75,6 +76,8 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
     LinearLayout llPenalty;
     @BindView(R.id.desingn_btn_sub)
     TextView desingnBtnSub;
+    @BindView(R.id.tv_refund_100)
+    TextView tv_refund_100;
 
     String myDesingn="";
     int id;//方案id
@@ -134,6 +137,9 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                 Log.e("test","markerDays"+markerDays.toString());
             }
         });
+
+        String content1 = "行程开始当天取消订单，收取游客已付费用<font color='#ff7c00'>100%</font>的违约金；";
+        StringUtils.setHtml(tv_refund_100,content1);
     }
 
     @Override

@@ -142,23 +142,8 @@ public class ProgressSubscriber<T> extends DisposableObserver<Result> implements
         LogUtil.e("code:"+t.getCode());
         LogUtil.e("result"+t.toString());
         LogUtil.e("msg:"+t.getMsg());
-//        LogUtil.e("data:"+t.getData().toString());
         LogUtil.e("url:"+t.getUrl());
 
-//        if(t.getCode()==0){
-//            mResponseCallback.onSuccess(t.getData());
-//        }else{
-//            mResponseCallback.onFault(t.getMsg());
-//
-//            if(t.getCode() == 401){
-//                DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登录", new DialogUtil.DialogCallBack() {
-//                    @Override
-//                    public void exectEvent(DialogInterface alterDialog) {
-//                        context.startActivity(new Intent(context, LoginActivity.class));
-//                    }
-//                }).show();
-//            }
-//        }
         if(t.getCode()==0 && t.getErrno() == 0){
             if (!TextUtils.isEmpty(t.getUrl())){
                 mResponseCallback.onSuccess(t.getUrl());
@@ -178,29 +163,19 @@ public class ProgressSubscriber<T> extends DisposableObserver<Result> implements
                 mResponseCallback.onFault("--");
             }
 
+            final String phone = MySelfInfo.getInstance().getMobile();
             if(t.getCode() == 401){//强制登录
                 MySelfInfo.getInstance().loginOff();
-                context.startActivity(new Intent(context, LoginActivity.class));
+                Intent intent = new Intent(new Intent(context, LoginActivity.class));
+                intent.putExtra("LOGIN_PHONE",phone);
+                context.startActivity(intent);
                 ActivityCollect.getAppCollect().finishAllActivity();
-
-//                DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登录", new DialogUtil.DialogCallBack() {
-//                    @Override
-//                    public void exectEvent(DialogInterface alterDialog) {
-//                        context.startActivity(new Intent(context, LoginActivity.class));
-//                        ActivityCollect.getAppCollect().finishAllActivity();
-//                    }
-//                }).show();
             }else if(t.getErrno() == 401){
                 MySelfInfo.getInstance().loginOff();
-                context.startActivity(new Intent(context, LoginActivity.class));
+                Intent intent = new Intent(new Intent(context, LoginActivity.class));
+                intent.putExtra("LOGIN_PHONE",phone);
+                context.startActivity(intent);
                 ActivityCollect.getAppCollect().finishAllActivity();
-//                DialogUtil.getInstance().getDefaultDialog(context, t.getErrmsg(), "去登录", new DialogUtil.DialogCallBack() {
-//                    @Override
-//                    public void exectEvent(DialogInterface alterDialog) {
-//                        context.startActivity(new Intent(context, LoginActivity.class));
-//                        ActivityCollect.getAppCollect().finishAllActivity();
-//                    }
-//                }).show();
             }
         }
     }

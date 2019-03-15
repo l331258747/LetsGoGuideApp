@@ -55,6 +55,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
     ImageView imageView;
     LoginPresenter mPresenter;
 
+    String loginPhone;
+
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+        loginPhone = intent.getStringExtra("LOGIN_PHONE");
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -64,7 +72,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
     protected void initView() {
         activity=this;
         mPresenter = new LoginPresenter(this,context);
-//        phone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
+        if (!TextUtils.isEmpty(loginPhone))
+            phone.getEtView().setText(loginPhone);
         password.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         titleView.getLeftIv().setOnClickListener(new View.OnClickListener() {

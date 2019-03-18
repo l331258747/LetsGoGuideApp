@@ -240,7 +240,7 @@ public class GetUpdateServiceInfo {
         public String getStatusString() {
             switch (status){
                 case 0:
-                case 4:
+                case 3:
                     return "上架";//修改为上架
                 case 1:
                 case 2:

@@ -113,7 +113,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 serviceInfoGroup3.setRefundMoney(orderModel.getRefundMoney());
                 serviceInfoGroup3.setMobile(orderModel.getMobile());
                 serviceInfoGroup3.setOrderId(orderModel.getOrderId());
-
+                serviceInfoGroup3.setGuideId(orderModel.getGuideId());
                 if(orderModel.getNjzChildOrderToRefundVOS()!= null
                         && orderModel.getNjzChildOrderToRefundVOS().size() == 1
                         && orderModel.getNjzChildOrderToRefundVOS().get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
@@ -237,7 +237,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             ((FootHolder) holder).btn_call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtil.getInstance().showGuideMobileDialog(mContext,data.getMobile());
+                    DialogUtil.getInstance().showGuideMobileDialog(mContext,data.getMobile(),data.getId(),0,data.getGuideId());
                 }
             });
 

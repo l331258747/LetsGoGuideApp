@@ -47,6 +47,8 @@ public class CustomPlanActivity extends BaseActivity implements  View.OnClickLis
     int orderId;
     String guidePhone;
 
+    OrderDesignInfo customPlanModel;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_custom_plan;
@@ -105,7 +107,8 @@ public class CustomPlanActivity extends BaseActivity implements  View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_phone:
-                DialogUtil.getInstance().showGuideMobileDialog(context,guidePhone);
+                if(customPlanModel == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context,guidePhone,customPlanModel.getOrderId(),0,customPlanModel.getGuideId());
                 break;
             case R.id.left_iv:
                 finish();
@@ -128,6 +131,7 @@ public class CustomPlanActivity extends BaseActivity implements  View.OnClickLis
         if(model != null && model.size() == 1){
             initInfo(model.get(0));
             initViewPage(model.get(0));
+            customPlanModel = model.get(0);
         }
     }
 

@@ -89,7 +89,8 @@ public class OrderDetailRefundActivity extends OrderDetailActivity implements Or
         Intent intent;
         switch (v.getId()) {
             case R.id.btn_call:
-                DialogUtil.getInstance().showGuideMobileDialog(context,refundModel.getMobile());
+                if(refundModel ==null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context,refundModel.getMobile(),refundModel.getId(),0,refundModel.getGuideId());
                 break;
             case R.id.btn_refund:
                 intent = new Intent(context, OrderRefundActivity.class);
@@ -183,7 +184,8 @@ public class OrderDetailRefundActivity extends OrderDetailActivity implements Or
         login_view_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtil.getInstance().showGuideMobileDialog(context,str.getMobile());
+                if(str == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context,str.getMobile(),str.getId(),0,str.getGuideId());
             }
         });
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());

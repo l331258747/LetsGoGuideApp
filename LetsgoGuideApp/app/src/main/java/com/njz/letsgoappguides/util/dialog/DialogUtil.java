@@ -13,7 +13,12 @@ import android.widget.EditText;
 
 import com.njz.letsgoappguides.Bean.MySelfInfo;
 import com.njz.letsgoappguides.R;
+import com.njz.letsgoappguides.http.MethodApi;
+import com.njz.letsgoappguides.http.ProgressSubscriber;
+import com.njz.letsgoappguides.http.ResponseCallback;
+import com.njz.letsgoappguides.ui.activites.LoginActivity;
 import com.njz.letsgoappguides.util.ToastUtil;
+import com.njz.letsgoappguides.util.log.LogUtil;
 
 
 public class DialogUtil {
@@ -140,7 +145,26 @@ public class DialogUtil {
     }
 
     public void showGuideMobileDialog(final Context context,final String mobil){
-        showMobileDialog(context,mobil,"暂无导游联系方式");
+        showMobileDialog(context,mobil,"暂无游客联系方式");
+    }
+    public void showGuideMobileDialog(final Context context,final String mobil,
+                                      int orderId,int serveId,int guideId){
+        showMobileDialog(context,mobil,"暂无游客联系方式");
+
+        if(!TextUtils.isEmpty(mobil)){
+            ResponseCallback listener = new ResponseCallback<String>() {
+                @Override
+                public void onSuccess(String datas) {
+                    LogUtil.e(datas);
+                }
+
+                @Override
+                public void onFault(String errorMsg) {
+                    LogUtil.e(errorMsg);
+                }
+            };
+            MethodApi.wiretapping(orderId, serveId,guideId,new ProgressSubscriber(listener, null, false));
+        }
     }
 
     public void showMobileDialog(final Context context,final String mobile,String error){

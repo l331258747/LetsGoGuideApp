@@ -388,6 +388,12 @@ public class MethodApi {
         }
         return parts;
     }
+
+    //电话监听 wiretapping
+    public static void wiretapping(int orderId, int serveId, int guideId, DisposableObserver subscriber) {
+        Observable observable = RetrofitUtil.getInstance().getRetrofitApiService().wiretapping(orderId,serveId,guideId);
+        RetrofitUtil.getInstance().toSubscribe(observable, subscriber);
+    }
     //-----------other end--------
 
 

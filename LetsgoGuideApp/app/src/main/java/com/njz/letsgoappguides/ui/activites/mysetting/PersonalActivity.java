@@ -127,7 +127,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     LanguageDialog dialog;
     List<GuideMacroEntityList> data;
     boolean isEnabled = false;
-    int headorbgm;
+//    int headorbgm;
 
     String myStory;
 
@@ -296,10 +296,9 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
 
     @OnClick(R.id.iv_head)
     public void onViewClicked() {
-        headorbgm = 0;
-        tackPicUtil.setScale(1,1).showDialog(context);
-
-
+//        headorbgm = 0;
+//        tackPicUtil.setScale(1,1).showDialog(context);
+        tackPicUtil.showDialog(context);
     }
 
     /**
@@ -327,77 +326,75 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                     }
                 }
                 break;
-            case TackPicturesUtil.CHOOSE_PIC:
-            case TackPicturesUtil.TACK_PIC:
-            case TackPicturesUtil.CROP_PIC:
-                if(headorbgm == 1){
-                    String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
-                    if (path == null)
-                        return;
-                    selectedPhotos.add(path);
-
-                    upUrls = "";
-                    int a = 0;
-                    for (int i = 0; i < selectedPhotos.size(); i++) {
-                        if (selectedPhotos.get(i).startsWith("http")) {
-                            upUrls += selectedPhotos.get(i).toString() + ",";
-                        } else {
-                            a++;
-                            if (a == 1) {
-                                updateBack();
-                                upFile2();
-                            }
-                        }
-
-                    }
-                    if (!image.equals(upUrls)) {
-                        updateBack();
-                    }
-                    initAddPhoto();
-                }else{
-                    String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
-                    if (path == null)
-                        return;
-                    headpath = path;
-                    upFile();
-                    updateBack();
-                }
-                break;
+//            case TackPicturesUtil.CHOOSE_PIC:
+//            case TackPicturesUtil.TACK_PIC:
+//            case TackPicturesUtil.CROP_PIC:
+//                if(headorbgm == 1){
+//                    String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
+//                    if (path == null)
+//                        return;
+//                    selectedPhotos.add(path);
+//
+//                    upUrls = "";
+//                    int a = 0;
+//                    for (int i = 0; i < selectedPhotos.size(); i++) {
+//                        if (selectedPhotos.get(i).startsWith("http")) {
+//                            upUrls += selectedPhotos.get(i).toString() + ",";
+//                        } else {
+//                            a++;
+//                            if (a == 1) {
+//                                updateBack();
+//                                upFile2();
+//                            }
+//                        }
+//
+//                    }
+//                    if (!image.equals(upUrls)) {
+//                        updateBack();
+//                    }
+//                    initAddPhoto();
+//                }else{
+//                    String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
+//                    if (path == null)
+//                        return;
+//                    headpath = path;
+//                    upFile();
+//                    updateBack();
+//                }
+//                break;
             default:
                 break;
         }
-//        if (resultCode == -1 &&
-//                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
-//            List<String> photos = null;
-//            if (data != null) {
-//                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-//            }
-//            selectedPhotos.clear();
-//            if (photos != null) {
-//                selectedPhotos.addAll(photos);
-//            }
-//            upUrls = "";
-//            photoAdapter.notifyDataSetChanged();
-//            int a = 0;
-//            for (int i = 0; i < selectedPhotos.size(); i++) {
-//                if (selectedPhotos.get(i).startsWith("http")) {
-//                    upUrls += selectedPhotos.get(i).toString() + ",";
-//                } else {
-//                    a++;
-//                    if (a == 1) {
-//                        updateBack();
-//                        upFile2();
-//                    }
-//                }
-//
-//            }
-//            if (!image.equals(upUrls)) {
-//                updateBack();
-//            }
-//            initAddPhoto();
-//        }
+        if (resultCode == -1 &&
+                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+            List<String> photos = null;
+            if (data != null) {
+                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+            }
+            selectedPhotos.clear();
+            if (photos != null) {
+                selectedPhotos.addAll(photos);
+            }
+            upUrls = "";
+            photoAdapter.notifyDataSetChanged();
+            int a = 0;
+            for (int i = 0; i < selectedPhotos.size(); i++) {
+                if (selectedPhotos.get(i).startsWith("http")) {
+                    upUrls += selectedPhotos.get(i).toString() + ",";
+                } else {
+                    a++;
+                    if (a == 1) {
+                        updateBack();
+                        upFile2();
+                    }
+                }
 
-
+            }
+            if (!image.equals(upUrls)) {
+                updateBack();
+            }
+            initAddPhoto();
+        }
     }
 
     //-----------start 上传头像-----------
@@ -476,14 +473,14 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                     @Override
                     public void onItemClick(View view, int position) {
                         if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
-//                            PhotoPicker.builder()
-//                                    .setPhotoCount(PhotoAdapter.MAX)
-//                                    .setShowCamera(true)
-//                                    .setPreviewEnabled(false)
-//                                    .setSelected(selectedPhotos)
-//                                    .start(PersonalActivity.this);
-                            headorbgm = 1;
-                            tackPicUtil.setScale(15,8).showDialog(context);
+                            PhotoPicker.builder()
+                                    .setPhotoCount(PhotoAdapter.MAX)
+                                    .setShowCamera(true)
+                                    .setPreviewEnabled(false)
+                                    .setSelected(selectedPhotos)
+                                    .start(PersonalActivity.this);
+//                            headorbgm = 1;
+//                            tackPicUtil.setScale(15,8).showDialog(context);
                         } else {
                             PhotoPreview.builder()
                                     .setPhotos(selectedPhotos)

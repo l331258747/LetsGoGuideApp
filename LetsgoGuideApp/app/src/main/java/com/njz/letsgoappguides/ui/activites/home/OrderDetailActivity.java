@@ -255,7 +255,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
                 startActivity(intent);
                 break;
             case R.id.btn_call:
-                DialogUtil.getInstance().showGuideMobileDialog(context, model.getMobile());
+                if (model == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context, model.getMobile(),model.getId(),0,model.getGuideId());
                 break;
             case R.id.btn_confirm_order:
                 DialogUtil.getInstance().getDefaultDialog(context, "是否确认接单", new DialogUtil.DialogCallBack() {
@@ -453,7 +454,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
         login_view_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtil.getInstance().showGuideMobileDialog(context, str.getMobile());
+                if(str == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context, str.getMobile(),str.getId(),0,str.getGuideId());
             }
         });
 

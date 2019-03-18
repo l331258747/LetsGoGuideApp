@@ -442,6 +442,14 @@ public interface RetrofitApiService {
             @Part List<MultipartBody.Part> files
     );
 
+    //游客拨打电话记录 phoneRecord/insertNjzPhoneRecord
+    @GET("api/phoneRecord/insertNjzPhoneRecord")
+    Observable<Result<String>> wiretapping(
+            @Query("orderId") int orderId,
+            @Query("serveId") int serveId,
+            @Query("guideId") int guideId
+    );
+
     //---------end other ----------
 
     //------start 我的-------

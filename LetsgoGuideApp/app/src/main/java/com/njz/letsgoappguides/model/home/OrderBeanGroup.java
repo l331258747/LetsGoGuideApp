@@ -35,8 +35,16 @@ public class OrderBeanGroup {
     private int refundStatus;
     private int refundId;
     private String sureTime;
+    private int guideId;
     private OrderListChildModel orderChildModel;
 
+    public int getGuideId() {
+        return guideId;
+    }
+
+    public void setGuideId(int guideId) {
+        this.guideId = guideId;
+    }
 
     public String getSureTime() {
         return sureTime;

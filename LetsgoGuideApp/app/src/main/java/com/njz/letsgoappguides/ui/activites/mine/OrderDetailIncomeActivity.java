@@ -111,6 +111,7 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         Intent intent;
         switch (v.getId()) {
             case R.id.btn_call:
+                if(refundModel == null) return;
                 DialogUtil.getInstance().showGuideMobileDialog(context,refundModel.getMobile());
                 break;
             case R.id.btn_refund:
@@ -150,6 +151,7 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         login_view_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(str == null) return;
                 DialogUtil.getInstance().showGuideMobileDialog(context,str.getMobile());
             }
         });

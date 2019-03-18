@@ -208,7 +208,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     int uniqueId = 0;
     List<PriceModel> priceCalendar = new ArrayList<>();
 
-    private TackPicturesUtil tackPicUtil;
+//    private TackPicturesUtil tackPicUtil;
 
     @Override
     protected void initView() {
@@ -295,7 +295,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         sTypePresenter = new ServerTypePresenter(context, this);
         mGetUpdateServInfoPresenter = new GetUpdateServInfoPresenter(context, this);
         loadingDialog = new LoadingDialog(context);
-        tackPicUtil = new TackPicturesUtil(activity).setScale(15, 8);
+//        tackPicUtil = new TackPicturesUtil(activity).setScale(15, 8);
 
         if (MySelfInfo.getInstance().isLogin()) {
             if (MySelfInfo.getInstance().getServiceIden() == 0) {//只在登录之后第一次获取、城市
@@ -1028,13 +1028,13 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                     @Override
                     public void onItemClick(View view, int position) {
                         if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
-//                            PhotoPicker.builder()
-//                                    .setPhotoCount(PhotoAdapter.MAX)
-//                                    .setShowCamera(true)
-//                                    .setPreviewEnabled(false)
-//                                    .setSelected(selectedPhotos)
-//                                    .start(AddServicesActivity.this);
-                            tackPicUtil.showDialog(context);
+                            PhotoPicker.builder()
+                                    .setPhotoCount(PhotoAdapter.MAX)
+                                    .setShowCamera(true)
+                                    .setPreviewEnabled(false)
+                                    .setSelected(selectedPhotos)
+                                    .start(AddServicesActivity.this);
+//                            tackPicUtil.showDialog(context);
                         } else {
                             PhotoPreview.builder()
                                     .setPhotos(selectedPhotos)
@@ -1076,57 +1076,56 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 setPriceCalender(priceCalendar, uniqueId);
                 break;
         }
-        switch (requestCode) {
-            case TackPicturesUtil.CHOOSE_PIC:
-            case TackPicturesUtil.TACK_PIC:
-            case TackPicturesUtil.CROP_PIC:
-                String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
-                if (path == null)
-                    return;
-                selectedPhotos.add(path);
-
-                upUrls = "";
-                int a = 0;
-                for (int i = 0; i < selectedPhotos.size(); i++) {
-                    if (selectedPhotos.get(i).startsWith("http")) {
-                        upUrls += selectedPhotos.get(i).toString() + ",";
-                    } else {
-                        a++;
-                        if (a == 1) {
-                            upFile2();
-                        }
-                    }
-                }
-                initAddPhoto();
-
-                break;
-        }
-        //多图片上传图片回调
-//        if (resultCode == -1 &&
-//                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
-//            List<String> photos = null;
-//            if (data != null) {
-//                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-//            }
-//            selectedPhotos.clear();
-//            if (photos != null) {
-//                selectedPhotos.addAll(photos);
-//            }
-//            upUrls = "";
-//            int a = 0;
-//            for (int i = 0; i < selectedPhotos.size(); i++) {
-//                if (selectedPhotos.get(i).startsWith("http")) {
-//                    upUrls += selectedPhotos.get(i).toString() + ",";
-//                } else {
-//                    a++;
-//                    if (a == 1) {
-//                        upFile2();
+//        switch (requestCode) {
+//            case TackPicturesUtil.CHOOSE_PIC:
+//            case TackPicturesUtil.TACK_PIC:
+//            case TackPicturesUtil.CROP_PIC:
+//                String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
+//                if (path == null)
+//                    return;
+//                selectedPhotos.add(path);
+//
+//                upUrls = "";
+//                int a = 0;
+//                for (int i = 0; i < selectedPhotos.size(); i++) {
+//                    if (selectedPhotos.get(i).startsWith("http")) {
+//                        upUrls += selectedPhotos.get(i).toString() + ",";
+//                    } else {
+//                        a++;
+//                        if (a == 1) {
+//                            upFile2();
+//                        }
 //                    }
 //                }
-//            }
-//            initAddPhoto();
+//                initAddPhoto();
+//
+//                break;
 //        }
-
+        //多图片上传图片回调
+        if (resultCode == -1 &&
+                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+            List<String> photos = null;
+            if (data != null) {
+                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+            }
+            selectedPhotos.clear();
+            if (photos != null) {
+                selectedPhotos.addAll(photos);
+            }
+            upUrls = "";
+            int a = 0;
+            for (int i = 0; i < selectedPhotos.size(); i++) {
+                if (selectedPhotos.get(i).startsWith("http")) {
+                    upUrls += selectedPhotos.get(i).toString() + ",";
+                } else {
+                    a++;
+                    if (a == 1) {
+                        upFile2();
+                    }
+                }
+            }
+            initAddPhoto();
+        }
     }
 
     public void upFile2() {

@@ -108,7 +108,8 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
         Intent intent;
         switch (v.getId()) {
             case R.id.btn_call:
-                DialogUtil.getInstance().showGuideMobileDialog(context,refundModel.getMobile());
+                if(refundModel == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context,refundModel.getMobile(),refundModel.getId(),0,refundModel.getGuideId());
                 break;
             case R.id.btn_refund:
                 intent = new Intent(context, OrderRefundActivity.class);
@@ -165,6 +166,7 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
         login_view_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(orders == null) return;
                 DialogUtil.getInstance().showGuideMobileDialog(context,orders.getMobile());
             }
         });

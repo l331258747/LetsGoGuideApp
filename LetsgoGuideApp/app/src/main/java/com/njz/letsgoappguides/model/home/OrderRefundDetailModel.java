@@ -73,7 +73,12 @@ public class OrderRefundDetailModel {
     private String guideSureTime;
     private String planDesignTime;
     private int planStatus;
+    private int guideId;
     private List<OrderRefundDetailChildModel> njzRefundDetailsChildVOS;
+
+    public int getGuideId() {
+        return guideId;
+    }
 
     public int getPlanStatus() {
         return planStatus;

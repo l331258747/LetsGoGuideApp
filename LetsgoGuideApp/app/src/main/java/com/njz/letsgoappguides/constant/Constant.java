@@ -91,6 +91,7 @@ public class Constant {
     public static final String NOTIFY_SKIP_UD = "UD";//用户详情
     public static final String NOTIFY_SKIP_GD = "GD";//导游详情
     public static final String NOTIFY_SKIP_RD = "RD";//评价详情
+    public static final String NOTIFY_SKIP_SD = "SD";//审核详情
 
     //------消息 end-------
 

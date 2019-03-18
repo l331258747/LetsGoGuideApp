@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
+import com.njz.letsgoappguides.base.ActivityCollect;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.base.BaseFragment;
 import com.njz.letsgoappguides.constant.Constant;
@@ -133,21 +134,16 @@ public class MainActivity extends BaseActivity implements NotifyMainContract.Vie
     public void onViewClicked(View view) {
         switch (view.getId()) {
         case R.id.rl_icon_1:
-            vp_main.setCurrentItem(0);
-            setSelecteds(ivIcon1,ivIcon2,ivIcon3,ivIcon4);
+            setTabIndex(0);
             break;
         case R.id.rl_icon_2:
-            vp_main.setCurrentItem(1);
-            setSelecteds(ivIcon2,ivIcon1,ivIcon3,ivIcon4);
+            setTabIndex(1);
             break;
         case R.id.rl_icon_3:
-            vp_main.setCurrentItem(2);
-            setSelecteds(ivIcon3,ivIcon2,ivIcon1,ivIcon4);
-            RxBus2.getInstance().post(new NotifyEvent(false));
+            setTabIndex(2);
             break;
         case R.id.rl_icon_4:
-            vp_main.setCurrentItem(3);
-            setSelecteds(ivIcon4,ivIcon2,ivIcon3,ivIcon1);
+            setTabIndex(3);
             break;
     }
 }
@@ -221,8 +217,34 @@ public class MainActivity extends BaseActivity implements NotifyMainContract.Vie
                 intent.putExtra("ORDER_ID",correlationId);
                 startActivity(intent);
                 break;
+            case Constant.NOTIFY_SKIP_SD:
+                ActivityCollect.getAppCollect().finishAllNotHome();
+                MainActivity activity = (MainActivity) ActivityCollect.getAppCollect().findActivity(MainActivity.class);
+                if(activity!=null){
+                    activity.setTabIndex(1);
+                }
+                break;
             default:
                 LogUtil.e("不能进行跳转skip");
+                break;
+        }
+    }
+
+    public void setTabIndex(int i) {
+        vp_main.setCurrentItem(i);
+        switch (i) {
+            case 0:
+                setSelecteds(ivIcon1, ivIcon2, ivIcon3, ivIcon4);
+                break;
+            case 1:
+                setSelecteds(ivIcon2, ivIcon1, ivIcon3, ivIcon4);
+                break;
+            case 2:
+                setSelecteds(ivIcon3, ivIcon2, ivIcon1, ivIcon4);
+                RxBus2.getInstance().post(new NotifyEvent(false));
+                break;
+            case 3:
+                setSelecteds(ivIcon4, ivIcon2, ivIcon3, ivIcon1);
                 break;
         }
     }

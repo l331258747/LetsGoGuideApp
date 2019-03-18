@@ -11,8 +11,10 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
+import com.njz.letsgoappguides.base.ActivityCollect;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.model.message.NotifyMainModel;
+import com.njz.letsgoappguides.ui.MainActivity;
 import com.njz.letsgoappguides.ui.activites.home.OrderDetailActivity;
 import com.njz.letsgoappguides.ui.activites.home.OrderDetailRefundActivity;
 import com.njz.letsgoappguides.ui.activites.mine.MyEvaluationActivity;
@@ -86,6 +88,13 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
                     case Constant.NOTIFY_SKIP_RD:
                         intent = new Intent(mContext, MyEvaluationActivity.class);
                         mContext.startActivity(intent);
+                        break;
+                    case Constant.NOTIFY_SKIP_SD:
+                        ActivityCollect.getAppCollect().finishAllNotHome();
+                        MainActivity activity = (MainActivity) ActivityCollect.getAppCollect().findActivity(MainActivity.class);
+                        if(activity!=null){
+                            activity.setTabIndex(1);
+                        }
                         break;
                     default:
                         LogUtil.e("不能进行跳转skip");

@@ -249,8 +249,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 if (getServeDicVoListisTrue.size() > 0) {
                     serviceType.setEditContent(serviceTypeEvent.getModel().getName());
                     serverTypeId = serviceTypeEvent.getModel().getId();
-                    serviceTitle.getEditText().setHint(getTitleHint(serverTypeId));
-                    tv_title_img_tip.setHint(getImgTitleTipHint(serverTypeId));
+                    getAllHint(serverTypeId);
                     List<NjzGuideServeFormatDicVosBean> getServeFormatDicVosBeanList = serviceTypeEvent.getModel().getNjzGuideServeFormatDicVos();
                     int getServeFormatDicVosSize = getServeFormatDicVosBeanList.size();
                     ll_vai_text.removeAllViews();
@@ -938,8 +937,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                                 NjzGuideServeFormatDicVosBean listDicVosBean = listTrue.getNjzGuideServeFormatDicVos().get(s);
                                 serviceType.setEditContent(listTrue.getName());
                                 serverTypeId = listTrue.getId();
-                                serviceTitle.getEditText().setHint(getTitleHint(serverTypeId));
-                                tv_title_img_tip.setHint(getImgTitleTipHint(serverTypeId));
+                                getAllHint(serverTypeId);
                                 if (listTrue.getNjzGuideServeFormatDicVos().get(s).isIsPower()) {
                                     String formatName = listDicVosBean.getFormatName();
                                     String uniqueValue = listDicVosBean.getUniqueValue();
@@ -1351,8 +1349,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                     infos1 = infos.getserveGroupListInfo();
                 }
                 serverTypeId = serveUpdataBean.getServeType();
-                serviceTitle.getEditText().setHint(getTitleHint(serverTypeId));
-                tv_title_img_tip.setHint(getImgTitleTipHint(serverTypeId));
+                getAllHint(serverTypeId);
                 serviceId = serveUpdataBean.getId();
                 cityTypeId = serveUpdataBean.getAddressId();
                 myFeature = serveUpdataBean.getServeFeature();
@@ -1387,6 +1384,12 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     //------------更新服务 end------------
 
     //--------other  start
+
+    public void getAllHint(int serverType){
+        serviceTitle.getEditText().setHint(getTitleHint(serverType));
+        tv_title_img_tip.setHint(getImgTitleTipHint(serverType));
+        llServicePriceinfo.setHint(getPriceExplainHint(serverType));
+    }
     public String getTitleHint(int serverType) {
         switch (serverType) {
             case Constant.SERVER_TYPE_GUIDE_ID:
@@ -1419,6 +1422,24 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 return "要求：\\n1、所有图片必须是服务介绍中景点/演出等相关的照片（内景、外景都可以），最多添加6张\\n2、所有服务禁止上传一模一样的封面图（第一张默认为封面图）\\n3、所有图片必须与目的地的实体一致\\n4、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片";
             case Constant.SERVER_TYPE_CAR_ID:
                 return "要求：\\n1、纯风景或含单辆车（至少一张且勿露出车牌号）的照片，最多添加6张\\n2、所有服务禁止上传一模一样的封面图（第一张默认为封面图）\\n3、所有图片需与目的地的景、物匹配\\n4、不得上传模糊、变形、含水印、脸部缺失、过度PS、明星合照等图片";
+        }
+        return "";
+    }
+
+    public String getPriceExplainHint(int serverType){
+        switch (serverType) {
+            case Constant.SERVER_TYPE_GUIDE_ID:
+                return "1、必须对游客在预定该服务后所要产生的各项费用进行详细说明\n2、对该服务包含的费用进行说明，如：向导服务费、车辆服务费\n3、对预定该服务后可能产生但该服务不包含的费用进行说明，如：停车费、过路费、门票费、餐费等\n4、对自己在该服务中涉及到的吃饭、住宿、门票等可能产生的费用进行说明。";
+            case Constant.SERVER_TYPE_CAR_ID:
+                return "1、必须对游客在预定该服务后所要产生的各项费用进行详细说明\n2、对该服务包含的费用进行说明，如：车辆燃油费、过路费、停车费等\n3、对预定该服务后可能产生但该服务不包含的费用进行说明，如：门票费、餐费、向导服务费等\n4、对自己在该服务中涉及到的吃饭、住宿、门票等可能产生的费用进行说明。";
+            case Constant.SERVER_TYPE_FEATURE_ID:
+                return "1、必须对游客在预定该服务后所要产生的各项费用进行详细说明\n2、对该服务包含的费用进行说明\n3、对预定该服务后可能产生但该服务不包含的费用进行说明\n4、对自己在该服务中涉及到的吃饭、住宿、门票等可能产生的费用进行说明。";
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return "1、必须对游客在预定该服务后所要产生的各项费用进行详细说明\n2、对该服务包含的费用进行说明，如：向导服务费、车辆服务费、门票费、餐费、住宿费、停车费、过路费等\n3、对预定该服务后可能产生但该服务不包含的费用进行说明，如：其他娱乐性质项目所产生的费用等\n4、对自己在该服务中涉及到的吃饭、住宿、门票等可能产生的费用进行说明";
+            case Constant.SERVER_TYPE_HOTEL_ID:
+                return "1、必须对游客在预定该服务后所要产生的各项费用进行详细说明\n2、对该服务包含的费用进行说明，如：住宿费、代订服务费\n3、对预定该服务后可能产生但该服务不包含的费用进行说明，如：停车费、餐费等";
+            case Constant.SERVER_TYPE_TICKET_ID:
+                return "1、必须对游客在预定该服务后所要产生的各项费用进行详细说明\n2、对该服务包含的费用进行说明，如：门票费、代订服务费\n3、对预定该服务后可能产生但该服务不包含的费用进行说明，如：停车费、其他娱乐活动产生的费用等";
         }
         return "";
     }

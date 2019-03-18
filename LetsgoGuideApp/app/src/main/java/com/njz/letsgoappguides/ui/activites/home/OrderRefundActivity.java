@@ -210,9 +210,9 @@ public class OrderRefundActivity extends BaseActivity implements OrderRefundDeta
         loginViewPhone.setContent(datas.getMobile());
         fixed_view_personl.setContent(datas.getPersonNum());
 
-        tvOrderPrice.setText(datas.getOrderPrice() + "");
-        tvRefundPenalty.setText(datas.getDefaultMoney() + "");
-        tvRefundPrice.setText(datas.getRefundMoney() + "");
+        tvOrderPrice.setText(datas.getOrderPrice());
+        tvRefundPenalty.setText("￥"+datas.getDefaultMoney());
+        tvRefundPrice.setText("￥"+datas.getRefundMoney());
 
 
         //已消费金额
@@ -224,7 +224,7 @@ public class OrderRefundActivity extends BaseActivity implements OrderRefundDeta
         }
         if (isTravelGoing) {
             rlRefundUsedPrice.setVisibility(View.VISIBLE);
-            tvRefundUsedPrice.setText(datas.getUseMoney() + "");
+            tvRefundUsedPrice.setText("￥"+datas.getUseMoney());
         } else {
             rlRefundUsedPrice.setVisibility(View.GONE);
         }

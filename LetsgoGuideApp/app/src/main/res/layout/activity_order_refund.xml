@@ -341,13 +341,6 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="￥"
-                                    android:textColor="@color/color_theme"
-                                    android:textStyle="bold" />
-
-                                <TextView
                                     android:id="@+id/tv_order_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -379,13 +372,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="￥"
-                                    android:textColor="@color/color_theme"
-                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/tv_refund_used_price"
@@ -421,13 +407,6 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="￥"
-                                    android:textColor="@color/color_red"
-                                    android:textStyle="bold" />
-
-                                <TextView
                                     android:id="@+id/tv_refund_penalty"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -459,13 +438,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="￥"
-                                    android:textColor="@color/color_theme"
-                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/tv_refund_price"

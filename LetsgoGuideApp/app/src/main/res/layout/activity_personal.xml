@@ -285,7 +285,6 @@
                         android:hint="该签名会显示在个人主页上，为自己拉拉票吧！\n个性签名需披露自身特色，体现个人亮点，不可披露其他无关信息，最多展示200字\n要求：\n1、不允许披露任何联系方式（如电话、微信、QQ等）\n2、不允许披露“优秀，高级，首席”等难以评定的修饰形容词（如国家中级/高级导游等需出示相应证件经平台认证）\n3、不允许披露和旅游不相关的业务"
                         android:lines="4"
                         android:padding="10dp"
-                        android:src="@mipmap/my_add"
                         android:textSize="12sp" />
                 </RelativeLayout>
 

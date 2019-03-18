@@ -33,7 +33,6 @@
             android:hint="请进行备注说明（选填，500字以内）"
             android:lines="6"
             android:padding="10dp"
-            android:src="@mipmap/my_add"
             android:textSize="13sp" />
 
         <View

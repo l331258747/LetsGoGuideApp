@@ -154,7 +154,6 @@
                             android:hint="请对整个行程中产生的费用明细进行详细说明，如：\n1、当地四星酒店\n    使用日期：XX月XX日    3间四晚\n2、张家界天门山门票\n    使用日期：XX月XX日    5张\n3、12座商务车\n    使用日期：XX月XX日-  XX月XX日    3天\n4、向导服务费\n    使用日期：XX月XX日-  XX月XX日    3天"
                             android:lines="9"
                             android:padding="10dp"
-                            android:src="@mipmap/my_add"
                             android:textSize="14sp" />
                     </RelativeLayout>
 

@@ -55,7 +55,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="10dp"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/my_add" />
+                            android:src="@mipmap/defult_head" />
 
                         <TextView
                             android:id="@+id/tv_name"

@@ -290,7 +290,6 @@
                     android:hint="1、必须对游客在预定该服务后所要产生的各项服务进行详细说明。\n2、对该服务包含的费用进行说明，如：向导服务费、车辆服务费。\n3、对预定该服务后可能产生但该服务不包含的费用进行说明，如：停车费、过路费、门票费、餐费等。\n4、对自己在该服务中涉及的吃饭、住宿、门票等可能产生的费用进行说明。"
                     android:lines="6"
                     android:padding="10dp"
-                    android:src="@mipmap/my_add"
                     android:textSize="14sp" />
             </RelativeLayout>
 

@@ -284,15 +284,15 @@ public class TackPicturesUtil {
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
         if (Build.MANUFACTURER.equals("HUAWEI")) {
-            intent.putExtra("aspectX", 9998 * scalex);
+            intent.putExtra("aspectX", 9999 * scalex);
             intent.putExtra("aspectY", 9999 * scaley);
         } else {
             intent.putExtra("aspectX", 1 * scalex);
             intent.putExtra("aspectY", 1 * scaley);
         }
         // outputX,outputY 是剪裁图片的宽高
-        intent.putExtra("outputX", 320 * scalex);
-        intent.putExtra("outputY", 320 * scaley);
+        intent.putExtra("outputX", 320 * scalex / 10);//有的手机过了一个值后剪裁有出现很小的图，所以除以10
+        intent.putExtra("outputY", 320 * scaley / 10);
         //是否保留比例
         intent.putExtra("scale", true);
         // 取消人脸识别

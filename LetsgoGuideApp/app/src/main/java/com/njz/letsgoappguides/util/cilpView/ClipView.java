@@ -1,6 +1,8 @@
 package com.njz.letsgoappguides.util.cilpView;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,6 +15,8 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+
+import com.njz.letsgoappguides.R;
 
 /**
  * 头像上传裁剪框
@@ -32,6 +36,7 @@ public class ClipView extends View {
     //裁剪框类别，（圆形、矩形），默认为圆形
     private ClipType clipType = ClipType.RECTANGLE;
     private Xfermode xfermode;
+    private Xfermode xfermode2;
 
     public ClipView(Context context) {
         this(context, null);
@@ -50,6 +55,7 @@ public class ClipView extends View {
         borderPaint.setStrokeWidth(clipBorderWidth);
         borderPaint.setAntiAlias(true);
         xfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
+        xfermode2 = new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT);
     }
 
     @Override
@@ -61,26 +67,21 @@ public class ClipView extends View {
         //通过Xfermode的DST_OUT来产生中间的透明裁剪区域，一定要另起一个Layer（层）
         canvas.saveLayer(0, 0, this.getWidth(), this.getHeight(), null, LAYER_FLAGS);
         //设置背景
-        canvas.drawColor(Color.parseColor("#a8000000"));
-        paint.setXfermode(xfermode);
-        //绘制圆形裁剪框
-        if (clipType == ClipType.RECTANGLE) { //绘制矩形裁剪框
-            //绘制中间的矩形
-//            canvas.drawRect(mHorizontalPadding, this.getHeight() / 2 - clipWidth / 2,
-//                    this.getWidth() - mHorizontalPadding, this.getHeight() / 2 + clipWidth / 2, paint);
 
+        //绘制圆形裁剪框
+        if (clipType == ClipType.HEADIMG) {
+            paint.setXfermode(xfermode2);
+            Bitmap mp = BitmapFactory.decodeResource(getResources(), R.mipmap.clip_head);
+            canvas.drawBitmap(mp,this.getWidth() / 2 - mp.getWidth() / 2, this.getHeight() / 2 - mp.getHeight() / 2, paint);
+        }else if (clipType == ClipType.RECTANGLE) { //绘制矩形裁剪框
+            canvas.drawColor(Color.parseColor("#a8000000"));
+            paint.setXfermode(xfermode);
             clipWidth = this.getWidth() * 8 / 15;
             canvas.drawRect(mHorizontalPadding, this.getHeight() / 2 - clipWidth / 2,
                     this.getWidth() - mHorizontalPadding, this.getHeight() / 2 + clipWidth / 2, paint);
-
-            //绘制白色的矩形边框
             canvas.drawRect(mHorizontalPadding, this.getHeight() / 2 - clipWidth / 2,
                     this.getWidth() - mHorizontalPadding, this.getHeight() / 2 + clipWidth / 2, borderPaint);
-
-//            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_heand),
-//                    mHorizontalPadding, this.getHeight() / 2 - clipWidth / 2, paint);
         }
-        //出栈，恢复到之前的图层，意味着新建的图层会被删除，新建图层上的内容会被绘制到canvas (or the previous layer)
         canvas.restore();
     }
 
@@ -90,6 +91,19 @@ public class ClipView extends View {
      * @return
      */
     public Rect getClipRect() {
+        if(clipType == ClipType.HEADIMG){
+            Rect rect = new Rect();
+            //宽度的一半 - 圆的半径
+            rect.left = (this.getWidth() / 2 - clipRadiusWidth);
+            //宽度的一半 + 圆的半径
+            rect.right = (this.getWidth() / 2 + clipRadiusWidth);
+            //高度的一半 - 圆的半径
+            rect.top = (this.getHeight() / 2 - clipRadiusWidth);
+            //高度的一半 + 圆的半径
+            rect.bottom = (this.getHeight() / 2 + clipRadiusWidth);
+            return rect;
+        }
+
         Rect rect = new Rect();
         //宽度的一半 - 圆的半径
         rect.left = 0;
@@ -124,10 +138,6 @@ public class ClipView extends View {
         this.clipWidth = clipRadiusWidth * 2;
     }
 
-    public int getVpadding(){
-        return getHeight() /2 - getWidth() * 8 /15 /2;
-    }
-
     /**
      * 获得屏幕高度
      *
@@ -155,6 +165,6 @@ public class ClipView extends View {
      * 裁剪框类别，圆形、矩形
      */
     public enum ClipType {
-        RECTANGLE
+        RECTANGLE,HEADIMG
     }
 }

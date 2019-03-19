@@ -23,14 +23,17 @@ import java.io.OutputStream;
  */
 public class ClipImageActivity extends AppCompatActivity implements View.OnClickListener {
     private ClipViewLayout clipViewLayout2;
+    private ClipViewLayout clipViewLayout1;
     private ImageView back;
     private TextView btnCancel;
     private TextView btnOk;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clip_image);
+        type = getIntent().getIntExtra("type", 1);
         initView();
     }
 
@@ -39,6 +42,7 @@ public class ClipImageActivity extends AppCompatActivity implements View.OnClick
      */
     public void initView() {
         clipViewLayout2 = (ClipViewLayout) findViewById(R.id.clipViewLayout2);
+        clipViewLayout1 = (ClipViewLayout) findViewById(R.id.clipViewLayout1);
         back = (ImageView) findViewById(R.id.iv_back);
         btnCancel = (TextView) findViewById(R.id.btn_cancel);
         btnOk = (TextView) findViewById(R.id.bt_ok);
@@ -51,8 +55,17 @@ public class ClipImageActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        clipViewLayout2.setVisibility(View.VISIBLE);
-        clipViewLayout2.setImageSrc(getIntent().getData());
+        if (type == 1) {
+            clipViewLayout1.setVisibility(View.VISIBLE);
+            clipViewLayout2.setVisibility(View.GONE);
+            //设置图片资源
+            clipViewLayout1.setImageSrc(getIntent().getData());
+        } else {
+            clipViewLayout2.setVisibility(View.VISIBLE);
+            clipViewLayout1.setVisibility(View.GONE);
+            //设置图片资源
+            clipViewLayout2.setImageSrc(getIntent().getData());
+        }
     }
 
     @Override
@@ -77,7 +90,11 @@ public class ClipImageActivity extends AppCompatActivity implements View.OnClick
     private void generateUriAndReturn() {
         //调用返回剪切图
         Bitmap zoomedCropBitmap;
-        zoomedCropBitmap = clipViewLayout2.clip();
+        if (type == 1) {
+            zoomedCropBitmap = clipViewLayout1.clip();
+        } else {
+            zoomedCropBitmap = clipViewLayout2.clip();
+        }
         if (zoomedCropBitmap == null) {
             Log.e("android", "zoomedCropBitmap == null");
             return;

@@ -143,6 +143,17 @@ public class ClipPop extends PopupWindow {
     /**
      * 打开截图界面
      */
+    public void gotoClipActivity(Uri uri,int type) {
+        if (uri == null) {
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setClass(activity, ClipImageActivity.class);
+        intent.putExtra("type", type);
+        intent.setData(uri);
+        activity.startActivityForResult(intent, REQUEST_CROP_PHOTO);
+    }
+
     public void gotoClipActivity(Uri uri) {
         if (uri == null) {
             return;

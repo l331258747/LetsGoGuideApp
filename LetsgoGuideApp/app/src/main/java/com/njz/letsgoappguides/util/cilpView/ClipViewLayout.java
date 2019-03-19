@@ -85,12 +85,13 @@ public class ClipViewLayout extends RelativeLayout {
         //获取裁剪框边框宽度，默认1dp
         int clipBorderWidth = array.getDimensionPixelSize(R.styleable.ClipViewLayout_clipBorderWidth,
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
+        int clipType = array.getInt(R.styleable.ClipViewLayout_clipType, 1);
 
         //回收
         array.recycle();
         clipView = new ClipView(context);
         //设置裁剪框类型
-        clipView.setClipType(ClipView.ClipType.RECTANGLE);
+        clipView.setClipType(clipType == 1 ? ClipView.ClipType.RECTANGLE : ClipView.ClipType.HEADIMG);
         //设置剪切框边框
         clipView.setClipBorderWidth(clipBorderWidth);
         //设置剪切框水平间距

@@ -111,7 +111,6 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     @BindView(R.id.ll_title_img_tip)
     LinearLayout ll_title_img_tip;
 
-    private TackPicturesUtil tackPicUtil;
     LoadingDialog loadingDialog;
     private String headpath;// 头像地址
     private String headCompressPath;
@@ -173,9 +172,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
 
         initAddPhoto();
 
-        tackPicUtil = new TackPicturesUtil(this);
         loadingDialog = new LoadingDialog(context);
-        getPicPermission(context);
 
         mPresenter = new UpLoadPresenter(context, this);
         languagePresenter = new GetLanguagePresenter(context, this);
@@ -234,7 +231,6 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     protected void onResume() {
         super.onResume();
         personalTvCheck.setText(getLable());
-//        personalTvCheckb.setText(getLanguage());
     }
 
     private String getLable() {
@@ -299,9 +295,11 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     }
 
 
+    int type  = 1;
     @OnClick(R.id.iv_head)
     public void onViewClicked() {
-        tackPicUtil.showDialog(context);
+        type = 2;
+        uploadHeadImage();
     }
 
     /**
@@ -329,29 +327,17 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                     }
                 }
                 break;
-            case TackPicturesUtil.CHOOSE_PIC:
-            case TackPicturesUtil.TACK_PIC:
-            case TackPicturesUtil.CROP_PIC:
-                String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
-                if (path == null)
-                    return;
-                headpath = path;
-                upFile();
-                updateBack();
-                break;
-            default:
-                break;
         }
         switch (requestCode) {
             case ClipPop.REQUEST_CAPTURE: //调用系统相机返回
                 if (resultCode == RESULT_OK) {
-                    clipPop.gotoClipActivity(Uri.fromFile(clipPop.getTempFile()));
+                    clipPop.gotoClipActivity(Uri.fromFile(clipPop.getTempFile()),type);
                 }
                 break;
             case ClipPop.REQUEST_PICK:  //调用系统相册返回
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
-                    clipPop.gotoClipActivity(uri);
+                    clipPop.gotoClipActivity(uri,type);
                 }
                 break;
             case ClipPop.REQUEST_CROP_PHOTO:  //剪切图片返回
@@ -363,36 +349,38 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                     String path = FileUtil.getRealFilePathFromUri(getApplicationContext(), uri);
                     if (path == null)
                         return;
-                    selectedPhotos.add(path);
 
-                    upUrls = "";
-                    int a = 0;
-                    for (int i = 0; i < selectedPhotos.size(); i++) {
-                        if (selectedPhotos.get(i).startsWith("http")) {
-                            upUrls += selectedPhotos.get(i).toString() + ",";
-                        } else {
-                            a++;
-                            if (a == 1) {
-                                updateBack();
-                                upFile2();
+                    if (type == 1) {
+                        selectedPhotos.add(path);
+
+                        upUrls = "";
+                        int a = 0;
+                        for (int i = 0; i < selectedPhotos.size(); i++) {
+                            if (selectedPhotos.get(i).startsWith("http")) {
+                                upUrls += selectedPhotos.get(i).toString() + ",";
+                            } else {
+                                a++;
+                                if (a == 1) {
+                                    updateBack();
+                                    upFile2();
+                                }
                             }
                         }
-                    }
-                    if (!image.equals(upUrls)) {
+                        if (!image.equals(upUrls)) {
+                            updateBack();
+                        }
+                        initAddPhoto();
+                    }else if(type == 2){
+                        headpath = path;
+                        upFile();
                         updateBack();
                     }
-                    initAddPhoto();
                 }
                 break;
         }
     }
 
     //-----------start 上传头像-----------
-
-    //拍照，存储权限
-    public void getPicPermission(Context context) {
-        tackPicUtil.checkPermission(context);
-    }
 
     public void upFile() {
         disposable = RxBus2.getInstance().toObservable(UpLoadPhotos.class, new Consumer<UpLoadPhotos>() {
@@ -467,6 +455,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
         moreImgAdapter.onClickLisenter(new MoreImgAdapter.OnClickListener() {
             @Override
             public void onClick() {
+                type = 1;
                 uploadHeadImage();
             }
 

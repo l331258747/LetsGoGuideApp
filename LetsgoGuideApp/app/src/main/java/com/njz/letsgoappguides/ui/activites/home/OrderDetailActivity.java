@@ -501,8 +501,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     }
 
     public void isShowNoEdit(String orderNote) {
-        view_line_remark.setVisibility(View.VISIBLE);
-        ll_order_remarks_edit.setVisibility(View.VISIBLE);
+        view_line_remark.setVisibility(View.GONE);
+        ll_order_remarks_edit.setVisibility(View.GONE);
         tv_order_remarks_context.setText(orderNote.equals("") ? "无" : orderNote);
         tv_order_remarks_context.setTextColor(getResources().getColor(R.color.color_cc));
     }

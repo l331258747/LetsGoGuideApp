@@ -3,15 +3,17 @@ package com.njz.letsgoappguides.ui.activites.service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +27,8 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.njz.letsgoappguides.Bean.MySelfInfo;
 import com.njz.letsgoappguides.R;
+import com.njz.letsgoappguides.adapter.other.ClipImageActivity;
+import com.njz.letsgoappguides.adapter.other.MoreImgAdapter;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.LinearServiceView;
@@ -63,10 +67,9 @@ import com.njz.letsgoappguides.util.DateUtil;
 import com.njz.letsgoappguides.util.ServiceUtil;
 import com.njz.letsgoappguides.util.StringUtils;
 import com.njz.letsgoappguides.util.accessory.ImageUtils;
-import com.njz.letsgoappguides.util.accessory.PhotoAdapter;
-import com.njz.letsgoappguides.util.accessory.RecyclerItemClickListener;
+import com.njz.letsgoappguides.util.cilpView.ClipPop;
+import com.njz.letsgoappguides.util.cilpView.FileUtil;
 import com.njz.letsgoappguides.util.dialog.LoadingDialog;
-import com.njz.letsgoappguides.util.log.LogUtil;
 import com.njz.letsgoappguides.util.photo.TackPicturesUtil;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
 import com.njz.letsgoappguides.util.rxbus.busEvent.ServiceTypeEvent;
@@ -82,8 +85,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import me.iwf.photopicker.PhotoPicker;
-import me.iwf.photopicker.PhotoPreview;
 
 
 /**
@@ -166,14 +167,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     int serverTypeId = -1;
     int langagesId = -1;
 
-    LoadingDialog loadingDialog;
-    private Disposable disposable;
-    private PhotoAdapter photoAdapter;
-    private ArrayList<String> selectedPhotos = new ArrayList<>();
-    private ArrayList<String> upLoadPhotos = new ArrayList<>();
-    String upUrls = "";
-    private List<String> list = new ArrayList<>();
-
     //------------城市------------
     List<String> listModels = new ArrayList<>();
     List<List<String>> listModelsChildrens = new ArrayList<>();
@@ -207,8 +200,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     int uniqueId = 0;
     List<PriceModel> priceCalendar = new ArrayList<>();
-
-//    private TackPicturesUtil tackPicUtil;
 
     @Override
     protected void initView() {
@@ -295,7 +286,6 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         sTypePresenter = new ServerTypePresenter(context, this);
         mGetUpdateServInfoPresenter = new GetUpdateServInfoPresenter(context, this);
         loadingDialog = new LoadingDialog(context);
-//        tackPicUtil = new TackPicturesUtil(activity).setScale(15, 8);
 
         if (MySelfInfo.getInstance().isLogin()) {
             if (MySelfInfo.getInstance().getServiceIden() == 0) {//只在登录之后第一次获取、城市
@@ -1019,30 +1009,41 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             ll_title_img_tip.setVisibility(View.GONE);
         }
         //------------附件
+        GridLayoutManager linearLayoutManager = new GridLayoutManager(activity, 3, LinearLayoutManager.VERTICAL, false);
+        mPhotoRecyclerView.setLayoutManager(linearLayoutManager);
+        moreImgAdapter = new MoreImgAdapter(context,selectedPhotos);
+        mPhotoRecyclerView.setAdapter(moreImgAdapter);
+        mPhotoRecyclerView.setNestedScrollingEnabled(false);
 
-        photoAdapter = new PhotoAdapter(context, selectedPhotos);
-        mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(PhotoAdapter.IMAGE_LINE_3, OrientationHelper.VERTICAL));
-        mPhotoRecyclerView.setAdapter(photoAdapter);
-        mPhotoRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,
-                new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
-                            PhotoPicker.builder()
-                                    .setPhotoCount(PhotoAdapter.MAX)
-                                    .setShowCamera(true)
-                                    .setPreviewEnabled(false)
-                                    .setSelected(selectedPhotos)
-                                    .start(AddServicesActivity.this);
-//                            tackPicUtil.showDialog(context);
-                        } else {
-                            PhotoPreview.builder()
-                                    .setPhotos(selectedPhotos)
-                                    .setCurrentItem(position)
-                                    .start(AddServicesActivity.this);
-                        }
-                    }
-                }));
+        moreImgAdapter.onClickLisenter(new MoreImgAdapter.OnClickListener() {
+            @Override
+            public void onClick() {
+                uploadHeadImage();
+            }
+
+            @Override
+            public void onDelect(int position) {
+                selectedPhotos.remove(position);
+                initAddPhoto();
+            }
+        });
+
+    }
+    MoreImgAdapter moreImgAdapter;
+
+    LoadingDialog loadingDialog;
+    private Disposable disposable;
+    private ArrayList<String> selectedPhotos = new ArrayList<>();
+    private ArrayList<String> upLoadPhotos = new ArrayList<>();
+    String upUrls = "";
+    private List<String> list = new ArrayList<>();
+    ClipPop clipPop;
+
+    private void uploadHeadImage() {
+        if(clipPop == null){
+            clipPop = new ClipPop(context);
+        }
+        clipPop.showPop(LayoutInflater.from(activity).inflate(R.layout.activity_add_services, null));
     }
 
     /**
@@ -1076,55 +1077,45 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 setPriceCalender(priceCalendar, uniqueId);
                 break;
         }
-//        switch (requestCode) {
-//            case TackPicturesUtil.CHOOSE_PIC:
-//            case TackPicturesUtil.TACK_PIC:
-//            case TackPicturesUtil.CROP_PIC:
-//                String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
-//                if (path == null)
-//                    return;
-//                selectedPhotos.add(path);
-//
-//                upUrls = "";
-//                int a = 0;
-//                for (int i = 0; i < selectedPhotos.size(); i++) {
-//                    if (selectedPhotos.get(i).startsWith("http")) {
-//                        upUrls += selectedPhotos.get(i).toString() + ",";
-//                    } else {
-//                        a++;
-//                        if (a == 1) {
-//                            upFile2();
-//                        }
-//                    }
-//                }
-//                initAddPhoto();
-//
-//                break;
-//        }
-        //多图片上传图片回调
-        if (resultCode == -1 &&
-                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
-            List<String> photos = null;
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            upUrls = "";
-            int a = 0;
-            for (int i = 0; i < selectedPhotos.size(); i++) {
-                if (selectedPhotos.get(i).startsWith("http")) {
-                    upUrls += selectedPhotos.get(i).toString() + ",";
-                } else {
-                    a++;
-                    if (a == 1) {
-                        upFile2();
-                    }
+
+        switch (requestCode) {
+            case ClipPop.REQUEST_CAPTURE: //调用系统相机返回
+                if (resultCode == RESULT_OK) {
+                    clipPop.gotoClipActivity(Uri.fromFile(clipPop.getTempFile()));
                 }
-            }
-            initAddPhoto();
+                break;
+            case ClipPop.REQUEST_PICK:  //调用系统相册返回
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    clipPop.gotoClipActivity(uri);
+                }
+                break;
+            case ClipPop.REQUEST_CROP_PHOTO:  //剪切图片返回
+                if (resultCode == RESULT_OK) {
+                    final Uri uri = data.getData();
+                    if (uri == null) {
+                        return;
+                    }
+                    String path = FileUtil.getRealFilePathFromUri(getApplicationContext(), uri);
+                    if (path == null)
+                        return;
+                    selectedPhotos.add(path);
+
+                    upUrls = "";
+                    int a = 0;
+                    for (int i = 0; i < selectedPhotos.size(); i++) {
+                        if (selectedPhotos.get(i).startsWith("http")) {
+                            upUrls += selectedPhotos.get(i).toString() + ",";
+                        } else {
+                            a++;
+                            if (a == 1) {
+                                upFile2();
+                            }
+                        }
+                    }
+                    initAddPhoto();
+                }
+                break;
         }
     }
 
@@ -1185,7 +1176,8 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             }
         }
         selectedPhotos = StringUtils.stringToList(upUrls);
-        photoAdapter.notifyDataSetChanged();
+//        photoAdapter.notifyDataSetChanged();
+        moreImgAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -1287,7 +1279,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     //-----------新增服务  start-----------
     @Override
     public void addServiceSuccess(String str) {
-        showShortToast("新增成功");
+        showShortToast("您提交的服务信息已经上传成功，请耐心等待审核！");
         finish();
     }
 

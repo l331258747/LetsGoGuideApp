@@ -133,6 +133,10 @@
         <activity android:name=".ui.activites.message.NotifySettingActivity" />
         <!-- 消息 end -->
 
+        <!--other start-->
+        <activity android:name=".adapter.other.ClipImageActivity"/>
+        <!--other end-->
+
 
         <!-- IM -->
         <activity android:name=".ui.im.ChatActivity" />

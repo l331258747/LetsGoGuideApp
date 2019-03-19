@@ -1,5 +1,7 @@
 package com.njz.letsgoappguides.model.mine;
 
+import android.text.TextUtils;
+
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.model.home.OrderRefundChildModel;
 
@@ -190,10 +192,11 @@ public class OrderSettleBeanGroup {
     }
 
     public String getBalanceDate() {
-        if(balanceDate==null){
+        if(TextUtils.isEmpty(balanceDate)){
             return "无";
         }
-        return balanceDate;
+
+        return balanceDate.split(" ")[0];
     }
 
     public void setBalanceDate(String balanceDate) {

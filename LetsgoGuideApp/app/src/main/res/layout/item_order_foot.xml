@@ -12,19 +12,19 @@
         android:id="@+id/rl_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp">
 
         <TextView
-            android:layout_alignParentLeft="true"
             android:id="@+id/tv_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:layout_alignParentLeft="true"
             android:textColor="@color/color_99"
-            tools:text="asdjhfkj234234"/>
+            android:textSize="12sp"
+            tools:text="asdjhfkj234234" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -53,50 +53,57 @@
 
     <LinearLayout
         android:id="@+id/ll_settle_id"
-        android:visibility="gone"
-        android:background="@drawable/btn_theme_hollow_r5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/btn_theme_hollow_r5"
         android:orientation="vertical"
-        android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_margin="5dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:visibility="visible">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
             <TextView
-                android:textColor="@color/color_theme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待结算日期"/>
+                android:text="待结算日期"
+                android:textColor="@color/color_theme" />
+
             <TextView
                 android:id="@+id/tv_settle_date"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/color_theme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018-07-15"/>
+                android:layout_alignParentRight="true"
+                android:text="2018-07-15"
+                android:textColor="@color/color_theme" />
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
+
             <TextView
-                android:textColor="@color/color_theme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待结算金额"/>
+                android:text="待结算金额"
+                android:textColor="@color/color_theme" />
+
             <TextView
                 android:id="@+id/tv_settle_money"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/color_theme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥3506"/>
+                android:layout_alignParentRight="true"
+                android:text="￥3506"
+                android:textColor="@color/color_theme" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -104,10 +111,10 @@
         android:id="@+id/foot_btns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
         android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:overScrollMode="never"
         android:scrollbars="none">
 
         <LinearLayout
@@ -133,49 +140,49 @@
                 android:id="@+id/btn_refuse_order"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:textSize="13dp"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/btn_red_hollow_r3_p5"
                 android:gravity="center"
+                android:text="拒绝"
                 android:textColor="@color/color_red"
-                android:text="拒绝" />
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/btn_call"
                 android:layout_width="wrap_content"
-                android:minWidth="70dp"
-                android:textSize="13dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/btn_theme_hollow_r3_p5"
-                android:textColor="@color/color_theme"
                 android:drawableLeft="@mipmap/ic_call_user"
                 android:drawablePadding="5dp"
                 android:gravity="center"
-                android:text="联系TA" />
+                android:minWidth="70dp"
+                android:text="联系TA"
+                android:textColor="@color/color_theme"
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/btn_confirm_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:textSize="13dp"
                 android:background="@drawable/btn_theme_solid_r3_p5"
                 android:gravity="center"
                 android:text="确认接单"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="13dp" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/btn_desingn_scheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:textSize="13dp"
                 android:background="@drawable/btn_theme_solid_e7"
                 android:gravity="center"
                 android:text="设计方案"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/btn_refund"
@@ -185,11 +192,10 @@
                 android:background="@drawable/btn_theme_solid_r3_p5"
                 android:gravity="center"
                 android:text="确认退款"
-                android:textSize="13dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="13dp" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/btn_view_desingn_scheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -197,11 +203,11 @@
                 android:background="@drawable/btn_theme_solid_e7"
                 android:gravity="center"
                 android:text="查看方案"
+                android:textColor="@color/white"
                 android:textSize="13dp"
-                android:textColor="@color/white" />
+                android:visibility="gone" />
 
         </LinearLayout>
-
 
 
     </HorizontalScrollView>

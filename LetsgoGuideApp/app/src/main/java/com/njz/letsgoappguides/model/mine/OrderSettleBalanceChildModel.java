@@ -125,7 +125,10 @@ public class OrderSettleBalanceChildModel {
     }
 
     public String getBeBalancedDate() {
-        return beBalancedDate;
+        if(TextUtils.isEmpty(beBalancedDate)){
+            return "无";
+        }
+        return beBalancedDate.split(" ")[0];
     }
 
     public void setBeBalancedDate(String beBalancedDate) {

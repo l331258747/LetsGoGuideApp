@@ -3,13 +3,17 @@ package com.njz.letsgoappguides.ui.activites.mysetting;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +23,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoappguides.Bean.MySelfInfo;
 import com.njz.letsgoappguides.R;
+import com.njz.letsgoappguides.adapter.other.MoreImgAdapter;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.editorView.CamaraRequestCode;
@@ -44,6 +49,8 @@ import com.njz.letsgoappguides.util.ToastUtil;
 import com.njz.letsgoappguides.util.accessory.ImageUtils;
 import com.njz.letsgoappguides.util.accessory.PhotoAdapter;
 import com.njz.letsgoappguides.util.accessory.RecyclerItemClickListener;
+import com.njz.letsgoappguides.util.cilpView.ClipPop;
+import com.njz.letsgoappguides.util.cilpView.FileUtil;
 import com.njz.letsgoappguides.util.dialog.LanguageDialog;
 import com.njz.letsgoappguides.util.dialog.LoadingDialog;
 import com.njz.letsgoappguides.util.glide.GlideUtil;
@@ -114,7 +121,6 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     String image;
 
 
-    private PhotoAdapter photoAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
     private ArrayList<String> upLoadPhotos = new ArrayList<>();
     private List<String> list = new ArrayList<>();
@@ -127,7 +133,6 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     LanguageDialog dialog;
     List<GuideMacroEntityList> data;
     boolean isEnabled = false;
-//    int headorbgm;
 
     String myStory;
 
@@ -296,8 +301,6 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
 
     @OnClick(R.id.iv_head)
     public void onViewClicked() {
-//        headorbgm = 0;
-//        tackPicUtil.setScale(1,1).showDialog(context);
         tackPicUtil.showDialog(context);
     }
 
@@ -326,74 +329,61 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                     }
                 }
                 break;
-//            case TackPicturesUtil.CHOOSE_PIC:
-//            case TackPicturesUtil.TACK_PIC:
-//            case TackPicturesUtil.CROP_PIC:
-//                if(headorbgm == 1){
-//                    String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
-//                    if (path == null)
-//                        return;
-//                    selectedPhotos.add(path);
-//
-//                    upUrls = "";
-//                    int a = 0;
-//                    for (int i = 0; i < selectedPhotos.size(); i++) {
-//                        if (selectedPhotos.get(i).startsWith("http")) {
-//                            upUrls += selectedPhotos.get(i).toString() + ",";
-//                        } else {
-//                            a++;
-//                            if (a == 1) {
-//                                updateBack();
-//                                upFile2();
-//                            }
-//                        }
-//
-//                    }
-//                    if (!image.equals(upUrls)) {
-//                        updateBack();
-//                    }
-//                    initAddPhoto();
-//                }else{
-//                    String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
-//                    if (path == null)
-//                        return;
-//                    headpath = path;
-//                    upFile();
-//                    updateBack();
-//                }
-//                break;
+            case TackPicturesUtil.CHOOSE_PIC:
+            case TackPicturesUtil.TACK_PIC:
+            case TackPicturesUtil.CROP_PIC:
+                String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
+                if (path == null)
+                    return;
+                headpath = path;
+                upFile();
+                updateBack();
+                break;
             default:
                 break;
         }
-        if (resultCode == -1 &&
-                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
-            List<String> photos = null;
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            upUrls = "";
-            photoAdapter.notifyDataSetChanged();
-            int a = 0;
-            for (int i = 0; i < selectedPhotos.size(); i++) {
-                if (selectedPhotos.get(i).startsWith("http")) {
-                    upUrls += selectedPhotos.get(i).toString() + ",";
-                } else {
-                    a++;
-                    if (a == 1) {
-                        updateBack();
-                        upFile2();
-                    }
+        switch (requestCode) {
+            case ClipPop.REQUEST_CAPTURE: //调用系统相机返回
+                if (resultCode == RESULT_OK) {
+                    clipPop.gotoClipActivity(Uri.fromFile(clipPop.getTempFile()));
                 }
+                break;
+            case ClipPop.REQUEST_PICK:  //调用系统相册返回
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    clipPop.gotoClipActivity(uri);
+                }
+                break;
+            case ClipPop.REQUEST_CROP_PHOTO:  //剪切图片返回
+                if (resultCode == RESULT_OK) {
+                    final Uri uri = data.getData();
+                    if (uri == null) {
+                        return;
+                    }
+                    String path = FileUtil.getRealFilePathFromUri(getApplicationContext(), uri);
+                    if (path == null)
+                        return;
+                    selectedPhotos.add(path);
 
-            }
-            if (!image.equals(upUrls)) {
-                updateBack();
-            }
-            initAddPhoto();
+                    upUrls = "";
+                    int a = 0;
+                    for (int i = 0; i < selectedPhotos.size(); i++) {
+                        if (selectedPhotos.get(i).startsWith("http")) {
+                            upUrls += selectedPhotos.get(i).toString() + ",";
+                        } else {
+                            a++;
+                            if (a == 1) {
+                                updateBack();
+                                upFile2();
+                            }
+                        }
+                    }
+                    if (!image.equals(upUrls)) {
+                        updateBack();
+                    }
+                    initAddPhoto();
+                }
+                break;
         }
     }
 
@@ -458,6 +448,9 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     //-------------end 上传头像-------------
 
     //------------上传多张图片  start---------------
+    MoreImgAdapter moreImgAdapter;
+    ClipPop clipPop;
+
     private void initAddPhoto() {
         if (selectedPhotos.size() == 0) {
             ll_title_img_tip.setVisibility(View.VISIBLE);
@@ -465,31 +458,35 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
             ll_title_img_tip.setVisibility(View.GONE);
         }
         //------------附件
-        photoAdapter = new PhotoAdapter(context, selectedPhotos);
-        mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(PhotoAdapter.IMAGE_LINE_3, OrientationHelper.VERTICAL));
-        mPhotoRecyclerView.setAdapter(photoAdapter);
-        mPhotoRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,
-                new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
-                            PhotoPicker.builder()
-                                    .setPhotoCount(PhotoAdapter.MAX)
-                                    .setShowCamera(true)
-                                    .setPreviewEnabled(false)
-                                    .setSelected(selectedPhotos)
-                                    .start(PersonalActivity.this);
-//                            headorbgm = 1;
-//                            tackPicUtil.setScale(15,8).showDialog(context);
-                        } else {
-                            PhotoPreview.builder()
-                                    .setPhotos(selectedPhotos)
-                                    .setCurrentItem(position)
-                                    .start(PersonalActivity.this);
-                        }
-                    }
-                }));
+        GridLayoutManager linearLayoutManager = new GridLayoutManager(activity, 3, LinearLayoutManager.VERTICAL, false);
+        mPhotoRecyclerView.setLayoutManager(linearLayoutManager);
+        moreImgAdapter = new MoreImgAdapter(context,selectedPhotos);
+        mPhotoRecyclerView.setAdapter(moreImgAdapter);
+        mPhotoRecyclerView.setNestedScrollingEnabled(false);
+
+        moreImgAdapter.onClickLisenter(new MoreImgAdapter.OnClickListener() {
+            @Override
+            public void onClick() {
+                uploadHeadImage();
+            }
+
+            @Override
+            public void onDelect(int position) {
+                selectedPhotos.remove(position);
+                initAddPhoto();
+                updateBack();
+            }
+        });
     }
+
+    private void uploadHeadImage() {
+        if(clipPop == null){
+            clipPop = new ClipPop(context);
+        }
+        clipPop.showPop(LayoutInflater.from(activity).inflate(R.layout.activity_add_services, null));
+    }
+
+
 
     public void upFile2() {
         disposable = RxBus2.getInstance().toObservable(UpLoadPhotos.class, new Consumer<UpLoadPhotos>() {
@@ -545,7 +542,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                 upUrls += url[i] + ",";
             }
             selectedPhotos = StringUtils.stringToList(upUrls);
-            photoAdapter.notifyDataSetChanged();
+            moreImgAdapter.notifyDataSetChanged();
         }
     }
 

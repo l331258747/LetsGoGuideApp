@@ -86,4 +86,19 @@
     <style name="AppTheme.Notitle.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <!--动画 end-->
 
+    <!-- clip start-->
+    <declare-styleable name="ClipViewLayout">
+        <attr name="mHorizontalPadding" format="dimension" />
+        <attr name="clipBorderWidth" format="dimension" />
+    </declare-styleable>
+
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+    <!-- clip end-->
+
 </resources>

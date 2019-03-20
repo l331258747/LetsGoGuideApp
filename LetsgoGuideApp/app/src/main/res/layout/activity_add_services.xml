@@ -127,7 +127,7 @@
                             android:layout_marginLeft="20dp"
                             android:layout_weight="2"
                             android:layerType="software"
-                            android:lines="9"
+                            android:lines="10"
                             android:text="要求：\n1.纯风景或含向导本人（至少一张）的风景照，最多添加6张。\n2.所有服务禁止上传一模一样的封面图（第一张默认为封面图）。\n3.所有图片需与目的地的景、物匹配。\n4.不得上传模糊、变形、含水印、脸部缺失、过度ps、明星合照等图片。"
                             android:textColor="@color/color_99"
                             android:textSize="10sp" />
@@ -242,7 +242,7 @@
                     android:visibility="gone"
                     app:bottom_lines_visible="true"
                     app:center_edit_hint="请合理设置价格"
-                    app:titles="价格"
+                    app:titles="参考价格"
                     tools:visibility="visible" />
 
                 <com.njz.letsgoappguides.customview.widget.MineTextView

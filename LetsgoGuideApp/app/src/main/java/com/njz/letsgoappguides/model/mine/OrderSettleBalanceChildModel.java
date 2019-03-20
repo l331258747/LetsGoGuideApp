@@ -416,7 +416,7 @@ public class OrderSettleBalanceChildModel {
         private int payStatus;
         private int useDay;
         private String location;
-        private int bugGet;
+        private float bugGet;
         private int serveNum;
 
         public int getServeNum() {
@@ -459,7 +459,7 @@ public class OrderSettleBalanceChildModel {
 
 
 
-        public int getBugGet() {
+        public float getBugGet() {
             return bugGet;
         }
 

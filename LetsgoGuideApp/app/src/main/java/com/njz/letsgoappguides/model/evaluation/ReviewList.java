@@ -67,9 +67,9 @@ public class ReviewList {
     }
 
     public String getImgUrl() {
-        if(!TextUtils.isEmpty(imgUrl)){
-            ArrayList<String> list= StringUtils.stringToList(imgUrl);
-            imgUrl=list.get(0);
+        if (!TextUtils.isEmpty(imgUrl)) {
+            ArrayList<String> list = StringUtils.stringToList(imgUrl);
+            imgUrl = list.get(0);
         }
         return imgUrl;
     }
@@ -78,11 +78,8 @@ public class ReviewList {
         return userMobile;
     }
 
-//    public String getImageUrls() {
-//        return imageUrls;
-//    }
     public List<String> getImageUrls() {
-        if(TextUtils.isEmpty(imageUrls)){
+        if (TextUtils.isEmpty(imageUrls)) {
             return new ArrayList<>();
         }
 
@@ -106,13 +103,15 @@ public class ReviewList {
     public String getGuideContent() {
         return guideContent;
     }
-    public void setGuideContent(String str){
+
+    public void setGuideContent(String str) {
         guideContent = str;
     }
 
     public String getGuideDate() {
         return guideDate;
     }
+
     public void setGuideDate() {
         guideDate = "刚刚";
     }
@@ -120,6 +119,7 @@ public class ReviewList {
     public float getCarCondition() {
         return carCondition;
     }
+
     public float getTravelArrange() {
         return travelArrange;
     }
@@ -135,37 +135,20 @@ public class ReviewList {
     public String getCarConditionStr() {
         return "车辆状况" + carCondition;
     }
+
     public String getTravelArrangeStr() {
-        if(havPirvate)
-            return "行程体验"+serviceQuality;
-        return "行程安排"+travelArrange;
+        if (havPirvate)
+            return "行程体验" + serviceQuality;
+        return "行程安排" + travelArrange;
     }
+
     public String getServiceAttitudeStr() {
         return "服务态度" + carCondition;
     }
-    public String getServiceQualityStr() {
-        if(havPirvate)
-            return "方案设计"+serviceQuality;
-        return "服务质量"+serviceQuality;
-    }
 
-    @Override
-    public String toString() {
-        return "ReviewList{" +
-                ", orderId=" + orderId +
-                ", orderSn='" + orderSn + '\'' +
-                ", guideId=" + guideId +
-                ", userId=" + userId +
-                ", userDate='" + userDate + '\'' +
-                ", score=" + score +
-                ", vedioUrl='" + vedioUrl + '\'' +
-                ", userMobile='" + userMobile + '\'' +
-                ", imageUrls='" + imageUrls + '\'' +
-                ", userContent='" + userContent + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", id=" + id +
-                ", guideContent='" + guideContent + '\'' +
-                ", guideDate='" + guideDate + '\'' +
-                '}';
+    public String getServiceQualityStr() {
+        if (havPirvate)
+            return "方案设计" + serviceQuality;
+        return "服务质量" + serviceQuality;
     }
 }

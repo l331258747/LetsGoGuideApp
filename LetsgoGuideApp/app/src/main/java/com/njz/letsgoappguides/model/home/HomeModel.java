@@ -29,11 +29,4 @@ public class HomeModel {
     public HomeCountModel getNjzOrderCounts() {
         return njzOrderCounts;
     }
-
-    @Override
-    public String toString() {
-        return "HomeModel{" +
-                "njzBannerList=" + njzBannerList +
-                '}';
-    }
 }

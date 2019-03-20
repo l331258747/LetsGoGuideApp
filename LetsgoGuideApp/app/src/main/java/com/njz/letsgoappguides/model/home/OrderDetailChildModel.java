@@ -62,7 +62,7 @@ public class OrderDetailChildModel {
     private String value;
     private int planStatus;
     private int useDay;
-    private int bugGet;
+    private float bugGet;
     private String location;
     private int serveNum;
     private int payingStatus;
@@ -231,7 +231,7 @@ public class OrderDetailChildModel {
         this.planStatus = planStatus;
     }
 
-    public int getBugGet() {
+    public float getBugGet() {
         return bugGet;
     }
 }

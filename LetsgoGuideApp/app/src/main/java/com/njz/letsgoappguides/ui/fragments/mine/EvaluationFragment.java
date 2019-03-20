@@ -35,6 +35,7 @@ import com.njz.letsgoappguides.presenter.mine.ReviewEvalContract;
 import com.njz.letsgoappguides.presenter.mine.ReviewEvalPresenter;
 import com.njz.letsgoappguides.ui.activites.home.OrderDetailActivity;
 import com.njz.letsgoappguides.util.ToastUtil;
+import com.njz.letsgoappguides.util.dialog.CommentDialog;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
 import com.njz.letsgoappguides.util.rxbus.busEvent.RefreshEvaluateListEvent;
 
@@ -47,13 +48,13 @@ import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class EvaluationFragment extends BaseFragment  implements MyEvaluationContract.View,ReviewEvalContract.View{
+public class EvaluationFragment extends BaseFragment implements MyEvaluationContract.View, ReviewEvalContract.View {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-//    @BindView(R.id.swipe_refresh_layout)
+    //    @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
-//    @BindView(R.id.view_empty)
+    //    @BindView(R.id.view_empty)
     EmptyView view_empty;
 
     public static final int DYNAMIC_TYPE = 0;//全部
@@ -81,7 +82,7 @@ public class EvaluationFragment extends BaseFragment  implements MyEvaluationCon
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(refreshDisposable !=null && !refreshDisposable.isDisposed()){
+        if (refreshDisposable != null && !refreshDisposable.isDisposed()) {
             refreshDisposable.dispose();
         }
     }
@@ -108,7 +109,7 @@ public class EvaluationFragment extends BaseFragment  implements MyEvaluationCon
      * @return
      */
     public static EvaluationFragment newInstance(int type) {
-        EvaluationFragment mEvaluationFragment=new EvaluationFragment();
+        EvaluationFragment mEvaluationFragment = new EvaluationFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
         mEvaluationFragment.setArguments(bundle);
@@ -121,29 +122,29 @@ public class EvaluationFragment extends BaseFragment  implements MyEvaluationCon
         if (bundle != null)
             type = bundle.getInt("type");
 
-        swipeRefreshLayout=$(R.id.swipe_refresh_layout);
-        view_empty=$(R.id.view_empty);
+        swipeRefreshLayout = $(R.id.swipe_refresh_layout);
+        view_empty = $(R.id.view_empty);
         initRecycler();
         initSwipeLayout();
 
         initData();
     }
 
-    public void initData(){
-        mMyEvaluationPresenter=new MyEvaluationPresenter(this,context);
-        mReviewEvalPresenter=new ReviewEvalPresenter(this,context);
+    public void initData() {
+        mMyEvaluationPresenter = new MyEvaluationPresenter(this, context);
+        mReviewEvalPresenter = new ReviewEvalPresenter(this, context);
 
         getRefreshData();
 
         initRefreshDisposable();
     }
 
-    public void initRecycler(){
+    public void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new DynamicAdapter(mActivity, new ArrayList<ReviewList>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
-        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
+        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
@@ -156,23 +157,21 @@ public class EvaluationFragment extends BaseFragment  implements MyEvaluationCon
 
         mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(final int position, final String userId, final int id, final int orderId,final TextView contentBack) {
-                    final EditText editText = new EditText(context);
-                    new AlertDialog.Builder(context).setTitle("请输入回复内容").setView(editText).setPositiveButton("确定",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // TODO Auto-generated method stub
-                                    pos=position;
-                                    if(editText.getText().toString().trim().equals("")){
-                                        ToastUtil.showShortToast(context,"内容回复不能为空");
-                                    }else if(null==userId){ }else if(id==0){}else if(orderId==0){}else{
-                                        editTextContext=editText.getText().toString().trim();
-                                        mReviewEvalPresenter.getReviewEval(editTextContext,userId,id,orderId);
-                                        contentBack.setText(editTextContext);
-                                    }
-                                }
-                            }).setNegativeButton("取消", null).show();
+            public void onItemClick(final int position, final String userId, final int id, final int orderId, final TextView contentBack) {
+                new CommentDialog(context, new CommentDialog.CommentListener() {
+                    @Override
+                    public void onComment(CommentDialog dialog, String remark) {
+                        pos = position;
+                        if (null == userId) {
+                        } else if (id == 0) {
+                        } else if (orderId == 0) {
+                        } else {
+                            editTextContext = remark.trim();
+                            mReviewEvalPresenter.getReviewEval(editTextContext, userId, id, orderId);
+                            contentBack.setText(editTextContext);
+                        }
+                    }
+                }).show();
             }
 
         });
@@ -181,7 +180,7 @@ public class EvaluationFragment extends BaseFragment  implements MyEvaluationCon
             @Override
             public void onItemClick(int orderId) {
                 Intent intent = new Intent(context, OrderDetailActivity.class);
-                intent.putExtra("ORDER_ID",orderId);
+                intent.putExtra("ORDER_ID", orderId);
                 startActivity(intent);
             }
         });
@@ -228,7 +227,7 @@ public class EvaluationFragment extends BaseFragment  implements MyEvaluationCon
         swipeRefreshLayout.setRefreshing(false);
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
 
-        if(msg.startsWith("-")){
+        if (msg.startsWith("-")) {
             view_empty.setVisible(true);
             view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
             view_empty.setBtnClickLisener(new EmptyClickLisener() {
@@ -257,40 +256,40 @@ public class EvaluationFragment extends BaseFragment  implements MyEvaluationCon
         }
         swipeRefreshLayout.setRefreshing(false);
 
-        if(mAdapter.getDatas().size() == 0){
+        if (mAdapter.getDatas().size() == 0) {
             view_empty.setVisible(true);
-            view_empty.setEmptyData(R.mipmap.empty_evaluate,"还没有人给您评价哦~");
-        }else{
+            view_empty.setEmptyData(R.mipmap.empty_evaluate, "还没有人给您评价哦~");
+        } else {
             view_empty.setVisible(false);
         }
 
     }
 
 
-    private void initEvalInfo(){
-        switch (type){
+    private void initEvalInfo() {
+        switch (type) {
             case DYNAMIC_TYPE://page, limit, type
-                mMyEvaluationPresenter.getEvaluationInfo(page,Constant.DEFAULT_LIMIT,DYNAMIC_TYPE);
+                mMyEvaluationPresenter.getEvaluationInfo(page, Constant.DEFAULT_LIMIT, DYNAMIC_TYPE);
                 break;
             case DYNAMIC_TYPE1:
-                mMyEvaluationPresenter.getEvaluationInfo(page,Constant.DEFAULT_LIMIT,DYNAMIC_TYPE1);
+                mMyEvaluationPresenter.getEvaluationInfo(page, Constant.DEFAULT_LIMIT, DYNAMIC_TYPE1);
                 break;
             case DYNAMIC_TYPE2:
-                mMyEvaluationPresenter.getEvaluationInfo(page,Constant.DEFAULT_LIMIT,DYNAMIC_TYPE2);
+                mMyEvaluationPresenter.getEvaluationInfo(page, Constant.DEFAULT_LIMIT, DYNAMIC_TYPE2);
                 break;
             case DYNAMIC_TYPE3:
-                mMyEvaluationPresenter.getEvaluationInfo(page,Constant.DEFAULT_LIMIT,DYNAMIC_TYPE3);
+                mMyEvaluationPresenter.getEvaluationInfo(page, Constant.DEFAULT_LIMIT, DYNAMIC_TYPE3);
                 break;
             case DYNAMIC_TYPE4:
-                mMyEvaluationPresenter.getEvaluationInfo(page,Constant.DEFAULT_LIMIT,DYNAMIC_TYPE4);
+                mMyEvaluationPresenter.getEvaluationInfo(page, Constant.DEFAULT_LIMIT, DYNAMIC_TYPE4);
                 break;
         }
     }
 
     @Override
     public void getReviewEvalSuccess(String str) {
-        ToastUtil.showShortToast(context,"评论成功");
-        Log.e("test",pos+"__________");
+        ToastUtil.showShortToast(context, "评论成功");
+        Log.e("test", pos + "__________");
         mAdapter.getItem(pos).setGuideContent(editTextContext);
         mAdapter.getItem(pos).setGuideDate();
         loadMoreWrapper.notifyItemChanged(pos);
@@ -298,7 +297,7 @@ public class EvaluationFragment extends BaseFragment  implements MyEvaluationCon
 
     @Override
     public void getReviewEvalFailed(String msg) {
-        ToastUtil.showShortToast(context,msg);
+        ToastUtil.showShortToast(context, msg);
     }
 
 }

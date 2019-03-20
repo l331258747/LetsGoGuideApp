@@ -47,6 +47,7 @@ import com.njz.letsgoappguides.ui.activites.mysetting.AuthenticationActivity;
 import com.njz.letsgoappguides.ui.activites.other.WebViewActivity;
 import com.njz.letsgoappguides.util.ToastUtil;
 import com.njz.letsgoappguides.util.banner.LocalImageHolderView;
+import com.njz.letsgoappguides.util.dialog.CommentDialog;
 import com.njz.letsgoappguides.util.dialog.DialogUtil;
 import com.njz.letsgoappguides.util.glide.GlideUtil;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
@@ -188,26 +189,22 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Rev
         evaluateAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(final int position, final String userId, final int id, final int orderId, final TextView contentBack) {
-                final EditText editText = new EditText(context);
-                new AlertDialog.Builder(context).setTitle("请输入回复内容").setView(editText).setPositiveButton("确定",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                pos = position;
-                                if (editText.getText().toString().trim().equals("")) {
-                                    ToastUtil.showShortToast(context, "内容回复不能为空");
-                                } else if (null == userId) {
-                                } else if (id == 0) {
-                                } else if (orderId == 0) {
-                                } else {
-                                    editTextContext = editText.getText().toString().trim();
-                                    evalPresenter.getReviewEval(editTextContext, userId, id, orderId);
-                                    contentBack.setText(editTextContext);
-                                }
-                            }
-                        }).setNegativeButton("取消", null).show();
+                new CommentDialog(context, new CommentDialog.CommentListener() {
+                    @Override
+                    public void onComment(CommentDialog dialog, String remark) {
+                        pos = position;
+                        if (null == userId) {
+                        } else if (id == 0) {
+                        } else if (orderId == 0) {
+                        } else {
+                            editTextContext = remark.trim();
+                            evalPresenter.getReviewEval(editTextContext, userId, id, orderId);
+                            contentBack.setText(editTextContext);
+                        }
+                        dialog.dismiss();
+                    }
+                }).show();
             }
-
         });
 
     }

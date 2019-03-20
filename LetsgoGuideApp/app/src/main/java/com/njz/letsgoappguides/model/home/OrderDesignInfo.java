@@ -242,7 +242,7 @@ public class OrderDesignInfo implements Parcelable {
         return bugGet;
     }
 
-    public void setBugGet(int bugGet) {
+    public void setBugGet(float bugGet) {
         this.bugGet = bugGet;
     }
 

@@ -1192,7 +1192,7 @@ public class OrderSettltRefundChildModel {
             private String value;
             private int useDay;
             private String location;
-            private int bugGet;
+            private float bugGet;
             private int serveNum;
 
             public String getTimeTitle(){
@@ -1229,7 +1229,7 @@ public class OrderSettltRefundChildModel {
                 return "";
             }
 
-            public int getBugGet() {
+            public float getBugGet() {
                 return bugGet;
             }
 

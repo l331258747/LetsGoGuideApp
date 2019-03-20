@@ -64,7 +64,7 @@ public class OrderRefundDetailChildModel {
     private int serveId;
     private int guideOrPlatform;
     private boolean isCheck;
-    private int bugGet;
+    private float bugGet;
     private int childRefundId;
     private int serveNum;
     private String location;

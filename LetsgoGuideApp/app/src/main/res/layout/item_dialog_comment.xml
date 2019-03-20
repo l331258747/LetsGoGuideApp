@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/btn_white_solid_r5">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="回复"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_remark_context"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/person_et_style"
+            android:gravity="top"
+            android:lines="6"
+            android:padding="10dp"
+            android:textSize="13sp" />
+
+        <View
+            android:id="@+id/view_id"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/et_remark_context"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_d9"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_id"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_remark_cancle"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_white_r5_left"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/gray_999" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_below="@id/et_remark_context"
+                android:background="@color/color_d9"></View>
+
+            <TextView
+                android:id="@+id/btn_remark_save"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_white_r5_right"
+                android:gravity="center"
+                android:text="发送"
+                android:textColor="@color/color_theme" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

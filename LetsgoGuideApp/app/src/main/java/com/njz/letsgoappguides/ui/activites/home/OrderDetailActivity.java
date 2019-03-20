@@ -44,10 +44,14 @@ import com.njz.letsgoappguides.util.dialog.DialogUtil;
 import com.njz.letsgoappguides.util.dialog.RemarkDialog;
 import com.njz.letsgoappguides.util.glide.GlideUtil;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
+import com.njz.letsgoappguides.util.rxbus.busEvent.RefreshDetailEvent;
 import com.njz.letsgoappguides.util.rxbus.busEvent.RefreshEvaluateListEvent;
 import com.njz.letsgoappguides.util.rxbus.busEvent.RefreshOrderListEvent;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -231,11 +235,26 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
         evalPresenter = new ReviewEvalPresenter(this, context);
 
         mPresenter.orderQueryOrder(orderId);
+
+        initRefreshDisposable();
+    }
+
+    Disposable refreshDisposable;
+    private void initRefreshDisposable() {
+        refreshDisposable = RxBus2.getInstance().toObservable(RefreshDetailEvent.class, new Consumer<RefreshDetailEvent>() {
+            @Override
+            public void accept(RefreshDetailEvent refreshOrderListEvent) throws Exception {
+                finish();
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(refreshDisposable !=null && !refreshDisposable.isDisposed()){
+            refreshDisposable.dispose();
+        }
     }
 
     //初始化recyclerview
@@ -255,6 +274,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
             case R.id.btn_refuse_order:
                 intent = new Intent(context, OrderRefuseActivity.class);
                 intent.putExtra("ORDER_ID", model.getId());
+                intent.putExtra("IS_CUSTOM", model.isCustom());
                 startActivity(intent);
                 break;
             case R.id.btn_call:

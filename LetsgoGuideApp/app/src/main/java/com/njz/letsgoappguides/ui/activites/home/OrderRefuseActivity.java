@@ -21,6 +21,7 @@ import com.njz.letsgoappguides.presenter.home.OrderRefuseContract;
 import com.njz.letsgoappguides.presenter.home.OrderRefusePresenter;
 import com.njz.letsgoappguides.util.AppUtils;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
+import com.njz.letsgoappguides.util.rxbus.busEvent.RefreshDetailEvent;
 import com.njz.letsgoappguides.util.rxbus.busEvent.RefreshOrderListEvent;
 
 import java.util.ArrayList;
@@ -116,6 +117,7 @@ public class OrderRefuseActivity extends BaseActivity implements OrderRefuseCont
     public void orderRefuseOrderSuccess(String datas) {
         showShortToast("拒绝成功");
         RxBus2.getInstance().post(new RefreshOrderListEvent());
+        RxBus2.getInstance().post(new RefreshDetailEvent());
         finish();
     }
 
@@ -154,6 +156,7 @@ public class OrderRefuseActivity extends BaseActivity implements OrderRefuseCont
     public void guideSurePersonalServeSuccess(String datas) {
         showShortToast("拒绝成功");
         RxBus2.getInstance().post(new RefreshOrderListEvent());
+        RxBus2.getInstance().post(new RefreshDetailEvent());
         finish();
     }
 

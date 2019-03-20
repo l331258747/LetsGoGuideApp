@@ -11,6 +11,7 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -115,7 +116,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
     private String headpath;// 头像地址
     private String headCompressPath;
     private Disposable disposable;
-    String upUrls;
+    String upUrls = "";
     String headUrl = "";
     String image;
 
@@ -380,6 +381,19 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
         }
     }
 
+    public String getUpUrls() {
+        upUrls = "";
+        for (int i = 0; i < selectedPhotos.size(); i++) {
+            if (selectedPhotos.get(i).startsWith("http")) {
+                upUrls += selectedPhotos.get(i).toString() + ",";
+            }
+        }
+        if(!TextUtils.isEmpty(upUrls) && upUrls.endsWith(",")){
+            upUrls = upUrls.substring(0, upUrls.length() - 1);
+        }
+        return upUrls;
+    }
+
     //-----------start 上传头像-----------
 
     public void upFile() {
@@ -462,6 +476,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
             @Override
             public void onDelect(int position) {
                 selectedPhotos.remove(position);
+                getUpUrls();
                 initAddPhoto();
                 updateBack();
             }

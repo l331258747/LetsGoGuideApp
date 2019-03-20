@@ -1024,11 +1024,25 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
             @Override
             public void onDelect(int position) {
                 selectedPhotos.remove(position);
+                getUpUrls();
                 initAddPhoto();
             }
         });
-
     }
+
+    public String getUpUrls() {
+        upUrls = "";
+        for (int i = 0; i < selectedPhotos.size(); i++) {
+            if (selectedPhotos.get(i).startsWith("http")) {
+                upUrls += selectedPhotos.get(i).toString() + ",";
+            }
+        }
+        if(!TextUtils.isEmpty(upUrls) && upUrls.endsWith(",")){
+            upUrls = upUrls.substring(0, upUrls.length() - 1);
+        }
+        return upUrls;
+    }
+
     MoreImgAdapter moreImgAdapter;
 
     LoadingDialog loadingDialog;

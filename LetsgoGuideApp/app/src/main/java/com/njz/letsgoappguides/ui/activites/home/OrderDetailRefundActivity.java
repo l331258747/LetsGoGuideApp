@@ -192,13 +192,15 @@ public class OrderDetailRefundActivity extends OrderDetailActivity implements Or
 
         if(str.getRefundStatus() == Constant.ORDER_REFUND_CANCEL || str.getRefundStatus() == Constant.ORDER_REFUND_PLAN_REFUSE){
             rl_order_price.setVisibility(View.VISIBLE);
-            rl_refund_used_price.setVisibility(View.GONE);
+            tv_order_price.setText(str.getOrderPrice());
+
             rl_refund_price.setVisibility(View.GONE);
             rl_refund_penalty.setVisibility(View.GONE);
-
-            tv_order_price.setText(str.getOrderPrice());
         }else{
-            rl_order_price.setVisibility(View.GONE);
+            rl_order_price.setVisibility(View.VISIBLE);
+            tv_order_price_title.setText("订单总额");
+            tv_order_price.setText(str.getOrderPrice());
+
             rl_refund_price.setVisibility(View.VISIBLE);
             rl_refund_penalty.setVisibility(View.VISIBLE);
 

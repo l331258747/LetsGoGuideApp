@@ -74,6 +74,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     public TextView tv_order_no, tv_order_create_time, tv_order_pay_time, tv_order_pay_method, tv_order_guide_time, tv_order_refund_apply,
             tv_order_refund_verify, tv_order_refund_time, tv_order_travel_start, tv_order_travel_end, btn_desingn_scheme,tv_order_plan_confirm,tv_order_plan_up,tv_order_cancel_time;
 
+    public TextView tv_order_price_title;
+
     public TextView btn_confirm_order, btn_call, btn_refuse_order, btn_refund, btn_consult;
 
 
@@ -133,6 +135,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
         recyclerView = $(R.id.recycler_view);
 
         tv_order_price = $(R.id.tv_order_price);
+        tv_order_price_title = $(R.id.tv_order_price_title);
 
         ll_order_no = $(R.id.ll_order_no);
         ll_order_create_time = $(R.id.ll_order_create_time);

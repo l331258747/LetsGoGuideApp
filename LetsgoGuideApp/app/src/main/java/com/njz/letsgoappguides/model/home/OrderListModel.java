@@ -182,6 +182,9 @@ public class OrderListModel {
     }
 
     public int getPayStatus() {
+        if(refundId > 0){
+            return payStatus = Constant.ORDER_PAY_REFUND;
+        }
         if(payStatus == 3){
             return Constant.ORDER_PAY_REFUND;
         }

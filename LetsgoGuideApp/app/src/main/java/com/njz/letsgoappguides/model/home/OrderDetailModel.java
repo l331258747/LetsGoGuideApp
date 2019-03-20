@@ -145,7 +145,7 @@ public class OrderDetailModel {
     public String getOrderPriceStr() {
         if (isCustom() && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
             return ("报价待确定");
-        } else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+        } else if(getPayStatus() == Constant.ORDER_PAY_WAIT && isCustom()){
             return ("￥" + orderPrice);
         }else {
             return ("￥" + orderPrice);
@@ -247,7 +247,7 @@ public class OrderDetailModel {
     }
 
     public String getPayStatusStr() {
-        switch (payStatus) {
+        switch (getPayStatus()) {
             case Constant.ORDER_PAY_WAIT:
                 switch (payingStatus) {
                     case Constant.ORDER_WAIT_PAY:

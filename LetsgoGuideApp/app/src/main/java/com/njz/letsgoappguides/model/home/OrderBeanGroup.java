@@ -176,6 +176,9 @@ public class OrderBeanGroup {
     }
 
     public int getPayStatus() {
+        if(refundId > 0){
+            return payStatus = Constant.ORDER_PAY_REFUND;
+        }
         return payStatus;
     }
 
@@ -188,7 +191,7 @@ public class OrderBeanGroup {
     }
 
     public String getPayStatusStr(){
-        switch (payStatus){
+        switch (getPayStatus()){
             case Constant.ORDER_PAY_WAIT:
                 switch (payingStatus){
                     case Constant.ORDER_WAIT_PAY:

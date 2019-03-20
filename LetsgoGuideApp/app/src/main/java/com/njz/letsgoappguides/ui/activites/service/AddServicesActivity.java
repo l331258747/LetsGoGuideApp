@@ -1378,7 +1378,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
 
     public void getAllHint(int serverType){
         serviceTitle.getEditText().setHint(getTitleHint(serverType));
-        tv_title_img_tip.setHint(getImgTitleTipHint(serverType));
+        tv_title_img_tip.setText(getImgTitleTipHint(serverType));
         llServicePriceinfo.setHint(getPriceExplainHint(serverType));
     }
     public String getTitleHint(int serverType) {

@@ -140,7 +140,7 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
             }
         });
 
-        String content1 = "行程开始当天取消订单，收取游客已付费用<font color='#ff7c00'>100%</font>的违约金；";
+        String content1 = "私人定制订单不支持行程中退款；";
         StringUtils.setHtml(tv_refund_100,content1);
 
         editText13.addTextChangedListener(new MyTextWatcherAfter() {

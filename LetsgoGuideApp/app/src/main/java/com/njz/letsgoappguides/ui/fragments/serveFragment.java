@@ -588,7 +588,7 @@ public class serveFragment extends BaseFragment  implements GetCityContract.View
                 showShortToast("删除成功");
                 break;
             case 11:
-                showShortToast("上架成功");
+                showShortToast("您提交的服务信息已经上传成功，请耐心等待审核！");
                 break;
             case 12:
                 showShortToast("下架成功");

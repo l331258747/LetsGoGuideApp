@@ -74,6 +74,8 @@ public class ServicePreviewActivity extends BaseActivity implements ServerDetail
     TextView tv_down_time;
     @BindView(R.id.tv_down_reason)
     TextView tv_down_reason;
+    @BindView(R.id.tv_refund_100)
+    TextView tv_refund_100;
 
     int service_id;
     ServerDetailPresenter mServerDetailPresenter;
@@ -128,6 +130,11 @@ public class ServicePreviewActivity extends BaseActivity implements ServerDetail
             tvRefundRule50.setText(String.format(getResources().getString(R.string.refund_rule_50),
                     lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
         }
+
+        if(infos.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            tv_refund_100.setText("私人定制订单不支持行程中退款；");
+        }
+
         if (Constant.PREVIEWID == previewId) {
             tvScore.setText("已售：" + infos.getSaleNum());
         }

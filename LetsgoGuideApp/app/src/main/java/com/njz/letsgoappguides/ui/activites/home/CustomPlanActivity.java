@@ -92,7 +92,7 @@ public class CustomPlanActivity extends BaseActivity implements  View.OnClickLis
 
     public void initViewPage(OrderDesignInfo model) {
         mFragments = new ArrayList<>();
-        mFragments.add(CustomTripFragment.newInstance(model.getTravelDesign(),model.getRenegePriceThree(),model.getRenegePriceFive()));
+        mFragments.add(CustomTripFragment.newInstance(model.getTravelDesign(),model.getRenegePriceThree(),model.getRenegePriceFive(),model.getServeType()));
         mFragments.add(CustomOffersFragment.newInstance(model.getOfferDetail()));
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);

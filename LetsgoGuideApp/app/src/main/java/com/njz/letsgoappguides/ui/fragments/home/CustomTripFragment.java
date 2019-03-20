@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.base.BaseFragment;
+import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.util.webview.LWebView;
 
 import java.util.ArrayList;
@@ -25,17 +26,19 @@ import java.util.List;
 public class CustomTripFragment extends BaseFragment {
 
     LWebView webView;
-    TextView tv_refund_rule_30,tv_refund_rule_50;
+    TextView tv_refund_rule_30,tv_refund_rule_50,tv_refund_100;
     String travelDesign;
     String renegePriceThree;
     String renegePriceFive;
+    int serverType;
 
-    public static Fragment newInstance(String travelDesign,String renegePriceThree,String renegePriceFive) {
+    public static Fragment newInstance(String travelDesign,String renegePriceThree,String renegePriceFive,int serverType) {
         CustomTripFragment fragment = new CustomTripFragment();
         Bundle bundle = new Bundle();
         bundle.putString("TRAVEL_DESIGN", travelDesign);
         bundle.putString("RENEGE_PRICE_THREE", renegePriceThree);
         bundle.putString("RENEGE_PRICE_FIVE", renegePriceFive);
+        bundle.putInt("SERVER_TYPE", serverType);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -53,6 +56,7 @@ public class CustomTripFragment extends BaseFragment {
             travelDesign = bundle.getString("TRAVEL_DESIGN");
             renegePriceThree = bundle.getString("RENEGE_PRICE_THREE");
             renegePriceFive = bundle.getString("RENEGE_PRICE_FIVE");
+            serverType = bundle.getInt("SERVER_TYPE");
         }
 
     }
@@ -67,6 +71,7 @@ public class CustomTripFragment extends BaseFragment {
         webView = $(R.id.webview);
         tv_refund_rule_30 = $(R.id.tv_refund_rule_30);
         tv_refund_rule_50 = $(R.id.tv_refund_rule_50);
+        tv_refund_100 = $(R.id.tv_refund_100);
 
         initData();
     }
@@ -85,6 +90,10 @@ public class CustomTripFragment extends BaseFragment {
             List<String> lists = getValue(renegePriceFive,"0.5");
             tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),
                     lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+        }
+
+        if(serverType == Constant.SERVER_TYPE_CUSTOM_ID){
+            tv_refund_100.setText("私人定制订单不支持行程中退款；");
         }
 
         if (!TextUtils.isEmpty(travelDesign)) {

@@ -73,6 +73,9 @@ public class ClipView extends View {
             paint.setXfermode(xfermode2);
             Bitmap mp = BitmapFactory.decodeResource(getResources(), R.mipmap.clip_head);
             canvas.drawBitmap(mp,this.getWidth() / 2 - mp.getWidth() / 2, this.getHeight() / 2 - mp.getHeight() / 2, paint);
+            //绘制白色的矩形边框
+            canvas.drawRect(mHorizontalPadding, this.getHeight() / 2 - clipWidth / 2,
+                    this.getWidth() - mHorizontalPadding, this.getHeight() / 2 + clipWidth / 2, borderPaint);
         }else if (clipType == ClipType.RECTANGLE) { //绘制矩形裁剪框
             canvas.drawColor(Color.parseColor("#a8000000"));
             paint.setXfermode(xfermode);

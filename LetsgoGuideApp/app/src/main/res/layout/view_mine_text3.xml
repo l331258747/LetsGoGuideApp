@@ -31,6 +31,7 @@
             android:maxLines="4"
             android:gravity="top"
             android:background="@null"
+            android:maxLength="100"
             tools:hint="请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请请"
             android:visibility="gone"
             tools:visibility="visible" />

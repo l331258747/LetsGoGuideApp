@@ -143,31 +143,15 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
         String content1 = "私人定制订单不支持行程中退款；";
         StringUtils.setHtml(tv_refund_100,content1);
 
-        editText13.addTextChangedListener(new MyTextWatcherAfter() {
-            @Override
-            public void callback(Editable s) {
-                if (TextUtils.isEmpty(editText13.getText().toString())) return;
-                if (getInt(editText13) == 0) {
-                    editText13.setText("");
-                    showShortToast("比例不能为0");
-                }
-            }
-        });
-
-        editText23.addTextChangedListener(new MyTextWatcherAfter() {
-            @Override
-            public void callback(Editable s) {
-                if (TextUtils.isEmpty(editText23.getText().toString())) return;
-                if (getInt(editText23) == 0) {
-                    editText23.setText("");
-                    showShortToast("比例不能为0");
-                }
-            }
-        });
+        initRefundContent();
     }
 
     public int getInt(EditText et) {
         return Integer.valueOf(et.getText().toString());
+    }
+
+    public int getInt(TextView tv) {
+        return Integer.valueOf(tv.getText().toString());
     }
 
     @Override
@@ -242,7 +226,10 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                 || editText23.getText().toString().equals("")){
             showShortToast("请输入违约金参数");
             return false;
-        }else{
+        }else if (getInt(editText12) < getInt(editText11)) {
+            showShortToast("违约金参数设置不正确");
+            return false;
+        } else{
             return true;
         }
 
@@ -261,13 +248,63 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
         }
     }
 
+
+    //初始化退款条款内容
+    private void initRefundContent() {
+        editText22.addTextChangedListener(new MyTextWatcherAfter() {
+            @Override
+            public void callback(Editable s) {
+                if (TextUtils.isEmpty(editText22.getText().toString())) return;
+                if (getInt(editText22) > 10) {
+                    editText22.setText("");
+                    showShortToast("天数不能超过10日");
+                }else {
+                    editText11.setText(getInt(editText22) + 1 + "");
+                }
+            }
+        });
+
+
+        editText12.addTextChangedListener(new MyTextWatcherAfter() {
+            @Override
+            public void callback(Editable s) {
+                if (TextUtils.isEmpty(editText12.getText().toString())) return;
+                if (getInt(editText12) > 15) {
+                    editText12.setText("");
+                    showShortToast("天数不能超过15日");
+                }
+            }
+        });
+
+        editText13.addTextChangedListener(new MyTextWatcherAfter() {
+            @Override
+            public void callback(Editable s) {
+                if (TextUtils.isEmpty(editText13.getText().toString())) return;
+                if (getInt(editText13) == 0) {
+                    editText13.setText("");
+                    showShortToast("比例不能为0");
+                }
+            }
+        });
+
+        editText23.addTextChangedListener(new MyTextWatcherAfter() {
+            @Override
+            public void callback(Editable s) {
+                if (TextUtils.isEmpty(editText23.getText().toString())) return;
+                if (getInt(editText23) == 0) {
+                    editText23.setText("");
+                    showShortToast("比例不能为0");
+                }
+            }
+        });
+    }
+
     //------------获取方案信息start--------------
     @Override
     public void orderDesingnSuccess(List<OrderDesignInfo> datas) {
         if(datas==null)return;
         if(datas.size()>0){
             OrderDesignInfo infos=datas.get(0);
-            Log.e("test",datas.toString());
             id=infos.getId();
             desingnTitle.setEditContent(infos.getTitle());
 
@@ -306,7 +343,7 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                         }
                     }
                     String five=infos.getRenegePriceFive();
-                    if(TextUtils.isEmpty(five)){
+                    if(!TextUtils.isEmpty(five)){
                         String[] fives=five.split(",");
                         if(fives.length>=3){
                             editText21.setText(fives[0]);

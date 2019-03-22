@@ -29,17 +29,17 @@ import java.util.ArrayList;
 /**
  * 待结算、已结算详细页面
  */
-public class OrderDetailIncomeActivity extends OrderDetailActivity implements SettleOrderDetailContract.View{
+public class OrderDetailIncomeActivity extends OrderDetailActivity implements SettleOrderDetailContract.View {
 
     SettleOrderDetailPresenter mSettleOrderDetailPresenter;
     OrderIncomeDetailAdapter refundAdapter;
 
     OrderDetailModel refundModel;
 
-    RelativeLayout rl_refund_penalty,rl_refund_price,rl_order_price,rl_refund_used_price;
-    TextView tv_refund_penalty,tv_refund_price,tv_refund_used_price;
+    RelativeLayout rl_refund_penalty, rl_refund_price, rl_order_price, rl_refund_used_price;
+    TextView tv_refund_penalty, tv_refund_price, tv_refund_used_price;
     FrameLayout cv_refund_reason;
-    TextView tv_refund_reason,tv_refund_explain;
+    TextView tv_refund_reason, tv_refund_explain;
 
     int status;
     int refId;
@@ -48,9 +48,9 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
 
     @Override
     public void initData() {
-        id = getIntent().getIntExtra("ID",0);
+        id = getIntent().getIntExtra("ID", 0);
 
-        mSettleOrderDetailPresenter = new SettleOrderDetailPresenter(this,context);
+        mSettleOrderDetailPresenter = new SettleOrderDetailPresenter(this, context);
 
         mSettleOrderDetailPresenter.querySettleFinDetail(orderId);//已完成
     }
@@ -108,12 +108,12 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         Intent intent;
         switch (v.getId()) {
             case R.id.btn_call:
-                if(refundModel == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context,refundModel.getMobile());
+                if (refundModel == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context, refundModel.getMobile());
                 break;
             case R.id.btn_refund:
                 intent = new Intent(context, OrderRefundActivity.class);
-                intent.putExtra("REFUND_ID",orderId);
+                intent.putExtra("REFUND_ID", orderId);
                 startActivity(intent);
                 break;
         }
@@ -122,7 +122,7 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
 
     //---------已完成详细订单start--------------
     @Override
-    public void querySettleFinDetailSuccess( final OrderSettleBalanceChildModel str) {
+    public void querySettleFinDetailSuccess(final OrderSettleBalanceChildModel str) {
 
         //-------待结算订单详情start
 
@@ -147,21 +147,21 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         login_view_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(str == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context,str.getMobile());
+                if (str == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context, str.getMobile());
             }
         });
-        et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
+        et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire()) ? "无" : str.getSpecialRequire());
 
         //center_botom
-        tv_nosettle_moneys .setText("￥"+str.getBalancePrice());//结算金额
-        tv_settle_date.setText("￥"+str.getBeBalancedDate());//结算日期
-        tv_settle_sermoney .setText("￥"+str.getBalancePrice());//平台服务费
-        tv_order_price.setText("￥"+str.getOrderPrice());//合计
-        if(id==10){
+        tv_nosettle_moneys.setText("￥" + str.getBalancePrice());//结算金额
+        tv_settle_date.setText("￥" + str.getBeBalancedDate());//结算日期
+        tv_settle_sermoney.setText("￥" + str.getBalancePrice());//平台服务费
+        tv_order_price.setText("￥" + str.getOrderPrice());//合计
+        if (id == 10) {
             tv_nosettle_money.setText("结算金额");//结算金额
-            tv_nosettle_date .setText("结算日期");//结算日期
-        }else if(id==11){
+            tv_nosettle_date.setText("结算日期");//结算日期
+        } else if (id == 11) {
 
         }
 
@@ -180,8 +180,8 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         tv_order_guide_time.setText(str.getSureTime());//导游确认时间
 
         //------------查看方案 start------------
-        if(str.getNjzChildOrderVOS().size()>0){
-            if(str.getNjzChildOrderVOS().get(0).getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)){
+        if (str.getNjzChildOrderVOS().size() > 0) {
+            if (str.getNjzChildOrderVOS().get(0).getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)) {
                 ll_bottom.setVisibility(View.VISIBLE);
                 btn_view_desingn_scheme.setVisibility(View.VISIBLE);
             }
@@ -189,9 +189,9 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         btn_view_desingn_scheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,CustomPlanActivity.class);
-                intent.putExtra("ORDER_ID",str.getId());
-                intent.putExtra("GUIDE_PHONE",str.getMobile());
+                Intent intent = new Intent(context, CustomPlanActivity.class);
+                intent.putExtra("ORDER_ID", str.getId());
+                intent.putExtra("GUIDE_PHONE", str.getMobile());
                 context.startActivity(intent);
             }
         });

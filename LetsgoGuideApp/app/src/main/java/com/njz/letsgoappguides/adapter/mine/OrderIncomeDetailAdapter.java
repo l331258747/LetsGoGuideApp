@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.constant.Constant;
-import com.njz.letsgoappguides.model.mine.OrderSettleBalanceChildModel;
+import com.njz.letsgoappguides.model.settlement.NjzChildOrderVOSBean;
 import com.njz.letsgoappguides.ui.activites.service.ServicePreviewActivity;
 import com.njz.letsgoappguides.util.glide.GlideUtil;
 
@@ -29,14 +29,14 @@ import java.util.List;
 public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDetailAdapter.BaseViewHolder> {
 
     private Context context;
-    private List<OrderSettleBalanceChildModel.NjzChildOrderVOSBean> datas;
+    private List<NjzChildOrderVOSBean> datas;
 
-    public OrderIncomeDetailAdapter(Context context, List<OrderSettleBalanceChildModel.NjzChildOrderVOSBean> datas) {
+    public OrderIncomeDetailAdapter(Context context, List<NjzChildOrderVOSBean> datas) {
         this.context = context;
         this.datas = datas;
     }
 
-    public void setData(List<OrderSettleBalanceChildModel.NjzChildOrderVOSBean> datas){
+    public void setData(List<NjzChildOrderVOSBean> datas){
         this.datas = datas;
         notifyDataSetChanged();
     }
@@ -55,7 +55,7 @@ public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDe
         if (holder == null) return;
         if (holder instanceof ViewHolder) {
             final int pos = holder.getAdapterPosition();
-            final OrderSettleBalanceChildModel.NjzChildOrderVOSBean data = datas.get(pos);
+            final NjzChildOrderVOSBean data = datas.get(pos);
             if (data == null) return;
 
             //信息

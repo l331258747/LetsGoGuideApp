@@ -1,9 +1,8 @@
-package com.njz.letsgoappguides.model.mine;
+package com.njz.letsgoappguides.model.settlement;
 
 import android.text.TextUtils;
 
 import com.njz.letsgoappguides.constant.Constant;
-import com.njz.letsgoappguides.model.home.OrderRefundChildModel;
 
 /**
  * Created by Administrator on 2018/11/30.
@@ -56,24 +55,8 @@ public class OrderSettleBeanGroup {
         return refundStatus;
     }
 
-    public void setRefundStatus(int refundStatus) {
-        this.refundStatus = refundStatus;
-    }
-
-    public int getReviewStatus() {
-        return reviewStatus;
-    }
-
     public void setReviewStatus(int reviewStatus) {
         this.reviewStatus = reviewStatus;
-    }
-
-    public int getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
     }
 
     public int getLabelTab() {
@@ -173,15 +156,6 @@ public class OrderSettleBeanGroup {
     public void setName(String name) {
         this.name = name;
     }
-
-    public OrderSettleChildModel getOrderChildModel() {
-        return orderChildModel;
-    }
-
-    public void setOrderChildModel(OrderSettleChildModel orderChildModel) {
-        this.orderChildModel = orderChildModel;
-    }
-
 
     public float getBalanceMoney() {
         return balanceMoney;

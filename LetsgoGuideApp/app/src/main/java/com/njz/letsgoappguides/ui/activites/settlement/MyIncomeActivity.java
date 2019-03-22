@@ -1,4 +1,4 @@
-package com.njz.letsgoappguides.ui.activites.mine;
+package com.njz.letsgoappguides.ui.activites.settlement;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,16 +17,15 @@ import com.njz.letsgoappguides.adapter.mine.IncomeAdapter;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.emptyView.IncomeItemView;
-import com.njz.letsgoappguides.model.mine.IncomeInfo;
-import com.njz.letsgoappguides.model.mine.IncomeListInfo;
+import com.njz.letsgoappguides.model.settlement.IncomeInfo;
+import com.njz.letsgoappguides.model.settlement.IncomeListInfo;
 import com.njz.letsgoappguides.presenter.mine.GetIncomeContract;
 import com.njz.letsgoappguides.presenter.mine.GetIncomePresenter;
+import com.njz.letsgoappguides.ui.activites.mine.BindIdcarActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 

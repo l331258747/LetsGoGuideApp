@@ -1,4 +1,4 @@
-package com.njz.letsgoappguides.ui.activites.mine;
+package com.njz.letsgoappguides.ui.activites.settlement;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,15 +10,15 @@ import com.njz.letsgoappguides.adapter.LoadMoreWrapper;
 import com.njz.letsgoappguides.adapter.mine.OrderSettleListAdapter;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.emptyView.EmptyClickLisener;
-import com.njz.letsgoappguides.model.mine.OrderSettleModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleModel;
 import com.njz.letsgoappguides.presenter.mine.OrderSettleListContract;
 import com.njz.letsgoappguides.presenter.mine.OrderSettleListPresenter;
-import com.njz.letsgoappguides.ui.activites.home.*;
 import com.njz.letsgoappguides.ui.activites.home.OrderListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//待结算订单
 public class SettlementOrderActivity extends OrderListActivity implements OrderSettleListContract.View {
 
     OrderSettleListPresenter settlePresenter;

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.njz.letsgoappguides.ui.activites.mine.MyIncomeActivity">
+    tools:context="com.njz.letsgoappguides.ui.activites.settlement.MyIncomeActivity">
 
     <RelativeLayout
         android:background="@color/color_theme"

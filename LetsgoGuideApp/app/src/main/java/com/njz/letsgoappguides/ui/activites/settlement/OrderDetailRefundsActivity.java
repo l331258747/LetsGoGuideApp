@@ -1,4 +1,4 @@
-package com.njz.letsgoappguides.ui.activites.mine;
+package com.njz.letsgoappguides.ui.activites.settlement;
 
 
 import android.content.Intent;
@@ -14,8 +14,10 @@ import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.adapter.mine.OrderIncomeDetail2Adapter;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.model.home.OrderDetailModel;
-import com.njz.letsgoappguides.model.mine.OrderSettleBalanceChildModel;
-import com.njz.letsgoappguides.model.mine.OrderSettltRefundChildModel;
+import com.njz.letsgoappguides.model.settlement.NjzOrderRefundEntityBean;
+import com.njz.letsgoappguides.model.settlement.NjzRefundDetailsChildVOSBean;
+import com.njz.letsgoappguides.model.settlement.OrderSettleBalanceChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettltRefundChildModel;
 import com.njz.letsgoappguides.presenter.mine.SettleOrderDetailContract;
 import com.njz.letsgoappguides.presenter.mine.SettleOrderDetailPresenter;
 import com.njz.letsgoappguides.ui.activites.home.CustomPlanActivity;
@@ -71,14 +73,11 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
         tv_nosettle_moneys = $(R.id.tv_nosettle_moneys);
         tv_nosettle_date = $(R.id.tv_nosettle_date);//待结算日期
         tv_settle_date = $(R.id.tv_settle_date);
-        tv_settle_price = $(R.id.tv_settle_price);//优惠券
         tv_settle_sermoney = $(R.id.tv_settle_sermoney);//平台服务费
-        rl_settle_price = $(R.id.rl_settle_price);//rl 优惠券
         rl_settle_sermoney = $(R.id.rl_settle_sermoney);//rl 平台服务费
         rl_settle_money = $(R.id.rl_settle_money);//rl 待结算金额
         rl_settle_date = $(R.id.rl_settle_date);//rl 待结算日期
 
-        rl_settle_price.setVisibility(View.VISIBLE);
         rl_settle_sermoney.setVisibility(View.VISIBLE);
         rl_settle_money.setVisibility(View.VISIBLE);
         rl_settle_date.setVisibility(View.VISIBLE);
@@ -97,7 +96,7 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        refundAdapter2 = new OrderIncomeDetail2Adapter(activity, new ArrayList<OrderSettltRefundChildModel.NjzOrderRefundEntityBean.NjzRefundDetailsChildVOSBean>());
+        refundAdapter2 = new OrderIncomeDetail2Adapter(activity, new ArrayList<NjzRefundDetailsChildVOSBean>());
         recyclerView.setAdapter(refundAdapter2);
         recyclerView.setNestedScrollingEnabled(false);
     }
@@ -142,7 +141,7 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
         //-------待结算订单详情start
 
 //                refundModel = str;
-        final OrderSettltRefundChildModel.NjzOrderRefundEntityBean orders=str.getNjzOrderRefundEntity();
+        final NjzOrderRefundEntityBean orders=str.getNjzOrderRefundEntity();
 
         rl_refund_price.setVisibility(View.GONE);
         rl_order_price.setVisibility(View.VISIBLE);
@@ -175,7 +174,6 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
         //center_botom
         tv_refund_reason.setText(orders.getRefundReason());//退款原因
         tv_refund_explain.setText(orders.getRefundContent());//退款说明
-        tv_settle_price.setText("￥"+orders.getOrderPrice());//优惠券
         tv_nosettle_moneys .setText("￥"+str.getAwaitBalanceMoney());//结算金额
         tv_settle_sermoney.setText("￥"+str.getPlatformServeMoney());//平台服务费
         tv_order_price.setText("￥"+orders.getOrderPrice());//合计

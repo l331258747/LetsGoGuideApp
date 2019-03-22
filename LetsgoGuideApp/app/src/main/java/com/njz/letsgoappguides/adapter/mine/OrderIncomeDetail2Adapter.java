@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.constant.Constant;
-import com.njz.letsgoappguides.model.mine.OrderSettltRefundChildModel;
+import com.njz.letsgoappguides.model.settlement.NjzOrderRefundEntityBean;
+import com.njz.letsgoappguides.model.settlement.NjzRefundDetailsChildVOSBean;
+import com.njz.letsgoappguides.model.settlement.OrderSettltRefundChildModel;
 import com.njz.letsgoappguides.ui.activites.service.ServicePreviewActivity;
 import com.njz.letsgoappguides.util.glide.GlideUtil;
 
@@ -31,14 +33,14 @@ import java.util.List;
 public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeDetail2Adapter.BaseViewHolder> {
 
     private Context context;
-    private List<OrderSettltRefundChildModel.NjzOrderRefundEntityBean.NjzRefundDetailsChildVOSBean> datas;
+    private List<NjzRefundDetailsChildVOSBean> datas;
 
-    public OrderIncomeDetail2Adapter(Context context, List<OrderSettltRefundChildModel.NjzOrderRefundEntityBean.NjzRefundDetailsChildVOSBean> datas) {
+    public OrderIncomeDetail2Adapter(Context context, List<NjzRefundDetailsChildVOSBean> datas) {
         this.context = context;
         this.datas = datas;
     }
 
-    public void setData(List<OrderSettltRefundChildModel.NjzOrderRefundEntityBean.NjzRefundDetailsChildVOSBean> datas){
+    public void setData(List<NjzRefundDetailsChildVOSBean> datas){
         this.datas = datas;
         notifyDataSetChanged();
     }
@@ -57,7 +59,7 @@ public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeD
         if (holder == null) return;
         if (holder instanceof ViewHolder) {
             final int pos = holder.getAdapterPosition();
-            final OrderSettltRefundChildModel.NjzOrderRefundEntityBean.NjzRefundDetailsChildVOSBean data = datas.get(pos);
+            final NjzRefundDetailsChildVOSBean data = datas.get(pos);
             if (data == null) return;
 
             //信息

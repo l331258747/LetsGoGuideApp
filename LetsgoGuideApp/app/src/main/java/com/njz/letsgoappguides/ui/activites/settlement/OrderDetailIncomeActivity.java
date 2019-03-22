@@ -1,10 +1,9 @@
-package com.njz.letsgoappguides.ui.activites.mine;
+package com.njz.letsgoappguides.ui.activites.settlement;
 
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -14,8 +13,9 @@ import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.adapter.mine.OrderIncomeDetailAdapter;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.model.home.OrderDetailModel;
-import com.njz.letsgoappguides.model.mine.OrderSettleBalanceChildModel;
-import com.njz.letsgoappguides.model.mine.OrderSettltRefundChildModel;
+import com.njz.letsgoappguides.model.settlement.NjzChildOrderVOSBean;
+import com.njz.letsgoappguides.model.settlement.OrderSettleBalanceChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettltRefundChildModel;
 import com.njz.letsgoappguides.presenter.mine.SettleOrderDetailContract;
 import com.njz.letsgoappguides.presenter.mine.SettleOrderDetailPresenter;
 import com.njz.letsgoappguides.ui.activites.home.CustomPlanActivity;
@@ -73,14 +73,11 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         tv_nosettle_moneys = $(R.id.tv_nosettle_moneys);
         tv_nosettle_date = $(R.id.tv_nosettle_date);//结算日期
         tv_settle_date = $(R.id.tv_settle_date);
-        tv_settle_price = $(R.id.tv_settle_price);//优惠券
         tv_settle_sermoney = $(R.id.tv_settle_sermoney);//平台服务费
-        rl_settle_price = $(R.id.rl_settle_price);//rl 优惠券
         rl_settle_sermoney = $(R.id.rl_settle_sermoney);//rl 平台服务费
         rl_settle_money = $(R.id.rl_settle_money);//rl 待结算金额
         rl_settle_date = $(R.id.rl_settle_date);//rl 待结算日期
 
-        rl_settle_price.setVisibility(View.VISIBLE);
         rl_settle_sermoney.setVisibility(View.VISIBLE);
         rl_settle_money.setVisibility(View.VISIBLE);
         rl_settle_date.setVisibility(View.VISIBLE);
@@ -100,7 +97,7 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        refundAdapter = new OrderIncomeDetailAdapter(activity, new ArrayList<OrderSettleBalanceChildModel.NjzChildOrderVOSBean>());
+        refundAdapter = new OrderIncomeDetailAdapter(activity, new ArrayList<NjzChildOrderVOSBean>());
         recyclerView.setAdapter(refundAdapter);
         recyclerView.setNestedScrollingEnabled(false);
     }
@@ -145,8 +142,7 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         login_view_phone.setImgVisibility(View.GONE);
         login_view_phone.setContent(str.getMobilehide());
         login_view_name.setContent(str.getNameHide());
-
-        fixed_view_personl.setContent(str.getPersonNumStr1());
+        fixed_view_personl.setContent(str.getPersonNum());
 
         login_view_phone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +154,6 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         //center_botom
-        tv_settle_price.setText("￥"+str.getOrderPrice());//优惠券
         tv_nosettle_moneys .setText("￥"+str.getBalancePrice());//结算金额
         tv_settle_date.setText("￥"+str.getBeBalancedDate());//结算日期
         tv_settle_sermoney .setText("￥"+str.getBalancePrice());//平台服务费
@@ -187,7 +182,6 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         //------------查看方案 start------------
         if(str.getNjzChildOrderVOS().size()>0){
             if(str.getNjzChildOrderVOS().get(0).getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)){
-                fixed_view_personl.setContent(str.getPersonNumStr2());
                 ll_bottom.setVisibility(View.VISIBLE);
                 btn_view_desingn_scheme.setVisibility(View.VISIBLE);
             }

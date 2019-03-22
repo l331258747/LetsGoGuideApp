@@ -89,10 +89,10 @@
 
         <!-- 我的 start -->
         <activity android:name=".ui.activites.mine.MyEvaluationActivity" />
-        <activity android:name=".ui.activites.mine.OrderDetailIncomeActivity" />
-        <activity android:name=".ui.activites.mine.OrderDetailRefundsActivity" />
+        <activity android:name=".ui.activites.settlement.OrderDetailIncomeActivity" />
+        <activity android:name=".ui.activites.settlement.OrderDetailRefundsActivity" />
         <activity android:name=".ui.activites.mine.BigImageActivity" />
-        <activity android:name=".ui.activites.mine.SettlementOrderActivity" />
+        <activity android:name=".ui.activites.settlement.SettlementOrderActivity" />
         <activity android:name=".ui.activites.mine.ContactUsActivity" />
         <activity android:name=".ui.activites.mine.ContactUsContentActivity" />
 
@@ -125,7 +125,7 @@
 
         <!-- 首页 订单 end -->
 
-        <activity android:name=".ui.activites.mine.MyIncomeActivity" />
+        <activity android:name=".ui.activites.settlement.MyIncomeActivity" />
         <activity android:name=".ui.activites.mine.BindIdcarActivity" />
 
         <!-- 消息 start -->

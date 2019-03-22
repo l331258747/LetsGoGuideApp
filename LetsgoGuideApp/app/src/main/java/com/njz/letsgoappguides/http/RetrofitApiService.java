@@ -1,6 +1,5 @@
 package com.njz.letsgoappguides.http;
 
-import com.njz.letsgoappguides.customview.widget.emptyView.EmptyView;
 import com.njz.letsgoappguides.model.BasePageModel;
 import com.njz.letsgoappguides.model.Result;
 import com.njz.letsgoappguides.model.authentication.AuthenInfo;
@@ -28,14 +27,14 @@ import com.njz.letsgoappguides.model.mine.BinkIntoInfo;
 import com.njz.letsgoappguides.model.mine.FeedBackInfo;
 import com.njz.letsgoappguides.model.mine.GetBackListInfo;
 import com.njz.letsgoappguides.model.mine.GetBinkInfo;
-import com.njz.letsgoappguides.model.mine.IncomeInfo;
-import com.njz.letsgoappguides.model.mine.IncomeListInfo;
+import com.njz.letsgoappguides.model.settlement.IncomeInfo;
+import com.njz.letsgoappguides.model.settlement.IncomeListInfo;
 import com.njz.letsgoappguides.model.mine.LabelModel;
 import com.njz.letsgoappguides.model.mine.MyInfoData;
 import com.njz.letsgoappguides.model.mine.OperationGuideModel;
-import com.njz.letsgoappguides.model.mine.OrderSettleBalanceChildModel;
-import com.njz.letsgoappguides.model.mine.OrderSettleModel;
-import com.njz.letsgoappguides.model.mine.OrderSettltRefundChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleBalanceChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettltRefundChildModel;
 import com.njz.letsgoappguides.model.other.IMUserModel;
 import com.njz.letsgoappguides.model.send.SendOrderRefundChildModel;
 import com.njz.letsgoappguides.model.server.AutoServiceModel;
@@ -48,6 +47,7 @@ import com.njz.letsgoappguides.model.server.ServerListModel;
 import com.njz.letsgoappguides.model.server.ServerTypeModel;
 import com.njz.letsgoappguides.model.server.ServiceCalPriceInfo;
 import com.njz.letsgoappguides.model.server.ServiceDetailInfo;
+import com.njz.letsgoappguides.model.settlement.PageUtilsBean;
 
 import java.util.List;
 
@@ -238,7 +238,7 @@ public interface RetrofitApiService {
      * @return
      */
     @GET("api/appGuide/yield/queryYetBalanceOrderList")
-    Observable<Result<IncomeInfo<IncomeInfo.PageUtilsBean<IncomeListInfo>>>> getBalanceOrderList(@Query("page")int page, @Query("limit")int limit);
+    Observable<Result<IncomeInfo<PageUtilsBean<IncomeListInfo>>>> getBalanceOrderList(@Query("page")int page, @Query("limit")int limit);
 
     /**
      * 待结算订单列表

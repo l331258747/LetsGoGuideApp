@@ -1,4 +1,4 @@
-package com.njz.letsgoappguides.model.mine;
+package com.njz.letsgoappguides.model.settlement;
 
 import java.util.List;
 
@@ -7,18 +7,6 @@ import java.util.List;
  */
 
 public class OrderSettleModel {
-
-
-    /**
-     * childOrder : []
-     * balanceMoney : 0.09
-     * orderNo : CS201811121712363858
-     * balanceDate : 2018-11-17 00:00:00
-     * name : 中意
-     * location : 长沙
-     * orderPrice : 0.1
-     * status : 2
-     */
 
     private float balanceMoney;
     private String orderNo;
@@ -34,10 +22,6 @@ public class OrderSettleModel {
         return balanceMoney;
     }
 
-    public void setBalanceMoney(float balanceMoney) {
-        this.balanceMoney = balanceMoney;
-    }
-
     public String getOrderNo() {
         return orderNo;
     }
@@ -48,10 +32,6 @@ public class OrderSettleModel {
 
     public String getBalanceDate() {
         return balanceDate;
-    }
-
-    public void setBalanceDate(String balanceDate) {
-        this.balanceDate = balanceDate;
     }
 
     public String getName() {
@@ -90,10 +70,6 @@ public class OrderSettleModel {
         return childOrder;
     }
 
-    public void setChildOrder(List<OrderSettleChildModel> childOrder) {
-        this.childOrder = childOrder;
-    }
-
     public String getMobile() {
         return mobile;
     }
@@ -102,17 +78,4 @@ public class OrderSettleModel {
         this.mobile = mobile;
     }
 
-    @Override
-    public String toString() {
-        return "OrderSettleModel{" +
-                "balanceMoney=" + balanceMoney +
-                ", orderNo='" + orderNo + '\'' +
-                ", balanceDate='" + balanceDate + '\'' +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", orderPrice=" + orderPrice +
-                ", status=" + status +
-                ", childOrder=" + childOrder +
-                '}';
-    }
 }

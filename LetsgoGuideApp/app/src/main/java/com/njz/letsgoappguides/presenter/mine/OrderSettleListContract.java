@@ -1,7 +1,6 @@
 package com.njz.letsgoappguides.presenter.mine;
 
-import com.njz.letsgoappguides.model.home.OrderRefundModel;
-import com.njz.letsgoappguides.model.mine.OrderSettleModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleModel;
 
 import java.util.List;
 

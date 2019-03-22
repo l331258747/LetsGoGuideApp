@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.njz.letsgoappguides.ui.activites.mine.SettlementOrderActivity">
+    tools:context="com.njz.letsgoappguides.ui.activites.settlement.SettlementOrderActivity">
 
 </android.support.constraint.ConstraintLayout>

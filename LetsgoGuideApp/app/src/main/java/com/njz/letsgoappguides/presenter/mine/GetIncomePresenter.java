@@ -1,17 +1,13 @@
 package com.njz.letsgoappguides.presenter.mine;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.njz.letsgoappguides.http.MethodApi;
 import com.njz.letsgoappguides.http.ProgressSubscriber;
 import com.njz.letsgoappguides.http.ResponseCallback;
-import com.njz.letsgoappguides.model.BasePageModel;
-import com.njz.letsgoappguides.model.mine.BinkIntoInfo;
-import com.njz.letsgoappguides.model.mine.IncomeInfo;
-import com.njz.letsgoappguides.model.mine.IncomeListInfo;
-
-import java.util.List;
+import com.njz.letsgoappguides.model.settlement.IncomeInfo;
+import com.njz.letsgoappguides.model.settlement.IncomeListInfo;
+import com.njz.letsgoappguides.model.settlement.PageUtilsBean;
 
 /**
  * Created by Administrator on 2018/11/26.
@@ -29,9 +25,9 @@ public class GetIncomePresenter implements GetIncomeContract.Presenter{
 
     @Override
     public void getIncomeInfo(int page,int limit) {
-        ResponseCallback listener = new ResponseCallback<IncomeInfo<IncomeInfo.PageUtilsBean<IncomeListInfo>>>() {
+        ResponseCallback listener = new ResponseCallback<IncomeInfo<PageUtilsBean<IncomeListInfo>>>() {
             @Override
-            public void onSuccess(IncomeInfo<IncomeInfo.PageUtilsBean<IncomeListInfo>> data) {
+            public void onSuccess(IncomeInfo<PageUtilsBean<IncomeListInfo>> data) {
                 iView.getIncomeSuccess(data);
             }
 

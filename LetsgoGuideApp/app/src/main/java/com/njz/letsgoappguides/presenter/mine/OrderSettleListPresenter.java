@@ -5,9 +5,7 @@ import android.content.Context;
 import com.njz.letsgoappguides.http.MethodApi;
 import com.njz.letsgoappguides.http.ProgressSubscriber;
 import com.njz.letsgoappguides.http.ResponseCallback;
-import com.njz.letsgoappguides.model.BasePageModel;
-import com.njz.letsgoappguides.model.home.OrderRefundModel;
-import com.njz.letsgoappguides.model.mine.OrderSettleModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleModel;
 
 import java.util.List;
 

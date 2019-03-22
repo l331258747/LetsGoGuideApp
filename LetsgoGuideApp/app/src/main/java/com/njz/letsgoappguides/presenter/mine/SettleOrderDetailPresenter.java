@@ -1,13 +1,12 @@
 package com.njz.letsgoappguides.presenter.mine;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.njz.letsgoappguides.http.MethodApi;
 import com.njz.letsgoappguides.http.ProgressSubscriber;
 import com.njz.letsgoappguides.http.ResponseCallback;
-import com.njz.letsgoappguides.model.mine.OrderSettleBalanceChildModel;
-import com.njz.letsgoappguides.model.mine.OrderSettltRefundChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleBalanceChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettltRefundChildModel;
 
 /**
  * Created by Administrator on 2018/11/26.

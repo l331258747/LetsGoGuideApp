@@ -1,7 +1,7 @@
 package com.njz.letsgoappguides.presenter.mine;
 
-import com.njz.letsgoappguides.model.mine.OrderSettleBalanceChildModel;
-import com.njz.letsgoappguides.model.mine.OrderSettltRefundChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleBalanceChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettltRefundChildModel;
 
 /**
  * Created by Administrator on 2018/11/26.

@@ -118,8 +118,6 @@ public class OrderRefundActivity extends BaseActivity implements OrderRefundDeta
 
         refundId = getIntent().getIntExtra("REFUND_ID", 0);
 
-        Log.e("test","refundId"+refundId);
-
         cvRefundReason.setVisibility(View.VISIBLE);
         rlRefundPrice.setVisibility(View.VISIBLE);
         rlRefundPenalty.setVisibility(View.VISIBLE);

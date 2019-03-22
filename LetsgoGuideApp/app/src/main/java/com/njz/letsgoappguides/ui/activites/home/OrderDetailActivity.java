@@ -84,8 +84,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
 
 
     //待结算，已结算订单详情
-    public TextView tv_nosettle_money, tv_nosettle_moneys, tv_nosettle_date, tv_settle_date, tv_settle_price, tv_settle_sermoney;
-    public RelativeLayout rl_settle_price, rl_settle_sermoney, rl_settle_money, rl_settle_date;
+    public TextView tv_nosettle_money, tv_nosettle_moneys, tv_nosettle_date, tv_settle_date, tv_settle_sermoney;
+    public RelativeLayout rl_settle_sermoney, rl_settle_money, rl_settle_date;
 
     //退款单已取消订单
     public FrameLayout cv_refund_reason, fl_order_allprice;

@@ -3,7 +3,6 @@ package com.njz.letsgoappguides.adapter.mine;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,9 @@ import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.constant.Constant;
-import com.njz.letsgoappguides.model.mine.OrderSettleBeanGroup;
-import com.njz.letsgoappguides.model.mine.OrderSettleChildModel;
-import com.njz.letsgoappguides.model.mine.OrderSettleModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleBeanGroup;
+import com.njz.letsgoappguides.model.settlement.OrderSettleChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleModel;
 import com.njz.letsgoappguides.ui.activites.home.CustomPlanActivity;
 import com.njz.letsgoappguides.util.glide.GlideUtil;
 
@@ -187,14 +186,6 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
             ((OrderSettleListAdapter.TitleHolder) holder).tv_status.setText(data.getsettleStatus());
             ((OrderSettleListAdapter.TitleHolder) holder).tv_name.setText(data.getName());
 
-//            if(mOnItemClickListener != null){
-//                ((OrderSettleListAdapter.TitleHolder) holder).rl_status.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mOnItemClickListener.onClick(data.getId(),data.getStatus());
-//                    }
-//                });
-//            }
         }
 
         if (holder instanceof OrderSettleListAdapter.FootHolder) {
@@ -215,7 +206,7 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
             }
 
             ((OrderSettleListAdapter.FootHolder) holder).tv_order_price_title.setText("合计:");
-            ((OrderSettleListAdapter.FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
+            ((OrderSettleListAdapter.FootHolder) holder).tv_order_price_content.setText("￥" + data.getOrderPrice());
             ((OrderSettleListAdapter.FootHolder) holder).tv_order.setText(data.getOrderNo());
 
             ((FootHolder) holder).ll_settle_id.setVisibility(View.VISIBLE);

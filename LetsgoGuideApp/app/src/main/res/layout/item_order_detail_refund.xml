@@ -32,7 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
                 android:maxLines="2"
                 tools:text="那就走标题那就标题标题那就走标题那就标题标题"
@@ -43,7 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/iv_img"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="8dp"
                 android:layout_toRightOf="@+id/iv_img">
 
 
@@ -72,8 +72,6 @@
             android:id="@+id/ll_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <View
@@ -109,8 +107,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <View
@@ -191,8 +187,6 @@
             android:id="@+id/ll_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <View
@@ -228,8 +222,6 @@
         android:id="@+id/ll_travel_going"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:visibility="gone"
         tools:visibility="visible"
         android:orientation="vertical">
@@ -338,8 +330,6 @@
             android:id="@+id/ll_travel_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <View

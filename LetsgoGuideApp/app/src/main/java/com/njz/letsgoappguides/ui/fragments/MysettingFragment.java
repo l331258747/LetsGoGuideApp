@@ -1,13 +1,8 @@
 package com.njz.letsgoappguides.ui.fragments;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,21 +17,16 @@ import com.njz.letsgoappguides.presenter.mine.GetLUserinfoPresenter;
 import com.njz.letsgoappguides.presenter.mine.GetUserinfoContract;
 import com.njz.letsgoappguides.ui.activites.mine.ContactUsActivity;
 import com.njz.letsgoappguides.ui.activites.mine.MyEvaluationActivity;
-import com.njz.letsgoappguides.ui.activites.mine.MyIncomeActivity;
+import com.njz.letsgoappguides.ui.activites.settlement.MyIncomeActivity;
 import com.njz.letsgoappguides.ui.activites.mysetting.AuthenticationActivity;
 import com.njz.letsgoappguides.ui.activites.mysetting.CarAuthenticationActivity;
 import com.njz.letsgoappguides.ui.activites.mysetting.GuideAuthenticationActivity;
-import com.njz.letsgoappguides.ui.activites.mysetting.OperationGuideActivity;
 import com.njz.letsgoappguides.ui.activites.mysetting.PersonalActivity;
 import com.njz.letsgoappguides.ui.activites.mysetting.SettingActivity;
 import com.njz.letsgoappguides.ui.activites.other.WebViewActivity;
-import com.njz.letsgoappguides.util.StringUtils;
-import com.njz.letsgoappguides.util.dialog.DialogUtil;
 import com.njz.letsgoappguides.util.glide.GlideUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 public class MysettingFragment extends BaseFragment implements View.OnClickListener,GetUserinfoContract.View  {

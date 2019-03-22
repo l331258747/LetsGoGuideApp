@@ -1,9 +1,6 @@
 package com.njz.letsgoappguides.presenter.mine;
 
-import com.njz.letsgoappguides.model.mine.IncomeInfo;
-import com.njz.letsgoappguides.model.mine.IncomeListInfo;
-
-import java.util.List;
+import com.njz.letsgoappguides.model.settlement.IncomeInfo;
 
 /**
  * Created by Administrator on 2018/11/26.

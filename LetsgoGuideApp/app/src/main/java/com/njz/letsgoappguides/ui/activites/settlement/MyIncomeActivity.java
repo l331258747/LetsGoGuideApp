@@ -36,17 +36,12 @@ public class MyIncomeActivity extends BaseActivity implements GetIncomeContract.
 
 
     GetIncomePresenter mGetIncomePresenter;
-//    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-//    @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
-//    @BindView(R.id.view_empty4)
     IncomeItemView view_empty4;
     IncomeAdapter mAdapter;
     LoadMoreWrapper loadMoreWrapper;
-//    @BindView(R.id.tv_income)
     TextView tvIncome;
-//    @BindView(R.id.tv_allincome)
     TextView tvAllincome;
     private boolean isLoad;
     int isLoadType = 1;//1下拉刷新，2上拉加载
@@ -94,11 +89,13 @@ public class MyIncomeActivity extends BaseActivity implements GetIncomeContract.
 
         mAdapter.setOnItemClickListener(new IncomeAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int orderId,int refId) {
+            public void onClick(int orderId,int refId,float priceA,float priceB) {
                 if(refId==0){
                     //已完成
                     Intent intent = new Intent(context, OrderDetailIncomeActivity.class);
                     intent.putExtra("ORDER_ID",orderId);
+                    intent.putExtra("PRICE_A",priceA);
+                    intent.putExtra("PRICE_B",priceB);
                     intent.putExtra("ID",10);
                     startActivity(intent);
                 }else{

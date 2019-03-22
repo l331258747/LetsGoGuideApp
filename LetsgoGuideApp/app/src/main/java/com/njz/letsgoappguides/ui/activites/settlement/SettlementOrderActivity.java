@@ -18,7 +18,7 @@ import com.njz.letsgoappguides.ui.activites.home.OrderListActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-//待结算订单
+//待结算订单列表
 public class SettlementOrderActivity extends OrderListActivity implements OrderSettleListContract.View {
 
     OrderSettleListPresenter settlePresenter;
@@ -54,7 +54,7 @@ public class SettlementOrderActivity extends OrderListActivity implements OrderS
 
         mAdapter.setOnItemClickListener(new OrderSettleListAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int orderId,int status) {
+            public void onClick(int orderId,int status,float priceA,float priceB) {
                 Log.e("test","____________"+orderId);
                 switch (status){//1已退款 2、已完成
                     case 1:
@@ -68,6 +68,8 @@ public class SettlementOrderActivity extends OrderListActivity implements OrderS
                         //已完成
                         Intent intent2 = new Intent(context, OrderDetailIncomeActivity.class);
                         intent2.putExtra("ORDER_ID",orderId);
+                        intent2.putExtra("PRICE_A",priceA);
+                        intent2.putExtra("PRICE_B",priceB);
                         intent2.putExtra("ID",11);
                         startActivity(intent2);
                         break;

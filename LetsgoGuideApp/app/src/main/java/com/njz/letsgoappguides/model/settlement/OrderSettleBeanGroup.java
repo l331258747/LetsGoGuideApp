@@ -161,6 +161,16 @@ public class OrderSettleBeanGroup {
         return balanceMoney;
     }
 
+    private float platformMoney;
+
+    public float getPlatformMoney() {
+        return platformMoney;
+    }
+
+    public void setPlatformMoney(float platformMoney) {
+        this.platformMoney = platformMoney;
+    }
+
     public void setBalanceMoney(float balanceMoney) {
         this.balanceMoney = balanceMoney;
     }

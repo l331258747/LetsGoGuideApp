@@ -17,7 +17,6 @@ public class IncomeListInfo {
     private int id;
     private float balancePrice;
     private String guideName;
-    private float platformMoney;
     private String refuseExplain;
     private String orderNo;
     private int balanceStatus;
@@ -60,6 +59,12 @@ public class IncomeListInfo {
     private float refIsDefaultMoney;
     private String refuseReason;
     private String refRefundReason;
+
+    private float platformMoney;
+
+    public float getPlatformMoney() {
+        return platformMoney;
+    }
 
     public int getId() {
         return id;

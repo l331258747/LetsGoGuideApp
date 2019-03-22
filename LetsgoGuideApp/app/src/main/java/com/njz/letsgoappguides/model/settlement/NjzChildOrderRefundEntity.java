@@ -19,8 +19,4 @@ public class NjzChildOrderRefundEntity {
     public int getRefundId() {
         return refundId;
     }
-
-    public void setRefundId(int refundId) {
-        this.refundId = refundId;
-    }
 }

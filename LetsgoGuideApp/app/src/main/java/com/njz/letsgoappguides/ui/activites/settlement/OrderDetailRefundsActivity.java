@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 
 /**
- * 待结算、已结算详细页面
+ * 待结算、已结算详细页面 - 退款单
  */
 public class OrderDetailRefundsActivity extends OrderDetailActivity implements SettleOrderDetailContract.View{
 

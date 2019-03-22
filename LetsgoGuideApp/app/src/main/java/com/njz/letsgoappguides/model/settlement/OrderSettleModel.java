@@ -1,5 +1,7 @@
 package com.njz.letsgoappguides.model.settlement;
 
+import android.widget.FrameLayout;
+
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ import java.util.List;
 public class OrderSettleModel {
 
     private float balanceMoney;
+    private float platformMoney;
     private String orderNo;
     private String balanceDate;
     private String name;
@@ -17,6 +20,10 @@ public class OrderSettleModel {
     private int status;
     private String mobile;
     private List<OrderSettleChildModel> childOrder;
+
+    public float getPlatformMoney() {
+        return platformMoney;
+    }
 
     public float getBalanceMoney() {
         return balanceMoney;

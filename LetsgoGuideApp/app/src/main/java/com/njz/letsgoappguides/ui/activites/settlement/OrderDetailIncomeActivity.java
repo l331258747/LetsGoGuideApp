@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 
 /**
- * 待结算、已结算详细页面
+ * 待结算、已结算详细页面 - 正常完成单
  */
 public class OrderDetailIncomeActivity extends OrderDetailActivity implements SettleOrderDetailContract.View {
 
@@ -41,14 +41,15 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
     FrameLayout cv_refund_reason;
     TextView tv_refund_reason, tv_refund_explain;
 
-    int status;
-    int refId;
     int id;
-
+    float priceA;
+    float priceB;
 
     @Override
     public void initData() {
         id = getIntent().getIntExtra("ID", 0);
+        priceA = getIntent().getFloatExtra("PRICE_A",0);
+        priceB = getIntent().getFloatExtra("PRICE_B",0);
 
         mSettleOrderDetailPresenter = new SettleOrderDetailPresenter(this, context);
 
@@ -154,9 +155,9 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire()) ? "无" : str.getSpecialRequire());
 
         //center_botom
-        tv_nosettle_moneys.setText("￥" + str.getBalancePrice());//结算金额
+        tv_nosettle_moneys.setText("￥" + priceA);//结算金额
         tv_settle_date.setText("￥" + str.getBeBalancedDate());//结算日期
-        tv_settle_sermoney.setText("￥" + str.getBalancePrice());//平台服务费
+        tv_settle_sermoney.setText("￥" + priceB);//平台服务费
         tv_order_price.setText("￥" + str.getOrderPrice());//合计
         if (id == 10) {
             tv_nosettle_money.setText("结算金额");//结算金额

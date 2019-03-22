@@ -40,7 +40,7 @@ public class IncomeAdapter extends RecyclerView.Adapter<IncomeAdapter.ViewHodler
         holder.ll_income_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onClick(data.getId(),data.getRefId());
+                mOnItemClickListener.onClick(data.getId(),data.getRefId(),data.getBalancePrice(),data.getPlatformMoney());
             }
         });
     }
@@ -86,7 +86,7 @@ public class IncomeAdapter extends RecyclerView.Adapter<IncomeAdapter.ViewHodler
     //---------事件 start---------
     OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {
-        void onClick(int orderNo,int refId);
+        void onClick(int orderNo,int refId,float priceA,float priceB);
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;

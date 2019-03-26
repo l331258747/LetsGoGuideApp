@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
-import com.njz.letsgoappguides.adapter.mine.OrderIncomeDetail2Adapter;
+import com.njz.letsgoappguides.adapter.settlement.OrderIncomeDetail2Adapter;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.model.home.OrderDetailModel;
 import com.njz.letsgoappguides.model.settlement.NjzOrderRefundEntityBean;
@@ -44,11 +44,17 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
     TextView tv_refund_reason,tv_refund_explain;
 
     int id;
-
+    float priceA;
+    float priceB;
+    String DateC;
 
     @Override
     public void initData() {
         id = getIntent().getIntExtra("ID",0);
+        priceA = getIntent().getFloatExtra("PRICE_A",0);
+        priceB = getIntent().getFloatExtra("PRICE_B",0);
+        DateC = getIntent().getStringExtra("DATE_C");
+
         mSettleOrderDetailPresenter = new SettleOrderDetailPresenter(this,context);
         mSettleOrderDetailPresenter.querySettlefulDetail(orderId);//已退款
 
@@ -174,11 +180,11 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
         //center_botom
         tv_refund_reason.setText(orders.getRefundReason());//退款原因
         tv_refund_explain.setText(orders.getRefundContent());//退款说明
-        tv_nosettle_moneys .setText("￥"+str.getAwaitBalanceMoney());//结算金额
-        tv_settle_sermoney.setText("￥"+str.getPlatformServeMoney());//平台服务费
-        tv_order_price.setText("￥"+orders.getOrderPrice());//合计
+        tv_nosettle_moneys .setText("￥"+priceA);//结算金额
+        tv_settle_sermoney.setText("￥"+priceB);//平台服务费
+        tv_order_price.setText("￥"+orders.getRefundMoney());//合计
         tv_refund_penalty.setText("￥"+orders.getDefaultMoney());//违约金
-        tv_settle_date.setText(""+orders.getBalanceTime());//结算日期
+        tv_settle_date.setText(DateC);//结算日期
         if(id==10){
             tv_nosettle_money.setText("结算金额");//结算金额
             tv_nosettle_date .setText("结算日期");//结算日期

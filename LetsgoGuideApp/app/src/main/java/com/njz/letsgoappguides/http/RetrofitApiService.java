@@ -17,6 +17,7 @@ import com.njz.letsgoappguides.model.home.OrderListModel;
 import com.njz.letsgoappguides.model.home.OrderRefundDetailModel;
 import com.njz.letsgoappguides.model.home.OrderRefundModel;
 import com.njz.letsgoappguides.model.home.ServiceRefundRuleModel;
+import com.njz.letsgoappguides.model.home.ServiceRefundRuleParentModel;
 import com.njz.letsgoappguides.model.login.Datas;
 import com.njz.letsgoappguides.model.login.UserVo;
 import com.njz.letsgoappguides.model.authentication.DriveTypeInfo;
@@ -388,7 +389,7 @@ public interface RetrofitApiService {
 
     //api/njzGuide/order/queryNjzGuideChildDetailVoByChildOrderId 退订规则（新）
     @GET("api/njzGuide/order/queryNjzGuideChildDetailVoByChildOrderId")
-    Observable<Result<ServiceRefundRuleModel>> orderRefundRule(
+    Observable<Result<ServiceRefundRuleParentModel>> orderRefundRule(
             @Query("njzChildOrderId")int njzChildOrderId
     );
 

@@ -87,7 +87,7 @@ public class CustomPlanActivity extends BaseActivity implements  View.OnClickLis
         tv_title.setText(model.getTitle());
         tv_time_content.setText(model.getTravelDateText());
         tv_num.setText(model.getPersonNum());
-        tv_finish_price.setText("￥" + model.getBugGet());
+        tv_finish_price.setText("￥" + model.getServePrice());
     }
 
     public void initViewPage(OrderDesignInfo model) {

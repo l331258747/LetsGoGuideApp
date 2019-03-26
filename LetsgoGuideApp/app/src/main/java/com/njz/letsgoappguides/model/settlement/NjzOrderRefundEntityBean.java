@@ -44,6 +44,10 @@ public class NjzOrderRefundEntityBean {
     private int children;
     private List<NjzRefundDetailsChildVOSBean> njzRefundDetailsChildVOS;
 
+    public float getRefundMoney() {
+        return refundMoney;
+    }
+
     private String orderNote;
 
     public String getOrderNote() {

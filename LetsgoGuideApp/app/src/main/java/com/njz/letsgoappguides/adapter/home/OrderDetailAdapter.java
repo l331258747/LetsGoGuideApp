@@ -65,8 +65,8 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                 holder.ll_count.setVisibility(View.GONE);
             }
-
             holder.tv_count_content.setText(data.getCountContent());
+
             holder.tv_time_content.setText(data.getTravelDate());
 
             holder.tv_time_title.setText(data.getTimeTitle());

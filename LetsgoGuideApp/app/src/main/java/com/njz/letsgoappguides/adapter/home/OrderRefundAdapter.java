@@ -63,7 +63,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,RefundRuleActivity.class);
-                intent.putExtra("serviceId",data.getServeId());
+                intent.putExtra("serviceId",data.getChildOrderId());
                 intent.putExtra("serverType",data.getServeType());
                 context.startActivity(intent);
 

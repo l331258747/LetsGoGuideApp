@@ -13,7 +13,7 @@ import com.njz.letsgoappguides.Bean.MySelfInfo;
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.adapter.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoappguides.adapter.LoadMoreWrapper;
-import com.njz.letsgoappguides.adapter.mine.IncomeAdapter;
+import com.njz.letsgoappguides.adapter.settlement.IncomeAdapter;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.emptyView.IncomeItemView;
@@ -89,20 +89,24 @@ public class MyIncomeActivity extends BaseActivity implements GetIncomeContract.
 
         mAdapter.setOnItemClickListener(new IncomeAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int orderId,int refId,float priceA,float priceB) {
+            public void onClick(int orderId,int refId,float priceA,float priceB,String dateC) {
                 if(refId==0){
                     //已完成
                     Intent intent = new Intent(context, OrderDetailIncomeActivity.class);
                     intent.putExtra("ORDER_ID",orderId);
+                    intent.putExtra("ID",10);
                     intent.putExtra("PRICE_A",priceA);
                     intent.putExtra("PRICE_B",priceB);
-                    intent.putExtra("ID",10);
+                    intent.putExtra("DATE_C",dateC);
                     startActivity(intent);
                 }else{
                     //已退款
                     Intent intent = new Intent(context, OrderDetailRefundsActivity.class);
                     intent.putExtra("ORDER_ID",refId);
                     intent.putExtra("ID",10);
+                    intent.putExtra("PRICE_A",priceA);
+                    intent.putExtra("PRICE_B",priceB);
+                    intent.putExtra("DATE_C",dateC);
                     startActivity(intent);
                 }
             }

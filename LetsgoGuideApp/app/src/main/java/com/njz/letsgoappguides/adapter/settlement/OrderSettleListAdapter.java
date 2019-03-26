@@ -1,4 +1,4 @@
-package com.njz.letsgoappguides.adapter.mine;
+package com.njz.letsgoappguides.adapter.settlement;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by LGQ
  * Time: 2018/8/21
- * Function:
+ * Function: 待结算
  */
 
 public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleListAdapter.BaseViewHolder> {
@@ -74,12 +74,10 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
 
                 serviceInfoGroup.setLabelTab(OrderSettleBeanGroup.LABEL_TAB_TITLE);
                 serviceInfoGroup.setOrderNo(orderModel.getOrderNo());
-//                serviceInfoGroup.setId(orderModel.getId());
                 serviceInfoGroup.setName(orderModel.getName());
                 serviceInfoGroup.setPayStatus(Constant.ORDER_PAY_REFUND);
                 serviceInfoGroup.setStatus(orderModel.getStatus());
                 serviceInfoGroup.setReviewStatus(Constant.ORDER_EVALUATE_NO);
-//                serviceInfoGroup.setRefundStatus(orderModel.getRefundStatus());
                 orderBeanGroups.add(serviceInfoGroup);
                 for (int j = 0; j<orderModel.getChildOrder().size();j++){
                     OrderSettleBeanGroup serviceInfoGroup2 = new OrderSettleBeanGroup();
@@ -89,6 +87,7 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
                     serviceInfoGroup2.setStatus(orderModel.getStatus());
                     serviceInfoGroup2.setBalanceMoney(orderModel.getBalanceMoney());
                     serviceInfoGroup2.setPlatformMoney(orderModel.getPlatformMoney());
+                    serviceInfoGroup2.setBalanceDate(orderModel.getBalanceDate());
                     orderBeanGroups.add(serviceInfoGroup2);
                 }
                 OrderSettleBeanGroup serviceInfoGroup3 = new OrderSettleBeanGroup();
@@ -144,33 +143,39 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
     @Override
     public void onBindViewHolder(OrderSettleListAdapter.BaseViewHolder holder, int position) {
         if (holder == null) return;
-        if (holder instanceof OrderSettleListAdapter.DefaultHolder) {
+        if (holder instanceof DefaultHolder) {
             final int pos = holder.getAdapterPosition();
             final OrderSettleChildModel data = orderBeanGroups.get(pos).getChildOrder();
             if (data == null) return;
 
-            GlideUtil.LoadRoundImage(mContext,data.getTitleImg(),((OrderSettleListAdapter.DefaultHolder) holder).iv_img,5);
+            GlideUtil.LoadRoundImage(mContext,data.getTitleImg(),((DefaultHolder) holder).iv_img,5);
 
-            ((OrderSettleListAdapter.DefaultHolder) holder).tv_title.setText(data.getTitle());
+            ((DefaultHolder) holder).tv_title.setText(data.getTitle());
 
-            ((OrderSettleListAdapter.DefaultHolder) holder).tv_price.setText( data.getValuestr());
+            ((DefaultHolder) holder).tv_price.setText( data.getValuestr());
 
-            ((OrderSettleListAdapter.DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
+            ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
 
             if (mOnItemClickListener != null) {//待结算订单
-                ((OrderSettleListAdapter.DefaultHolder) holder).ll_order_item.setOnClickListener(new View.OnClickListener() {
+                ((DefaultHolder) holder).ll_order_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         switch (orderBeanGroups.get(pos).getStatus()){
                             case 1://已退款
                                 mOnItemClickListener.onClick(
                                         data.getNjzChildOrderRefundEntity().getRefundId(),
-                                        orderBeanGroups.get(pos).getStatus(),orderBeanGroups.get(pos).getBalanceMoney(),orderBeanGroups.get(pos).getPlatformMoney());
+                                        orderBeanGroups.get(pos).getStatus(),
+                                        orderBeanGroups.get(pos).getBalanceMoney(),
+                                        orderBeanGroups.get(pos).getPlatformMoney(),
+                                        orderBeanGroups.get(pos).getBalanceDate());
                                 break;
                             case 2:
                                 mOnItemClickListener.onClick(
                                         orderBeanGroups.get(pos).getChildOrder().getOrderId(),
-                                        orderBeanGroups.get(pos).getStatus(),orderBeanGroups.get(pos).getBalanceMoney(),orderBeanGroups.get(pos).getPlatformMoney());
+                                        orderBeanGroups.get(pos).getStatus(),
+                                        orderBeanGroups.get(pos).getBalanceMoney(),
+                                        orderBeanGroups.get(pos).getPlatformMoney(),
+                                        orderBeanGroups.get(pos).getBalanceDate());
                                 break;
                         }
                     }
@@ -179,18 +184,18 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
 
         }
 
-        if (holder instanceof OrderSettleListAdapter.TitleHolder) {
+        if (holder instanceof TitleHolder) {
             final int pos = holder.getAdapterPosition();
             final OrderSettleBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
 
-            ((OrderSettleListAdapter.TitleHolder) holder).tv_order.setText(data.getOrderNo());
-            ((OrderSettleListAdapter.TitleHolder) holder).tv_status.setText(data.getsettleStatus());
-            ((OrderSettleListAdapter.TitleHolder) holder).tv_name.setText(data.getName());
+            ((TitleHolder) holder).tv_order.setText(data.getOrderNo());
+            ((TitleHolder) holder).tv_status.setText(data.getsettleStatus());
+            ((TitleHolder) holder).tv_name.setText(data.getName());
 
         }
 
-        if (holder instanceof OrderSettleListAdapter.FootHolder) {
+        if (holder instanceof FootHolder) {
             final int pos = holder.getAdapterPosition();
             final OrderSettleBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
@@ -207,9 +212,9 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
 
             }
 
-            ((OrderSettleListAdapter.FootHolder) holder).tv_order_price_title.setText("合计:");
-            ((OrderSettleListAdapter.FootHolder) holder).tv_order_price_content.setText("￥" + data.getOrderPrice());
-            ((OrderSettleListAdapter.FootHolder) holder).tv_order.setText(data.getOrderNo());
+            ((FootHolder) holder).tv_order_price_title.setText("合计:");
+            ((FootHolder) holder).tv_order_price_content.setText("￥" + data.getOrderPrice());
+            ((FootHolder) holder).tv_order.setText(data.getOrderNo());
 
             ((FootHolder) holder).ll_settle_id.setVisibility(View.VISIBLE);
 
@@ -241,7 +246,7 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
         }
     }
 
-    public class TitleHolder extends OrderSettleListAdapter.BaseViewHolder implements View.OnClickListener {
+    public class TitleHolder extends OrderSettleListAdapter.BaseViewHolder {
         TextView tv_order,tv_status,tv_name;
         RelativeLayout rl_status;
 
@@ -252,13 +257,8 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
             tv_status = itemView.findViewById(R.id.tv_status);
             rl_status = itemView.findViewById(R.id.rl_status);
 
-            rl_status.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-
-        }
     }
 
     public class DefaultHolder extends OrderSettleListAdapter.BaseViewHolder {
@@ -317,7 +317,7 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
     //---------事件 start---------
     OrderSettleListAdapter.OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {
-        void onClick(int orderId,int status,float priceA,float priceB);
+        void onClick(int orderId,int status,float priceA,float priceB,String dateC);
     }
     public void setOnItemClickListener(OrderSettleListAdapter.OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;

@@ -25,7 +25,6 @@ public class IncomeListInfo {
     private int personNum;
     private String refGuideCheckTime;
     private float refOrderPrice;
-    private String balanceDate;
     private String name;
     private int reviewStatus;
     private String refRefundTime;
@@ -59,8 +58,12 @@ public class IncomeListInfo {
     private float refIsDefaultMoney;
     private String refuseReason;
     private String refRefundReason;
-
+    private String balanceDate;
     private float platformMoney;
+
+    public String getBalanceDate() {
+        return balanceDate;
+    }
 
     public float getPlatformMoney() {
         return platformMoney;

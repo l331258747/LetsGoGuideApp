@@ -1,4 +1,4 @@
-package com.njz.letsgoappguides.adapter.mine;
+package com.njz.letsgoappguides.adapter.settlement;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,10 +23,10 @@ import java.util.List;
 /**
  * Created by LGQ
  * Time: 2018/8/16
- * Function:
+ * Function: 待结算-已完成
  */
 
-public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDetailAdapter.BaseViewHolder> {
+public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDetailAdapter.ViewHolder> {
 
     private Context context;
     private List<NjzChildOrderVOSBean> datas;
@@ -43,7 +43,7 @@ public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDe
 
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         view = LayoutInflater.from(context).inflate(R.layout.item_order_detail_refund, parent, false);
         return new ViewHolder(view);
@@ -51,7 +51,7 @@ public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDe
 
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         if (holder instanceof ViewHolder) {
             final int pos = holder.getAdapterPosition();
@@ -59,34 +59,35 @@ public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDe
             if (data == null) return;
 
             //信息
-            GlideUtil.LoadRoundImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img,5);
-            ((ViewHolder) holder).tv_title.setText(data.getTitle());
-            ((ViewHolder) holder).tv_price_unit.setText( data.getValuestr());
-            ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
-            ((ViewHolder) holder).tv_location_content.setText(data.getLocation());
-            ((ViewHolder) holder).tv_count_content.setText(data.getCountContent());
-            ((ViewHolder) holder).tv_time_title.setText(data.getTimeTitle());
+            GlideUtil.LoadRoundImage(context, data.getTitleImg(), holder.iv_img,5);
+            holder.tv_title.setText(data.getTitle());
+            holder.tv_price_unit.setText( data.getValuestr());
+            holder.tv_price_total.setText("￥" + data.getOrderPrice());
+            holder.tv_location_content.setText(data.getLocation());
+            holder.tv_time_title.setText(data.getTimeTitle());
 
-            if(data.getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM) ||  data.getValue().equals(Constant.SERVICE_TYPE_SHORT_GUIDE)){
-                ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
+            if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                holder.ll_count.setVisibility(View.GONE);
+            }
+            holder.tv_count_content.setText(data.getCountContent());
+
+            if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                holder.ll_bug_get.setVisibility(View.VISIBLE);
+                holder.tv_bug_get.setText("￥"+data.getBugGet());
+            }else{
+                holder.ll_bug_get.setVisibility(View.GONE);
             }
 
-            if(data.getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM)){
-                ((ViewHolder) holder).ll_bug_get.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).tv_bug_get_content.setText("￥"+data.getBugGet());
-            }
+            holder.ll_travel_going.setVisibility(View.GONE);
+            holder.ll_travel_money.setVisibility(View.GONE);
 
-            ((ViewHolder) holder).ll_travel_going.setVisibility(View.GONE);
-            ((ViewHolder) holder).ll_travel_money.setVisibility(View.GONE);
-            ((ViewHolder) holder).ll_bug_get.setVisibility(View.GONE);
-
-            ((ViewHolder) holder).tv_time_content.setText(data.getTravelDate());
+            holder.tv_time_content.setText(data.getTravelDate());
 
 
-            ((ViewHolder) holder).tv_penalty_content.setText("￥"+data.getDefaultMoney());
-            ((ViewHolder) holder).tv_refund_price_content.setText("￥"+data.getRefundMoney());
+            holder.tv_penalty_content.setText("￥"+data.getDefaultMoney());
+            holder.tv_refund_price_content.setText("￥"+data.getRefundMoney());
 
-            ((ViewHolder) holder).fl_parent.setOnClickListener(new View.OnClickListener() {
+            holder.fl_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ServicePreviewActivity.class);
@@ -109,19 +110,13 @@ public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDe
         return datas.size();
     }
 
-    static class BaseViewHolder extends RecyclerView.ViewHolder {
-        BaseViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    public class ViewHolder extends BaseViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_img;
         TextView tv_title, tv_price_unit, tv_price_total,btn_view_desingn_scheme;
         LinearLayout ll_count,ll_travel_going,ll_travel_money,ll_bug_get;
         TextView tv_count_title, tv_count_content, tv_time_title, tv_time_content
-                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_GM_cancel,tv_location_content,tv_bug_get_content;
+                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_GM_cancel,tv_location_content,tv_bug_get;
         FrameLayout fl_parent;
 
         TextView tv_penalty_title,tv_penalty_content,tv_refund_price_title,tv_refund_price_content;
@@ -154,7 +149,7 @@ public class OrderIncomeDetailAdapter extends RecyclerView.Adapter<OrderIncomeDe
             btn_view_desingn_scheme = itemView.findViewById(R.id.btn_view_desingn_scheme);
             tv_location_content = itemView.findViewById(R.id.tv_location_content);
             ll_bug_get = itemView.findViewById(R.id.ll_bug_get);
-            tv_bug_get_content = itemView.findViewById(R.id.tv_bug_get_content);
+            tv_bug_get = itemView.findViewById(R.id.tv_bug_get);
 
 
 

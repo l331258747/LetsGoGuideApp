@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
-import com.njz.letsgoappguides.adapter.mine.OrderIncomeDetailAdapter;
+import com.njz.letsgoappguides.adapter.settlement.OrderIncomeDetailAdapter;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.model.home.OrderDetailModel;
 import com.njz.letsgoappguides.model.settlement.NjzChildOrderVOSBean;
@@ -44,12 +44,14 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
     int id;
     float priceA;
     float priceB;
+    String DateC;
 
     @Override
     public void initData() {
         id = getIntent().getIntExtra("ID", 0);
         priceA = getIntent().getFloatExtra("PRICE_A",0);
         priceB = getIntent().getFloatExtra("PRICE_B",0);
+        DateC = getIntent().getStringExtra("DATE_C");
 
         mSettleOrderDetailPresenter = new SettleOrderDetailPresenter(this, context);
 
@@ -156,7 +158,7 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
 
         //center_botom
         tv_nosettle_moneys.setText("￥" + priceA);//结算金额
-        tv_settle_date.setText("￥" + str.getBeBalancedDate());//结算日期
+        tv_settle_date.setText(DateC);//结算日期
         tv_settle_sermoney.setText("￥" + priceB);//平台服务费
         tv_order_price.setText("￥" + str.getOrderPrice());//合计
         if (id == 10) {

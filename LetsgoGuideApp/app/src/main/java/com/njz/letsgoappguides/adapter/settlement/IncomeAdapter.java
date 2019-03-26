@@ -1,4 +1,4 @@
-package com.njz.letsgoappguides.adapter.mine;
+package com.njz.letsgoappguides.adapter.settlement;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2018/11/26.
+ * 我的收益
  */
 
 public class IncomeAdapter extends RecyclerView.Adapter<IncomeAdapter.ViewHodler>{
@@ -35,12 +36,17 @@ public class IncomeAdapter extends RecyclerView.Adapter<IncomeAdapter.ViewHodler
         final IncomeListInfo data = mData.get(pos);
         if (data == null) return;
         holder.tv_income_title.setText(data.getOrderNo());
-        holder.tv_income_datetinme.setText(data.getBalanceTime());
+        holder.tv_income_datetinme.setText(data.getBalanceDate());
         holder.tv_income_money.setText("￥"+data.getBalancePrice());
+
         holder.ll_income_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onClick(data.getId(),data.getRefId(),data.getBalancePrice(),data.getPlatformMoney());
+                mOnItemClickListener.onClick(data.getId(),
+                        data.getRefId(),
+                        data.getBalancePrice(),
+                        data.getPlatformMoney(),
+                        data.getBalanceDate());
             }
         });
     }
@@ -86,7 +92,7 @@ public class IncomeAdapter extends RecyclerView.Adapter<IncomeAdapter.ViewHodler
     //---------事件 start---------
     OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {
-        void onClick(int orderNo,int refId,float priceA,float priceB);
+        void onClick(int orderNo,int refId,float priceA,float priceB,String dateC);
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;

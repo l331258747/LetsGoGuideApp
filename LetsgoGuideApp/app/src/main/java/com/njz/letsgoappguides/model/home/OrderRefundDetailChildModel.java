@@ -73,6 +73,15 @@ public class OrderRefundDetailChildModel {
     private int planStatus;
     private int adultNum;
     private int childrenNum;
+    private int childOrderId;
+
+    public int getChildOrderId() {
+        return childOrderId;
+    }
+
+    public float getBugGet() {
+        return bugGet;
+    }
 
     public String getAdultChildren() {
         if (adultNum > 0 || childrenNum > 0) {

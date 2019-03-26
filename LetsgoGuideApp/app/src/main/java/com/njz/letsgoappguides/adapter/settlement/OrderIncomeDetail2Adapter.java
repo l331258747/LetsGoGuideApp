@@ -1,4 +1,4 @@
-package com.njz.letsgoappguides.adapter.mine;
+package com.njz.letsgoappguides.adapter.settlement;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.constant.Constant;
-import com.njz.letsgoappguides.model.settlement.NjzOrderRefundEntityBean;
 import com.njz.letsgoappguides.model.settlement.NjzRefundDetailsChildVOSBean;
-import com.njz.letsgoappguides.model.settlement.OrderSettltRefundChildModel;
 import com.njz.letsgoappguides.ui.activites.service.ServicePreviewActivity;
 import com.njz.letsgoappguides.util.glide.GlideUtil;
 
@@ -27,10 +25,10 @@ import java.util.List;
 /**
  * Created by LGQ
  * Time: 2018/8/16
- * Function:退款单
+ * Function:待结算 -退款单
  */
 
-public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeDetail2Adapter.BaseViewHolder> {
+public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeDetail2Adapter.ViewHolder> {
 
     private Context context;
     private List<NjzRefundDetailsChildVOSBean> datas;
@@ -47,7 +45,7 @@ public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeD
 
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         view = LayoutInflater.from(context).inflate(R.layout.item_order_detail_refund, parent, false);
         return new ViewHolder(view);
@@ -55,7 +53,7 @@ public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeD
 
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         if (holder instanceof ViewHolder) {
             final int pos = holder.getAdapterPosition();
@@ -63,45 +61,42 @@ public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeD
             if (data == null) return;
 
             //信息
-            GlideUtil.LoadRoundImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img,5);
-            ((ViewHolder) holder).tv_title.setText(data.getTitle());
-            ((ViewHolder) holder).tv_price_unit.setText(data.getValuestr());
-            ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
-            ((ViewHolder) holder).tv_location_content.setText( data.getLocation());
+            GlideUtil.LoadRoundImage(context, data.getTitleImg(), holder.iv_img,5);
+            holder.tv_title.setText(data.getTitle());
+            holder.tv_price_unit.setText(data.getValuestr());
+            holder.tv_price_total.setText("￥" + data.getOrderPrice());
+            holder.tv_location_content.setText( data.getLocation());
+            holder.ll_travel_going.setVisibility(View.GONE);
 
-            ((ViewHolder) holder).ll_travel_going.setVisibility(View.GONE);
-            ((ViewHolder) holder).ll_bug_get.setVisibility(View.GONE);
+            if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                holder.ll_count.setVisibility(View.GONE);
+            }
+            holder.tv_count_content.setText(data.getCountContent());
 
-
-            if(data.getValue().equals(Constant.SERVICE_TYPE_SHORT_CUSTOM) ||  data.getValue().equals(Constant.SERVICE_TYPE_SHORT_GUIDE)){
-                ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
+            if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                holder.ll_bug_get.setVisibility(View.VISIBLE);
+                holder.tv_bug_get.setText("￥"+data.getBugGet());
+            }else{
+                holder.ll_bug_get.setVisibility(View.GONE);
             }
 
-            if(data.getValue().equals(Constant.SERVICE_TYPE_SHORT_GUIDE)){
-                ((ViewHolder) holder).ll_bug_get.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).tv_bug_get_content.setText("￥"+data.getBugGet());
-            }
+            holder.tv_time_title.setText(data.getTimeTitle());
+            holder.tv_time_content.setText(data.getTravelDate());
 
-            ((ViewHolder) holder).tv_time_title.setText(data.getTimeTitle());
-            ((ViewHolder) holder).tv_count_content.setText(data.getCountContent());
-
-            ((ViewHolder) holder).tv_time_content.setText(data.getTravelDate());
-
-
-            ((ViewHolder) holder).tv_penalty_content.setText("￥"+data.getDefaultMoney());
-            ((ViewHolder) holder).tv_refund_price_content.setText("￥"+data.getRefundMoney());
+            holder.tv_penalty_content.setText("￥"+data.getDefaultMoney());
+            holder.tv_refund_price_content.setText("￥"+data.getRefundMoney());
 
             if(data.getGuideOrPlatform() == 0){
-                ((ViewHolder) holder).tv_GM_cancel.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).tv_penalty_content.setTextColor(ContextCompat.getColor(context,R.color.color_99));
-                ((ViewHolder) holder).tv_penalty_content.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                holder.tv_GM_cancel.setVisibility(View.VISIBLE);
+                holder.tv_penalty_content.setTextColor(ContextCompat.getColor(context,R.color.color_99));
+                holder.tv_penalty_content.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             }else{
-                ((ViewHolder) holder).tv_GM_cancel.setVisibility(View.GONE);
-                ((ViewHolder) holder).tv_penalty_content.setTextColor(ContextCompat.getColor(context,R.color.color_ff4000));
-                ((ViewHolder) holder).tv_penalty_content.getPaint().setFlags(0);
+                holder.tv_GM_cancel.setVisibility(View.GONE);
+                holder.tv_penalty_content.setTextColor(ContextCompat.getColor(context,R.color.color_ff4000));
+                holder.tv_penalty_content.getPaint().setFlags(0);
             }
 
-            ((ViewHolder) holder).fl_parent.setOnClickListener(new View.OnClickListener() {
+            holder.fl_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ServicePreviewActivity.class);
@@ -124,19 +119,13 @@ public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeD
         return datas.size();
     }
 
-    static class BaseViewHolder extends RecyclerView.ViewHolder {
-        BaseViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    public class ViewHolder extends BaseViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_img;
         TextView tv_title, tv_price_unit,  tv_price_total;
         LinearLayout ll_count,ll_travel_going,ll_travel_money,ll_bug_get;
         TextView tv_count_title, tv_count_content, tv_time_title, tv_time_content
-                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_GM_cancel,tv_location_content,tv_bug_get_content;
+                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_GM_cancel,tv_location_content,tv_bug_get;
         FrameLayout fl_parent;
 
         TextView tv_penalty_title,tv_penalty_content,tv_refund_price_title,tv_refund_price_content;
@@ -168,7 +157,7 @@ public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeD
             rl_one = itemView.findViewById(R.id.rl_one);
             tv_location_content = itemView.findViewById(R.id.tv_location_content);
             ll_bug_get = itemView.findViewById(R.id.ll_bug_get);
-            tv_bug_get_content = itemView.findViewById(R.id.tv_bug_get_content);
+            tv_bug_get = itemView.findViewById(R.id.tv_bug_get);
 
 
 

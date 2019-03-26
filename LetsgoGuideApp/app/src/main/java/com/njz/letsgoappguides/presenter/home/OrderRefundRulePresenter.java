@@ -5,7 +5,7 @@ import android.content.Context;
 import com.njz.letsgoappguides.http.MethodApi;
 import com.njz.letsgoappguides.http.ProgressSubscriber;
 import com.njz.letsgoappguides.http.ResponseCallback;
-import com.njz.letsgoappguides.model.home.ServiceRefundRuleModel;
+import com.njz.letsgoappguides.model.home.ServiceRefundRuleParentModel;
 
 /**
  * Created by LGQ
@@ -25,10 +25,10 @@ public class OrderRefundRulePresenter implements OrderRefundRuleContract.Present
 
     @Override
     public void orderRefundRule(int serverId) {
-        ResponseCallback listener = new ResponseCallback<ServiceRefundRuleModel>() {
+        ResponseCallback listener = new ResponseCallback<ServiceRefundRuleParentModel>() {
             @Override
-            public void onSuccess(ServiceRefundRuleModel datainfo) {
-                iView.orderRefundRuleSuccess(datainfo);
+            public void onSuccess(ServiceRefundRuleParentModel datainfo) {
+                iView.orderRefundRuleSuccess(datainfo.getNjzGuideServeChildPlanEntity());
             }
 
             @Override

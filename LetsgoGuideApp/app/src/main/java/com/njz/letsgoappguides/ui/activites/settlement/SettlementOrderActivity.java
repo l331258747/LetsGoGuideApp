@@ -7,7 +7,7 @@ import android.util.Log;
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.adapter.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoappguides.adapter.LoadMoreWrapper;
-import com.njz.letsgoappguides.adapter.mine.OrderSettleListAdapter;
+import com.njz.letsgoappguides.adapter.settlement.OrderSettleListAdapter;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.emptyView.EmptyClickLisener;
 import com.njz.letsgoappguides.model.settlement.OrderSettleModel;
@@ -54,7 +54,7 @@ public class SettlementOrderActivity extends OrderListActivity implements OrderS
 
         mAdapter.setOnItemClickListener(new OrderSettleListAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int orderId,int status,float priceA,float priceB) {
+            public void onClick(int orderId,int status,float priceA,float priceB,String dateC) {
                 Log.e("test","____________"+orderId);
                 switch (status){//1已退款 2、已完成
                     case 1:
@@ -62,15 +62,19 @@ public class SettlementOrderActivity extends OrderListActivity implements OrderS
                         Intent intent = new Intent(context, OrderDetailRefundsActivity.class);
                         intent.putExtra("ORDER_ID",orderId);
                         intent.putExtra("ID",11);
+                        intent.putExtra("PRICE_A",priceA);
+                        intent.putExtra("PRICE_B",priceB);
+                        intent.putExtra("DATE_C",dateC);
                         startActivity(intent);
                         break;
                     case 2:
                         //已完成
                         Intent intent2 = new Intent(context, OrderDetailIncomeActivity.class);
                         intent2.putExtra("ORDER_ID",orderId);
+                        intent2.putExtra("ID",11);
                         intent2.putExtra("PRICE_A",priceA);
                         intent2.putExtra("PRICE_B",priceB);
-                        intent2.putExtra("ID",11);
+                        intent2.putExtra("DATE_C",dateC);
                         startActivity(intent2);
                         break;
                 }

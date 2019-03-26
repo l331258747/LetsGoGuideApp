@@ -78,6 +78,13 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             holder.tv_time_content.setText(data.getTravelDate());
             holder.tv_location_content.setText(data.getLocation());
 
+            if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                holder.ll_bug_get.setVisibility(View.VISIBLE);
+                holder.tv_bug_get.setText("￥"+data.getBugGet());
+            }else{
+                holder.ll_bug_get.setVisibility(View.GONE);
+            }
+
             if(data.getRefundStatus() == Constant.ORDER_REFUND_CANCEL ||  data.getRefundStatus() == Constant.ORDER_REFUND_PLAN_REFUSE){
                 holder.ll_travel_money.setVisibility(View.GONE);
             }else{
@@ -131,7 +138,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
         TextView tv_title, tv_price_unit, tv_price_total;
         LinearLayout ll_count,ll_travel_going,ll_travel_money,ll_bug_get;
         TextView tv_count_title, tv_count_content, tv_time_title, tv_time_content
-                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_GM_cancel,tv_bug_get_content,tv_location_content;
+                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_GM_cancel,tv_bug_get,tv_location_content;
         FrameLayout fl_parent;
 
         TextView tv_penalty_title,tv_penalty_content,tv_refund_price_title,tv_refund_price_content;
@@ -146,7 +153,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             tv_GM_cancel = itemView.findViewById(R.id.tv_GM_cancel);
             tv_price_total = itemView.findViewById(R.id.tv_price_total);
             ll_count = itemView.findViewById(R.id.ll_count);
-            tv_bug_get_content = itemView.findViewById(R.id.tv_bug_get_content);
+            tv_bug_get = itemView.findViewById(R.id.tv_bug_get);
             ll_bug_get = itemView.findViewById(R.id.ll_bug_get);
             tv_time_content = itemView.findViewById(R.id.tv_time_content);
             tv_time_title = itemView.findViewById(R.id.tv_time_title);

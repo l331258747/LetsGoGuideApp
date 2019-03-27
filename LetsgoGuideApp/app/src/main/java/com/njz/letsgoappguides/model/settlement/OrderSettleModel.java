@@ -2,6 +2,8 @@ package com.njz.letsgoappguides.model.settlement;
 
 import android.widget.FrameLayout;
 
+import com.njz.letsgoappguides.util.DecimalUtil;
+
 import java.util.List;
 
 /**
@@ -58,6 +60,13 @@ public class OrderSettleModel {
     }
 
     public float getOrderPrice() {
+        if(status == 1){
+            float price = 0;
+            for (int i =0;i<childOrder.size();i++){
+                price = DecimalUtil.add(price,childOrder.get(i).getNjzChildOrderRefundEntity().getRefundMoney());
+            }
+            return price;
+        }
         return orderPrice;
     }
 

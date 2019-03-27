@@ -31,6 +31,19 @@ public class NjzRefundDetailsChildVOSBean {
     private String location;
     private float bugGet;
     private int serveNum;
+    private int isDefaultMoney;
+
+    public float getPayPrice() {
+        return payPrice;
+    }
+
+    public int getIsDefaultMoney() {
+        return isDefaultMoney;
+    }
+
+    public void setGuideOrPlatform(int guideOrPlatform) {
+        this.guideOrPlatform = guideOrPlatform;
+    }
 
     public String getTimeTitle() {
         switch (serveType) {

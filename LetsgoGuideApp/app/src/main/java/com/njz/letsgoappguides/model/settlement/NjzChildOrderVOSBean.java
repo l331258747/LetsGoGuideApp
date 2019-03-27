@@ -35,6 +35,11 @@ public class NjzChildOrderVOSBean {
     private int serveNum;
     private int adultNum;
     private int childrenNum;
+    private NjzChildOrderRefundEntity njzChildOrderRefundEntity;
+
+    public NjzChildOrderRefundEntity getNjzChildOrderRefundEntity() {
+        return njzChildOrderRefundEntity;
+    }
 
     public String getTimeTitle() {
         switch (serveType) {

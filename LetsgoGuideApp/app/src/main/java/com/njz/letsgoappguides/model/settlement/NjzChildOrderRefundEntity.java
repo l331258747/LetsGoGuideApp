@@ -16,6 +16,14 @@ public class NjzChildOrderRefundEntity {
     private int id;
     private int refundId;
 
+    public int getGuideOrPlatform() {
+        return guideOrPlatform;
+    }
+
+    public float getRefundMoney() {
+        return refundMoney;
+    }
+
     public int getRefundId() {
         return refundId;
     }

@@ -26,8 +26,8 @@ android {
         applicationId "com.njz.letsgoappguides"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1010401
-        versionName "1.1.4.1"
+        versionCode 1010501
+        versionName "1.1.5.1"
 
         multiDexEnabled true
         ndk {

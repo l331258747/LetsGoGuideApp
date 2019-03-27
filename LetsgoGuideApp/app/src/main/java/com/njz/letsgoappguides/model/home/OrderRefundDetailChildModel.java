@@ -75,6 +75,10 @@ public class OrderRefundDetailChildModel {
     private int childrenNum;
     private int childOrderId;
 
+    public int getIsDefaultMoney() {
+        return isDefaultMoney;
+    }
+
     public int getChildOrderId() {
         return childOrderId;
     }

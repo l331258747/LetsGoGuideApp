@@ -236,9 +236,7 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
         //------------查看方案 end------------
         isShowNoEdit(orders.getOrderNote());
 
-        //center
         refundAdapter2.setData(str.getNjzOrderRefundEntity().getNjzRefundDetailsChildVOS());
-
         //--------------end
     }
 

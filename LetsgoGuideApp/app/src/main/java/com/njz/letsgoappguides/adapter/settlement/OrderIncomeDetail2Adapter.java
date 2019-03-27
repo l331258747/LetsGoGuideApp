@@ -84,16 +84,17 @@ public class OrderIncomeDetail2Adapter extends RecyclerView.Adapter<OrderIncomeD
             holder.tv_time_content.setText(data.getTravelDate());
 
             holder.tv_penalty_content.setText("￥"+data.getDefaultMoney());
-            holder.tv_refund_price_content.setText("￥"+data.getRefundMoney());
 
-            if(data.getGuideOrPlatform() == 0){
+            if(data.getIsDefaultMoney() == 1){
                 holder.tv_GM_cancel.setVisibility(View.VISIBLE);
                 holder.tv_penalty_content.setTextColor(ContextCompat.getColor(context,R.color.color_99));
                 holder.tv_penalty_content.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                holder.tv_refund_price_content.setText("￥"+data.getPayPrice());
             }else{
                 holder.tv_GM_cancel.setVisibility(View.GONE);
                 holder.tv_penalty_content.setTextColor(ContextCompat.getColor(context,R.color.color_ff4000));
                 holder.tv_penalty_content.getPaint().setFlags(0);
+                holder.tv_refund_price_content.setText("￥"+data.getRefundMoney());
             }
 
             holder.fl_parent.setOnClickListener(new View.OnClickListener() {

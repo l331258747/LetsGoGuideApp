@@ -93,7 +93,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
                 holder.tv_refund_price_content.setText("￥"+data.getRefundMoney());
             }
 
-            if(data.getGuideOrPlatform() == 0){
+            if(data.getIsDefaultMoney() == 1){
                 holder.tv_GM_cancel.setVisibility(View.VISIBLE);
                 holder.tv_penalty_content.setTextColor(ContextCompat.getColor(context,R.color.color_99));
                 holder.tv_penalty_content.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);

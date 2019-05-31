@@ -1,6 +1,9 @@
 package com.njz.letsgoappguides.ui;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -27,6 +30,7 @@ import com.njz.letsgoappguides.ui.fragments.MessageFragment;
 import com.njz.letsgoappguides.ui.fragments.MysettingFragment;
 import com.njz.letsgoappguides.ui.fragments.serveFragment;
 import com.njz.letsgoappguides.util.log.LogUtil;
+import com.njz.letsgoappguides.util.notify.NotificationsUtils;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
 import com.njz.letsgoappguides.util.rxbus.busEvent.NotifyEvent;
 
@@ -73,6 +77,8 @@ public class MainActivity extends BaseActivity implements NotifyMainContract.Vie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getNewIntent();
+
+        getNotify();
     }
 
     @Override
@@ -246,6 +252,49 @@ public class MainActivity extends BaseActivity implements NotifyMainContract.Vie
             case 3:
                 setSelecteds(ivIcon4, ivIcon2, ivIcon3, ivIcon1);
                 break;
+        }
+    }
+
+    public void getNotify() {
+        if (!NotificationsUtils.isNotificationEnabled(this)) {
+            final AlertDialog dialog = new AlertDialog.Builder(this).create();
+            dialog.show();
+
+            View view = View.inflate(this, R.layout.dialog_notify, null);
+            dialog.setContentView(view);
+
+            TextView context = (TextView) view.findViewById(R.id.tv_dialog_context);
+            context.setText("未开启推送通知，您可能错过游客消息，最新活动，订单信息等...");
+
+            TextView confirm = (TextView) view.findViewById(R.id.btn_confirm);
+            confirm.setText("确定");
+            confirm.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialog.cancel();
+                    Intent localIntent = new Intent();
+                    localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (Build.VERSION.SDK_INT >= 9) {
+                        localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                        localIntent.setData(Uri.fromParts("package", MainActivity.this.getPackageName(), null));
+                    } else if (Build.VERSION.SDK_INT <= 8) {
+                        localIntent.setAction(Intent.ACTION_VIEW);
+
+                        localIntent.setClassName("com.android.settings",
+                                "com.android.settings.InstalledAppDetails");
+
+                        localIntent.putExtra("com.android.settings.ApplicationPkgName",
+                                MainActivity.this.getPackageName());
+                    }
+                    startActivity(localIntent);
+                }
+            });
+
+            ImageView cancel = (ImageView) view.findViewById(R.id.btn_off);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialog.cancel();
+                }
+            });
         }
     }
 }

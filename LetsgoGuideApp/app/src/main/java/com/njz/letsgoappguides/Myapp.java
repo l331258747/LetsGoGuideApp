@@ -9,7 +9,12 @@ import android.support.multidex.MultiDexApplication;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.push.EMPushConfig;
+import com.hyphenate.push.EMPushHelper;
+import com.hyphenate.push.EMPushType;
+import com.hyphenate.push.PushListener;
 import com.njz.letsgoappguides.ui.MainActivity;
+import com.njz.letsgoappguides.ui.im.HMSPushHelper;
 import com.njz.letsgoappguides.ui.im.HxEaseuiHelper;
 import com.njz.letsgoappguides.util.AppUtils;
 import com.njz.letsgoappguides.util.SPUtils;
@@ -71,6 +76,27 @@ public class Myapp extends MultiDexApplication {//extends MultiDexApplication �
             return ;
         }
         HxEaseuiHelper.getInstance().init(context);
+
+        // 请确保环信SDK相关方法运行在主进程，子进程不会初始化环信SDK（该逻辑在EaseUI.java中）
+        if (EaseUI.getInstance().isMainProcess(this)) {
+            // 初始化华为 HMS 推送服务, 需要在SDK初始化后执行
+            HMSPushHelper.getInstance().initHMSAgent(instance);//TODO-1
+
+            EMPushHelper.getInstance().setPushListener(new PushListener() {
+                @Override
+                public void onError(EMPushType pushType, long errorCode) {
+                    LogUtil.e("Push client occur a error: " + pushType + " - " + errorCode);
+                    // TODO: 返回的errorCode仅9xx为环信内部错误，可从EMError中查询，其他错误请根据pushType去相应第三方推送网站查询。
+                    // TODO: 开发者会在这个回调中收到使用推送的相关错误信息，各推送类型的error code开发者可以自己去各推送平台官网查询错误原因。
+                }
+
+                @Override
+                public boolean isSupportPush(EMPushType pushType, EMPushConfig pushConfig) {
+                    return super.isSupportPush(pushType, pushConfig);
+                    // TODO：开发者可以复写该方法控制设备是否支持某推送的判断。
+                }
+            });
+        }
 
         // 设置初始化已经完成
         isInit = true;

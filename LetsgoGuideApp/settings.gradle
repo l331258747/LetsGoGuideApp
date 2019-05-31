@@ -1,1 +1,1 @@
-include ':app', ':PhotoPicker', ':idcardcamera', ':easeui'
+include ':app', ':PhotoPicker', ':idcardcamera', ':easeui', ':hmspush'

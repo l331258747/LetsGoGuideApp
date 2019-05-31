@@ -14,6 +14,7 @@ import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseNotifier;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
+import com.hyphenate.push.EMPushConfig;
 import com.njz.letsgoappguides.ui.im.cache.UserCacheManager;
 import com.njz.letsgoappguides.util.AppUtils;
 import com.njz.letsgoappguides.util.log.LogUtil;
@@ -74,6 +75,8 @@ public class HxEaseuiHelper {
         // 设置集成小米推送的appid和appkey
         // options.setMipushConfig(MLConstants.ML_MI_APP_ID, MLConstants.ML_MI_APP_KEY);
 
+        setPushConfig(context, options);
+
         // 调用初始化方法初始化sdk
 //        EaseUI.getInstance().init(context, options);
 
@@ -88,6 +91,21 @@ public class HxEaseuiHelper {
             setGlobalListeners();
 
         }
+    }
+
+    protected void setPushConfig(Context context, EMOptions options) {
+        /**
+         * NOTE:你需要设置自己申请的账号来使用三方推送功能，详见集成文档
+         */
+        EMPushConfig.Builder builder = new EMPushConfig.Builder(context);
+        builder
+                .enableMeiZuPush("121021", "bf0b6fae6d12429480b316d10e67f5a2")
+                .enableMiPush("2882303761517921866", "5441792135866")
+                .enableOppoPush("f2083798219c4053972d8027ea197e85", "caddefbe9d5646bc8507018fba4a4751")
+                .enableHWPush() // 需要在AndroidManifest.xml中配置appId //开发者需要调用该方法来开启华为推送
+                ;
+        //.enableFCM("921300338324")  .enableVivoPush() // 推送证书相关信息配置在AndroidManifest.xml中
+        options.setPushConfig(builder.build());
     }
 
     protected void setGlobalListeners() {
@@ -169,16 +187,16 @@ public class HxEaseuiHelper {
         });
     }
 
-    private EaseUser getUserInfo(String username){
+    private EaseUser getUserInfo(String username) {
 
         EaseUser user = UserCacheManager.getEaseUser(username);
 
         //如果用户不是你的联系人，则进行初始化
-        if(user == null){
+        if (user == null) {
             user = new EaseUser(username);
             EaseCommonUtils.setUserInitialLetter(user);
-        }else {
-            if (TextUtils.isEmpty(user.getNickname())){//如果名字为空，则显示环信号码
+        } else {
+            if (TextUtils.isEmpty(user.getNickname())) {//如果名字为空，则显示环信号码
                 user.setNickname(user.getUsername());
             }
         }
@@ -186,7 +204,7 @@ public class HxEaseuiHelper {
         return user;
     }
 
-    public EaseNotifier getNotifier(){
+    public EaseNotifier getNotifier() {
         return EaseUI.getInstance().getNotifier();
     }
 

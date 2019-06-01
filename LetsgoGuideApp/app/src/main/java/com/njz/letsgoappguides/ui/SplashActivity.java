@@ -25,6 +25,7 @@ import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.ui.activites.LoginActivity;
+import com.njz.letsgoappguides.ui.im.HMSPushHelper;
 import com.njz.letsgoappguides.ui.im.cache.UserCacheManager;
 import com.njz.letsgoappguides.util.AppUtils;
 import com.njz.letsgoappguides.util.jpush.JpushAliasUtil;
@@ -48,6 +49,8 @@ public class SplashActivity extends BaseActivity {
         initUserInfo();
 
         EMClient.getInstance().chatManager().loadAllConversations();
+
+        HMSPushHelper.getInstance().getHMSToken(activity);
     }
 
     @Override

@@ -166,6 +166,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
             image = MySelfInfo.getInstance().getImage();
             if (!image.equals("")) {
                 selectedPhotos = StringUtils.stringToList(image);
+                getUpUrls();
             }
             personalTvCheckb.setText(getLanguage());
         }

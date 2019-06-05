@@ -29,6 +29,7 @@ import com.njz.letsgoappguides.ui.fragments.HomeFragment;
 import com.njz.letsgoappguides.ui.fragments.MessageFragment;
 import com.njz.letsgoappguides.ui.fragments.MysettingFragment;
 import com.njz.letsgoappguides.ui.fragments.serveFragment;
+import com.njz.letsgoappguides.ui.im.HxEaseuiHelper;
 import com.njz.letsgoappguides.util.log.LogUtil;
 import com.njz.letsgoappguides.util.notify.NotificationsUtils;
 import com.njz.letsgoappguides.util.rxbus.RxBus2;
@@ -176,11 +177,19 @@ public class MainActivity extends BaseActivity implements NotifyMainContract.Vie
         }else{
             RxBus2.getInstance().post(new NotifyEvent(true));
         }
+
+        if(HxEaseuiHelper.isShow){
+            RxBus2.getInstance().post(new NotifyEvent(true));
+        }
     }
 
     @Override
     public void msgPushGetSendMsgListFailed(String msg) {
         LogUtil.e(msg);
+
+        if(HxEaseuiHelper.isShow){
+            RxBus2.getInstance().post(new NotifyEvent(true));
+        }
     }
 
     @Override

@@ -112,6 +112,9 @@ public class HxEaseuiHelper {
         registerMessageListener();
     }
 
+
+    public static boolean isShow = false;
+
     protected void registerMessageListener() {
         messageListener = new EMMessageListener() {
             @Override
@@ -127,6 +130,8 @@ public class HxEaseuiHelper {
                     }
                     EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
                 }
+
+                isShow = true;//初始化进入homeactivity 红点提示
             }
 
             @Override

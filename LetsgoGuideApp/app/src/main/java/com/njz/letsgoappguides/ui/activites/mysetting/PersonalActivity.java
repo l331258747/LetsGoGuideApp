@@ -202,7 +202,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                 break;
             case R.id.title_yulan:
                 PersonalInfo personalInfo = new PersonalInfo();
-                if (upUrls != null) {
+                if (!TextUtils.isEmpty(upUrls)) {
                     personalInfo.setImage(upUrls);
                 } else {
                     personalInfo.setImage(MySelfInfo.getInstance().getImage());
@@ -280,6 +280,10 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
                 infoData.setBase64Img(headUrl);
                 infoData.setIntroduce(introduce);
                 infoData.setMyStory(myStory);
+                if(TextUtils.isEmpty(upUrls)){
+                    ToastUtil.showShortToast(AppUtils.getContext(), "请选择形象照");
+                    return;
+                }
                 if (upUrls != null) {
                     infoData.setImage(upUrls);
                 }
@@ -596,7 +600,7 @@ PersonalActivity extends BaseActivity implements View.OnClickListener, UpLoadCon
         if (!headUrl.equals("")) {
             MySelfInfo.getInstance().setUserImg(headUrl);
         }
-        if (upUrls != null) {
+        if (!TextUtils.isEmpty(upUrls)) {
             MySelfInfo.getInstance().setImage(upUrls);
         }
         finish();

@@ -11,11 +11,13 @@ import com.njz.letsgoappguides.Bean.MySelfInfo;
 import com.njz.letsgoappguides.R;
 import com.njz.letsgoappguides.base.ActivityCollect;
 import com.njz.letsgoappguides.base.BaseActivity;
+import com.njz.letsgoappguides.constant.Constant;
 import com.njz.letsgoappguides.customview.widget.MineTextView;
 import com.njz.letsgoappguides.presenter.ExitLoginContract;
 import com.njz.letsgoappguides.presenter.ExitLoginPresenter;
 import com.njz.letsgoappguides.ui.MainActivity;
 import com.njz.letsgoappguides.ui.activites.LoginActivity;
+import com.njz.letsgoappguides.ui.activites.other.WebViewActivity;
 import com.njz.letsgoappguides.util.AppUtils;
 import com.njz.letsgoappguides.util.CacheUtil;
 import com.njz.letsgoappguides.util.StringUtils;
@@ -87,6 +89,13 @@ public class SettingActivity extends BaseActivity implements ExitLoginContract.V
         initdata();
     }
 
+    @OnClick(R.id.system_setting_privacy)
+    public void setSystemSettingPrivacy(){
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra(Constant.EXTRA_URL,"http://www.njzou.com/yszc");
+        intent.putExtra(Constant.EXTRA_TITLE,"隐私政策");
+        startActivity(intent);
+    }
 
     @OnClick(R.id.left_iv)
     public void leftBack(){

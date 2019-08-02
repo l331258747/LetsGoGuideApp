@@ -61,6 +61,14 @@
         app:right_img_visible="true"
         app:titles="检测升级"/>
 
+    <com.njz.letsgoappguides.customview.widget.MineTextView
+        android:id="@+id/system_setting_privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:bottom_lines_visible="true"
+        app:right_img_visible="true"
+        app:titles="隐私政策"/>
+
     <TextView
         android:id="@+id/set_in_button"
         android:layout_width="match_parent"

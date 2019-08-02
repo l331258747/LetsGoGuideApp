@@ -164,11 +164,26 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         return false;
     }
 
+    LinearLayout ll_tip;
+    ImageView iv_tip_delete;
+    protected void initTip() {
+        iv_tip_delete =  getView().findViewById(R.id.iv_tip_delete);
+        ll_tip =  getView().findViewById(R.id.ll_tip);
+        ll_tip.setVisibility(View.VISIBLE);
+
+        iv_tip_delete.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ll_tip.setVisibility(View.GONE);
+            }
+        });
+    }
 
     /**
      * init view
      */
     protected void initView() {
+        initTip();
         // hold to record voice
         //noinspection ConstantConditions
         voiceRecorderView = (EaseVoiceRecorderView) getView().findViewById(R.id.voice_recorder);

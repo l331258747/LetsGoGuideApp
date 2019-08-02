@@ -422,6 +422,11 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
                         ll_order_travel_start.setVisibility(View.VISIBLE);
                         tv_order_travel_start.setText(str.getStartDate());
 
+                        //评价 行程中 订单详情中支持查看点评信息和导游回复信息
+                        if (str.getReviewStatus() == Constant.ORDER_EVALUATE_YES) {
+                            evaluatePresenter.orderQueryOrderReview(str.getId());
+                        }
+
                         isShowRemarks(str.getOrderNote());
                         break;
                 }

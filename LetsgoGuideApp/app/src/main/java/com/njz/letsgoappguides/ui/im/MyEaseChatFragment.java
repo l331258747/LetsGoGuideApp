@@ -1,11 +1,16 @@
 package com.njz.letsgoappguides.ui.im;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.njz.letsgoappguides.http.MethodApi;
@@ -13,7 +18,11 @@ import com.njz.letsgoappguides.http.ProgressSubscriber;
 import com.njz.letsgoappguides.http.ResponseCallback;
 import com.njz.letsgoappguides.model.other.IMUserModel;
 import com.njz.letsgoappguides.ui.im.cache.UserCacheManager;
+import com.njz.letsgoappguides.util.AppUtils;
+import com.njz.letsgoappguides.util.ToastUtil;
 import com.njz.letsgoappguides.util.log.LogUtil;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by LGQ
@@ -23,7 +32,7 @@ import com.njz.letsgoappguides.util.log.LogUtil;
 
 public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFragment.EaseChatFragmentHelper {
 
-//    private boolean isRobot;
+    //    private boolean isRobot;
     private boolean isRobot = true;
 
     @Override
@@ -41,7 +50,7 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 //            }
 //        }
 
-        if(UserCacheManager.notExistedOrExpired(toChatUsername)){
+        if (UserCacheManager.notExistedOrExpired(toChatUsername)) {
             ResponseCallback listener = new ResponseCallback<IMUserModel>() {
                 @Override
                 public void onSuccess(IMUserModel datas) {
@@ -97,7 +106,15 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 
     @Override
     public void onMessageBubbleLongClick(EMMessage message) {
-
+        if(message.getType() == EMMessage.Type.TXT){
+            //获取剪贴板管理器：
+            ClipboardManager cm = (ClipboardManager) AppUtils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            // 创建普通字符型ClipData
+            ClipData mClipData = ClipData.newPlainText("Label", ((EMTextMessageBody) message.getBody()).getMessage());
+            // 将ClipData内容放到系统剪贴板里。
+            cm.setPrimaryClip(mClipData);
+            ToastUtil.showShortToast(AppUtils.getContext(),"复制成功");
+        }
     }
 
     @Override

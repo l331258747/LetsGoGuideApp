@@ -158,14 +158,15 @@ public class OrderDetailIncomeActivity extends OrderDetailActivity implements Se
 
         //center_botom
         tv_nosettle_moneys.setText("￥" + priceA);//结算金额
-        tv_settle_date.setText(DateC);//结算日期
+//        tv_settle_date.setText(DateC);//结算日期
         tv_settle_sermoney.setText("￥" + priceB);//平台服务费
         tv_order_price.setText("￥" + str.getOrderPrice());//合计
-        if (id == 10) {
+        if (id == 10) {//已结算
             tv_nosettle_money.setText("结算金额");//结算金额
             tv_nosettle_date.setText("结算日期");//结算日期
-        } else if (id == 11) {
-
+            tv_settle_date.setText(DateC);//结算日期
+        } else if (id == 11) {//待结算
+            tv_settle_date.setText("三个工作日内");//结算日期
         }
 
         //底部

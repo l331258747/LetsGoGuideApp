@@ -219,7 +219,8 @@ public class OrderSettleListAdapter extends RecyclerView.Adapter<OrderSettleList
             ((FootHolder) holder).ll_settle_id.setVisibility(View.VISIBLE);
 
             ((FootHolder) holder).tv_settle_money.setText("￥"+data.getBalanceMoney());
-            ((FootHolder) holder).tv_settle_date.setText(""+data.getBalanceDate());
+//            ((FootHolder) holder).tv_settle_date.setText(""+data.getBalanceDate());
+            ((FootHolder) holder).tv_settle_date.setText("三个工作日内");
 
             ((FootHolder) holder).btn_view_desingn_scheme.setOnClickListener(new View.OnClickListener() {
                 @Override

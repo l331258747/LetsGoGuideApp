@@ -184,12 +184,13 @@ public class OrderDetailRefundsActivity extends OrderDetailActivity implements S
         tv_settle_sermoney.setText("￥"+priceB);//平台服务费
         tv_order_price.setText("￥"+orders.getRefundMoney());//合计
         tv_refund_penalty.setText("￥"+orders.getDefaultMoney());//违约金
-        tv_settle_date.setText(DateC);//结算日期
-        if(id==10){
+//        tv_settle_date.setText(DateC);//结算日期
+        if(id==10){//已结算
             tv_nosettle_money.setText("结算金额");//结算金额
             tv_nosettle_date .setText("结算日期");//结算日期
-        }else if(id==11){
-
+            tv_settle_date.setText(DateC);//结算日期
+        }else if(id==11){//待结算
+            tv_settle_date.setText("三个工作日内");//结算日期
         }
 
         //底部

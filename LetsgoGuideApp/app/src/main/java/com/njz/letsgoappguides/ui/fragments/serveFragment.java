@@ -240,6 +240,8 @@ public class serveFragment extends BaseFragment  implements GetCityContract.View
     }
 
     private void getRefreshData() {
+        cityPresenter.cityGetCity();
+
         searchName=tvSearch.getText().toString();
         swipeRefreshLayout.setRefreshing(true);
         isLoad = true;
@@ -274,7 +276,6 @@ public class serveFragment extends BaseFragment  implements GetCityContract.View
         super.setUserVisibleHint(isVisibleToUser);//比oncreate先执行
         if (isVisibleToUser && isPrepared && !isLoad) {
             if(!isExecuted){
-                cityPresenter.cityGetCity();
                 sTypePresenter.getServeDicList(false);//服务类型
                 setServerStatus();
             }

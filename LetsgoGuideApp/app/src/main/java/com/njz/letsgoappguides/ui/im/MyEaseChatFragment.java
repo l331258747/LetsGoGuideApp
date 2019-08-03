@@ -3,12 +3,14 @@ package com.njz.letsgoappguides.ui.im;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.ui.EaseChatFragment;
@@ -21,8 +23,13 @@ import com.njz.letsgoappguides.ui.im.cache.UserCacheManager;
 import com.njz.letsgoappguides.util.AppUtils;
 import com.njz.letsgoappguides.util.ToastUtil;
 import com.njz.letsgoappguides.util.log.LogUtil;
+import com.njz.letsgoappguides.util.rxbus.RxBus2;
+import com.njz.letsgoappguides.util.rxbus.busEvent.SendServerEvent;
 
 import org.w3c.dom.Text;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -34,6 +41,7 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 
     //    private boolean isRobot;
     private boolean isRobot = true;
+    private Disposable disposable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +75,14 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
             };
             MethodApi.getUserByIMUsername(toChatUsername, new ProgressSubscriber(listener));
         }
+
+        disposable = RxBus2.getInstance().toObservable(SendServerEvent.class, new Consumer<SendServerEvent>() {
+            @Override
+            public void accept(SendServerEvent sendServerEvent) throws Exception {
+                sendServer(sendServerEvent);
+                disposable.dispose();
+            }
+        });
 
         super.setUpView();
     }
@@ -119,7 +135,25 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 
     @Override
     public boolean onExtendMenuItemClick(int itemId, View view) {
+        if(itemId == ITEM_SEND_SERVER){
+            startActivity(new Intent(AppUtils.getContext(),SelectServerActivity.class));
+        }
         return false;
+    }
+
+    private void sendServer(SendServerEvent sendServerEvent) {
+        //发送扩展消息
+        EMMessage message = EMMessage.createTxtSendMessage(sendServerEvent.getServerName(),toChatUsername);
+        //增加自己的属性
+        message.setAttribute("is_server",true);
+        message.setAttribute("server_img",sendServerEvent.getServerImg());
+        message.setAttribute("server_area",sendServerEvent.getServerArea());
+        message.setAttribute("server_id",sendServerEvent.getServerId());
+        message.setAttribute("server_name",sendServerEvent.getServerName());
+        message.setAttribute("server_price",sendServerEvent.getServerPrice());
+        //发送扩展消息
+        EMClient.getInstance().chatManager().sendMessage(message);
+        messageList.refresh();//刷新消息数据
     }
 
     @Override

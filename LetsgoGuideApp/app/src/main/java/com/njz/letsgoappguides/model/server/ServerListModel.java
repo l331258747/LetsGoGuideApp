@@ -1,5 +1,11 @@
 package com.njz.letsgoappguides.model.server;
 
+import android.text.TextUtils;
+
+import com.njz.letsgoappguides.util.StringUtils;
+
+import java.util.ArrayList;
+
 /**
  * Created by LGQ
  * Time: 2018/11/23
@@ -119,12 +125,24 @@ public class ServerListModel {
         return servePrice;
     }
 
+    public String getServePriceStr(){
+        return servePrice + "";
+    }
+
     public void setServePrice(float servePrice) {
         this.servePrice = servePrice;
     }
 
     public String getTitleImg() {
         return titleImg;
+    }
+
+    public String getTitleImgStr(){
+        if (!TextUtils.isEmpty(titleImg)) {
+            ArrayList<String> list = StringUtils.stringToList(titleImg);
+            return  list.get(0);
+        }
+        return "";
     }
 
     public void setTitleImg(String titleImg) {

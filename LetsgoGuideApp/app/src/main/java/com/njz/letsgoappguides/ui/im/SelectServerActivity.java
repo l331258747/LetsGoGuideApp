@@ -71,7 +71,7 @@ public class SelectServerActivity extends BaseActivity implements GetCityContrac
 
     int locationId = -1;
     int serverTypeId = -1;
-    int serverStatusId = -2;
+    int serverStatusId = 1;
 
     public static final int LOCATION_POSITION = 0;
     public static final int SERVER_TYPE_POSITION = 1;

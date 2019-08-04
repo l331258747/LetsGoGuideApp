@@ -350,12 +350,12 @@ public class OrderDesingnSchemeActivity extends BaseActivity implements OrderDes
                             editText22.setText(fives[1]);
                             if(fives.length == 3){
                                 if(Float.valueOf(fives[2]) <= 0){
-                                    editText23.setText(getProportion("0.5"));
+                                    editText23.setText(getProportion("0.3"));
                                 }else{
                                     editText23.setText(getProportion(fives[2]));
                                 }
                             }else{
-                                editText23.setText(getProportion("0.5"));
+                                editText23.setText(getProportion("0.3"));
                             }
                         }
                     }

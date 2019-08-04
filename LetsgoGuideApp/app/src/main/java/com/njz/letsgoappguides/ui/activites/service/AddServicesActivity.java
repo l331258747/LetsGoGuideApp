@@ -1326,7 +1326,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                 servicePrice.setEditContent("" + serveUpdataBean.getServePrice());
                 llServicePriceinfo.setText(serveUpdataBean.getCostExplain());
                 ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceThree(), edit_text11, edit_text12,edit_text13,"0.1");
-                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(), edit_text21, edit_text22,edit_text23,"0.5");
+                ServiceUtil.strSplitNum(serveUpdataBean.getRenegePriceFive(), edit_text21, edit_text22,edit_text23,"0.3");
                 String image = serveUpdataBean.getTitleImg();
                 if (!image.equals("")) {
                     upUrls = image;

@@ -15,6 +15,7 @@ import com.njz.letsgoappguides.adapter.LoadMoreWrapper;
 import com.njz.letsgoappguides.adapter.server.ServerListAdapter2;
 import com.njz.letsgoappguides.base.BaseActivity;
 import com.njz.letsgoappguides.constant.Constant;
+import com.njz.letsgoappguides.customview.widget.TitleView;
 import com.njz.letsgoappguides.customview.widget.popupwindow.ServerListPop;
 import com.njz.letsgoappguides.model.other.PopupSelectModel;
 import com.njz.letsgoappguides.model.server.CityModel;
@@ -60,6 +61,8 @@ public class SelectServerActivity extends BaseActivity implements GetCityContrac
     TextView tvLocation;
     @BindView(R.id.tv_server_type)
     TextView tvServerType;
+    @BindView(R.id.titleView)
+    TitleView titleView;
 
     GetCityPresenter cityPresenter;
     ServerTypePresenter sTypePresenter;
@@ -89,6 +92,13 @@ public class SelectServerActivity extends BaseActivity implements GetCityContrac
 
     @Override
     protected void initView() {
+        titleView.getLeftIv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         initRecycler();
         initSwipeLayout();
 
@@ -340,5 +350,6 @@ public class SelectServerActivity extends BaseActivity implements GetCityContrac
         setSelectes(citys,locationId);
     }
     //--------------城市 end--------------
+
 
 }

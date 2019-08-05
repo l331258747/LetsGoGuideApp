@@ -76,13 +76,14 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
             MethodApi.getUserByIMUsername(toChatUsername, new ProgressSubscriber(listener));
         }
 
-        disposable = RxBus2.getInstance().toObservable(SendServerEvent.class, new Consumer<SendServerEvent>() {
-            @Override
-            public void accept(SendServerEvent sendServerEvent) throws Exception {
-                sendServer(sendServerEvent);
-                disposable.dispose();
-            }
-        });
+        if(disposable == null){
+            disposable = RxBus2.getInstance().toObservable(SendServerEvent.class, new Consumer<SendServerEvent>() {
+                @Override
+                public void accept(SendServerEvent sendServerEvent) throws Exception {
+                    sendServer(sendServerEvent);
+                }
+            });
+        }
 
         super.setUpView();
     }
@@ -159,5 +160,13 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
     @Override
     public EaseCustomChatRowProvider onSetCustomChatRowProvider() {
         return null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 }

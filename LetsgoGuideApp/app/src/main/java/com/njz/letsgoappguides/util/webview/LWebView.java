@@ -44,26 +44,15 @@ public class LWebView extends WebView {
         settings.setDisplayZoomControls(false); // 关闭自动缩放
         settings.setDefaultZoom(WebSettings.ZoomDensity.FAR); //  自适应屏幕处理，不设置，低分辨率显示异常
         settings.setDefaultTextEncodingName("utf-8");
-//        settings.setCacheMode(WebSettings.LOAD_NO_CACHE); //不使用缓存
-        settings.setSupportZoom(true);
-        settings.setBuiltInZoomControls(true);
-        settings.setUseWideViewPort(true);
 
         settings.setAllowFileAccess(true); // 允许访问文件
         settings.setDomStorageEnabled(true); // h5 本地缓存
         settings.setDatabaseEnabled(true); //启用数据库
 
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setLoadWithOverviewMode(true);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
         this.setVerticalScrollBarEnabled(false);
         this.setVerticalScrollbarOverlay(false);
         this.setHorizontalScrollBarEnabled(false);
         this.setHorizontalScrollbarOverlay(false);
-
 
         setWebViewClient(new MyWebViewClient(this));
 

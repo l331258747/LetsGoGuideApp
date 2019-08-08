@@ -287,12 +287,15 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         mGetUpdateServInfoPresenter = new GetUpdateServInfoPresenter(context, this);
         loadingDialog = new LoadingDialog(context);
 
-        if (MySelfInfo.getInstance().isLogin()) {
-            if (MySelfInfo.getInstance().getServiceIden() == 0) {//只在登录之后第一次获取、城市
-                mGetLanguagePresenter.userGetLanguage();
-                mGetCityPresenter.getServiceCityList();
-            }
-        }
+//        if (MySelfInfo.getInstance().isLogin()) {
+//            if (MySelfInfo.getInstance().getServiceIden() == 0) {//只在登录之后第一次获取、城市
+//                mGetLanguagePresenter.userGetLanguage();
+//                mGetCityPresenter.getServiceCityList();
+//            }
+//        }
+
+        mGetLanguagePresenter.userGetLanguage();
+        mGetCityPresenter.getServiceCityList();
 
 
         if (toId == 2) {//修改
@@ -978,7 +981,7 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
     @Override
     public void userGetLanguageSuccess(List<GuideMacroEntityList> datas) {
         if (MySelfInfo.getInstance().isLogin()) {
-            if (MySelfInfo.getInstance().getServiceIden() == 0) {
+//            if (MySelfInfo.getInstance().getServiceIden() == 0) {
                 if (datas != null) {
                     for (int i = 0; i < datas.size(); i++) {
                         String name = datas.get(i).getName();
@@ -986,11 +989,10 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
                     }
                     MySelfInfo.getInstance().setServiceLangages(langages);
                     MySelfInfo.getInstance().setServiceMacroEntityList(datas);
-                    MySelfInfo.getInstance().setServiceIden(1);
+//                    MySelfInfo.getInstance().setServiceIden(1);
                 }
-            }
+//            }
         }
-
     }
 
 
@@ -1244,12 +1246,17 @@ public class AddServicesActivity extends BaseActivity implements ServerTypeContr
         if (datas.size() > 0) {
             if (MySelfInfo.getInstance().isLogin()) {
                 MySelfInfo.getInstance().setServiceCitys(datas);
-                MySelfInfo.getInstance().setServiceIden(1);
+//                MySelfInfo.getInstance().setServiceIden(1);
             }
         }
     }
 
     public void getServiceCityLists() {
+        listModels = new ArrayList<>();
+        listModelsChildrens = new ArrayList<>();
+        listModelsChildrensbean = new ArrayList<>();
+        listCity = new ArrayList<>();
+
         if (MySelfInfo.getInstance().getServiceCitys() == null) return;
         List<GetServiceCityModel> datas = MySelfInfo.getInstance().getServiceCitys();
         listCity = datas;

@@ -6,6 +6,7 @@
     <string name="back">Back</string>
     <string name="save">Save</string>
     <string name="button_pushtotalk">Hold to talk</string>
+    <string name="attach_send_server">推荐服务</string>
     <string name="button_send">Send</string>
     <string name="attach_smile">Emoticon</string>
     <string name="attach_picture">Image</string>

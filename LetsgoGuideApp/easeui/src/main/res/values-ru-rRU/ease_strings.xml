@@ -6,6 +6,7 @@
     <string name="back">Назад</string>
     <string name="save">Сохранить</string>
     <string name="button_pushtotalk">Удерживайте</string>
+    <string name="attach_send_server">推荐服务</string>
     <string name="button_send">Послать</string>
     <string name="attach_smile">Смайлы</string>
     <string name="attach_picture">Изображение</string>

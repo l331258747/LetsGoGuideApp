@@ -6,6 +6,8 @@ import com.njz.letsgoappguides.http.MethodApi;
 import com.njz.letsgoappguides.http.ProgressSubscriber;
 import com.njz.letsgoappguides.http.ResponseCallback;
 import com.njz.letsgoappguides.presenter.ForgotContract;
+import com.njz.letsgoappguides.util.AESOperator;
+import com.njz.letsgoappguides.util.ToastUtil;
 
 /**
  * Created by Administrator on 2018/11/8.
@@ -50,7 +52,15 @@ public class SetPhonePresenter implements SetPhoneContract.Presenter{
                 iView.userSmsSendFailed(errorMsg);
             }
         };
-        MethodApi.userSmsSend(mobile, type, new ProgressSubscriber(listener, context));
+        String enString = null;
+        try {
+            enString = AESOperator.getInstance().encrypt(mobile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ToastUtil.showShortToast(context,"加密错误");
+            return;
+        }
+        MethodApi.userSmsSend(enString, type, new ProgressSubscriber(listener, context));
     }
 
 }

@@ -1,27 +1,23 @@
 package com.njz.letsgoappguides.http;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.njz.letsgoappguides.constant.Constant;
+import com.njz.letsgoappguides.constant.UrlConstant;
 import com.njz.letsgoappguides.model.authentication.DriveValidInfo;
 import com.njz.letsgoappguides.model.authentication.GuideValidInfo;
 import com.njz.letsgoappguides.model.authentication.ToAuthenInfo;
 import com.njz.letsgoappguides.model.home.OrderDesign2Info;
-import com.njz.letsgoappguides.model.home.OrderDesignInfo;
 import com.njz.letsgoappguides.model.mine.BinkIntoInfo;
 import com.njz.letsgoappguides.model.mine.FeedBackInfo;
 import com.njz.letsgoappguides.model.mine.MyInfoData;
 import com.njz.letsgoappguides.model.send.SendNotifyMainModel;
 import com.njz.letsgoappguides.model.send.SendOrderRefundChildModel;
 import com.njz.letsgoappguides.model.server.AutoServiceModel;
-import com.njz.letsgoappguides.model.server.ServiceDetailInfo;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
@@ -513,4 +509,11 @@ public class MethodApi {
         RetrofitUtil.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //-----------------IM start-------------
+    public static void saveMessage(String fromId,String toId,String chatType,String msg,DisposableObserver subscriber) {
+        Observable observable = RetrofitUtil.getInstance().getRetrofitApiService().saveMessage(fromId,toId,chatType,msg);
+        RetrofitUtil.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //-----------------IM end-------------
 }

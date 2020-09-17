@@ -3,6 +3,7 @@ package com.njz.letsgoappguides.http;
 import com.njz.letsgoappguides.model.BasePageModel;
 import com.njz.letsgoappguides.model.Result;
 import com.njz.letsgoappguides.model.authentication.AuthenInfo;
+import com.njz.letsgoappguides.model.authentication.DriveTypeInfo;
 import com.njz.letsgoappguides.model.authentication.DriveValidInfo;
 import com.njz.letsgoappguides.model.authentication.GuideValidInfo;
 import com.njz.letsgoappguides.model.authentication.ToAuthenInfo;
@@ -16,26 +17,19 @@ import com.njz.letsgoappguides.model.home.OrderDetailModel;
 import com.njz.letsgoappguides.model.home.OrderListModel;
 import com.njz.letsgoappguides.model.home.OrderRefundDetailModel;
 import com.njz.letsgoappguides.model.home.OrderRefundModel;
-import com.njz.letsgoappguides.model.home.ServiceRefundRuleModel;
 import com.njz.letsgoappguides.model.home.ServiceRefundRuleParentModel;
 import com.njz.letsgoappguides.model.login.Datas;
-import com.njz.letsgoappguides.model.login.UserVo;
-import com.njz.letsgoappguides.model.authentication.DriveTypeInfo;
 import com.njz.letsgoappguides.model.login.GuideMacroEntityList;
+import com.njz.letsgoappguides.model.login.UserVo;
 import com.njz.letsgoappguides.model.message.NotifyMainModel;
 import com.njz.letsgoappguides.model.mine.BatchUploadInfo;
 import com.njz.letsgoappguides.model.mine.BinkIntoInfo;
 import com.njz.letsgoappguides.model.mine.FeedBackInfo;
 import com.njz.letsgoappguides.model.mine.GetBackListInfo;
 import com.njz.letsgoappguides.model.mine.GetBinkInfo;
-import com.njz.letsgoappguides.model.settlement.IncomeInfo;
-import com.njz.letsgoappguides.model.settlement.IncomeListInfo;
 import com.njz.letsgoappguides.model.mine.LabelModel;
 import com.njz.letsgoappguides.model.mine.MyInfoData;
 import com.njz.letsgoappguides.model.mine.OperationGuideModel;
-import com.njz.letsgoappguides.model.settlement.OrderSettleBalanceChildModel;
-import com.njz.letsgoappguides.model.settlement.OrderSettleModel;
-import com.njz.letsgoappguides.model.settlement.OrderSettltRefundChildModel;
 import com.njz.letsgoappguides.model.other.IMUserModel;
 import com.njz.letsgoappguides.model.send.SendOrderRefundChildModel;
 import com.njz.letsgoappguides.model.server.AutoServiceModel;
@@ -48,6 +42,11 @@ import com.njz.letsgoappguides.model.server.ServerListModel;
 import com.njz.letsgoappguides.model.server.ServerTypeModel;
 import com.njz.letsgoappguides.model.server.ServiceCalPriceInfo;
 import com.njz.letsgoappguides.model.server.ServiceDetailInfo;
+import com.njz.letsgoappguides.model.settlement.IncomeInfo;
+import com.njz.letsgoappguides.model.settlement.IncomeListInfo;
+import com.njz.letsgoappguides.model.settlement.OrderSettleBalanceChildModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettleModel;
+import com.njz.letsgoappguides.model.settlement.OrderSettltRefundChildModel;
 import com.njz.letsgoappguides.model.settlement.PageUtilsBean;
 
 import java.util.List;
@@ -588,5 +587,19 @@ public interface RetrofitApiService {
     Observable<Result<IMUserModel>> getUserByIMUsername(
         @Query("username")String username
     );
+
+    //-----------start IM-------
+    @FormUrlEncoded
+    @POST("api/immessage/saveMessage")
+    Observable<Result<String>> saveMessage(
+            @Field("fromId") String fromId,
+            @Field("toId") String toId,
+            @Field("chatType") String chatType,
+            @Field("msg") String msg
+    );
+    //-----------end IM-------
+
+
+
 
 }

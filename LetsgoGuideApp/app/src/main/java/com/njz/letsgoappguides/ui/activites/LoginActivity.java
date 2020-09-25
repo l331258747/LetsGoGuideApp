@@ -1,15 +1,11 @@
 package com.njz.letsgoappguides.ui.activites;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +23,8 @@ import com.njz.letsgoappguides.model.login.Datas;
 import com.njz.letsgoappguides.presenter.LoginContract;
 import com.njz.letsgoappguides.presenter.LoginPresenter;
 import com.njz.letsgoappguides.ui.MainActivity;
+import com.njz.letsgoappguides.ui.activites.mysetting.GuideContractActivity;
+import com.njz.letsgoappguides.ui.activites.other.WebViewActivity;
 import com.njz.letsgoappguides.ui.im.cache.UserCacheManager;
 import com.njz.letsgoappguides.util.AppUtils;
 import com.njz.letsgoappguides.util.LoginUtil;
@@ -53,6 +51,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
     TitleView titleView;
     @BindView(R.id.imageView)
     ImageView imageView;
+    @BindView(R.id.tv_user_agreement)
+    TextView tv_user_agreement;
+    @BindView(R.id.tv_privacy_policy)
+    TextView tv_privacy_policy;
     LoginPresenter mPresenter;
 
     String loginPhone;
@@ -83,6 +85,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
             }
         });
 
+        StringUtils.setHtml(tv_user_agreement, getResources().getString(R.string.login_user_agreement));
+        StringUtils.setHtml(tv_privacy_policy, getResources().getString(R.string.login_privacy_policy));
+
         changeUrl();
     }
 
@@ -104,6 +109,22 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
                 }
             }
         });
+    }
+
+    @OnClick(R.id.tv_user_agreement)
+    public void userAgreement(){
+        Intent intent = new Intent(context, GuideContractActivity.class);
+        intent.putExtra("CONTRACT_TYPE",1);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.tv_privacy_policy)
+    public void privacyPolicy(){
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra(Constant.EXTRA_URL,"http://www.njzou.com/yszcdy/");
+        intent.putExtra(Constant.IS_USER_WIDE_VIEW_PORT,true);
+        intent.putExtra(Constant.EXTRA_TITLE,"隐私政策");
+        startActivity(intent);
     }
 
     /**

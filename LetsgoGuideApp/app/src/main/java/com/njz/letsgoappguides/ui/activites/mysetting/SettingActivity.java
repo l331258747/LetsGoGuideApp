@@ -92,7 +92,7 @@ public class SettingActivity extends BaseActivity implements ExitLoginContract.V
     @OnClick(R.id.system_setting_privacy)
     public void setSystemSettingPrivacy(){
         Intent intent = new Intent(context, WebViewActivity.class);
-        intent.putExtra(Constant.EXTRA_URL,"http://www.njzou.com/yszcdy");
+        intent.putExtra(Constant.EXTRA_URL,"http://www.njzou.com/yszcdy/");
         intent.putExtra(Constant.IS_USER_WIDE_VIEW_PORT,true);
         intent.putExtra(Constant.EXTRA_TITLE,"隐私政策");
         startActivity(intent);

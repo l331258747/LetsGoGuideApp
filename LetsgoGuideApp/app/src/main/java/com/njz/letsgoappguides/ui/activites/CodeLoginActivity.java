@@ -2,11 +2,8 @@ package com.njz.letsgoappguides.ui.activites;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,8 +19,9 @@ import com.njz.letsgoappguides.customview.widget.RegisterItemView;
 import com.njz.letsgoappguides.model.login.Datas;
 import com.njz.letsgoappguides.presenter.CodeLoginContract;
 import com.njz.letsgoappguides.presenter.CodeLoginPresenter;
-import com.njz.letsgoappguides.presenter.RegisterContract;
 import com.njz.letsgoappguides.ui.MainActivity;
+import com.njz.letsgoappguides.ui.activites.mysetting.GuideContractActivity;
+import com.njz.letsgoappguides.ui.activites.other.WebViewActivity;
 import com.njz.letsgoappguides.ui.im.cache.UserCacheManager;
 import com.njz.letsgoappguides.util.AppUtils;
 import com.njz.letsgoappguides.util.LoginUtil;
@@ -52,6 +50,10 @@ public class CodeLoginActivity extends BaseActivity implements CodeLoginContract
     RegisterItemView codeLoginPhone;
     @BindView(R.id.codeLogin_input_card)
     RegisterItemView codeLoginCard;
+    @BindView(R.id.tv_user_agreement)
+    TextView tv_user_agreement;
+    @BindView(R.id.tv_privacy_policy)
+    TextView tv_privacy_policy;
     TextView tvVerify;
     CodeLoginPresenter mCodeLoginPresenter;
     Disposable disposable;
@@ -76,6 +78,9 @@ public class CodeLoginActivity extends BaseActivity implements CodeLoginContract
                 mCodeLoginPresenter.userSmsSend(codeLoginPhone.getEtContent(),"login");
             }
         });
+
+        StringUtils.setHtml(tv_user_agreement, getResources().getString(R.string.login_user_agreement));
+        StringUtils.setHtml(tv_privacy_policy, getResources().getString(R.string.login_privacy_policy));
     }
 
     @Override
@@ -90,6 +95,22 @@ public class CodeLoginActivity extends BaseActivity implements CodeLoginContract
         if (!LoginUtil.verifyVerify(codeLoginCard.getEtContent()))
             return;
         mCodeLoginPresenter.msgCheckLogin(codeLoginPhone.getEtContent(),codeLoginCard.getEtContent());
+    }
+
+    @OnClick(R.id.tv_user_agreement)
+    public void userAgreement(){
+        Intent intent = new Intent(context, GuideContractActivity.class);
+        intent.putExtra("CONTRACT_TYPE",1);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.tv_privacy_policy)
+    public void privacyPolicy(){
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra(Constant.EXTRA_URL,"http://www.njzou.com/yszcdy/");
+        intent.putExtra(Constant.IS_USER_WIDE_VIEW_PORT,true);
+        intent.putExtra(Constant.EXTRA_TITLE,"隐私政策");
+        startActivity(intent);
     }
 
     public void verifyEvent() {

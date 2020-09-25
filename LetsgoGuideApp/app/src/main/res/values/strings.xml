@@ -57,4 +57,9 @@
     <string name="title_activity_service_preview">ServicePreviewActivity</string>
     <string name="title_activity_aplash2">Aplash2Activity</string>
 
+
+    <string name="login_user_agreement"><Data><![CDATA[登录代表阅读并同意<font color="#508CCA">《用户协议》</font>]]></Data></string>
+    <string name="welcome_user_agreement"><Data><![CDATA[立即体验代表阅读并同意<font color="#508CCA">《用户协议》</font>]]></Data></string>
+    <string name="login_privacy_policy"><Data><![CDATA[及<font color="#508CCA">《隐私政策》</font>]]></Data></string>
+
 </resources>

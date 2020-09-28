@@ -1,11 +1,12 @@
 package com.njz.letsgoappguides.http;
 
-import android.app.ProgressDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 
+import com.njz.letsgoappguides.util.HasActivity;
 import com.njz.letsgoappguides.util.ProgressCancelListener;
 import com.njz.letsgoappguides.util.dialog.LoadingDialog;
 
@@ -54,9 +55,11 @@ public class ProgressDialogHandler extends Handler {
     }
 
     private void dismissProgressDialog(){
-        if (loadingDialog != null) {
-            loadingDialog.dismiss();
-            loadingDialog = null;
+        if(!HasActivity.isDestroy((Activity) context)){
+            if (loadingDialog != null) {
+                loadingDialog.dismiss();
+                loadingDialog = null;
+            }
         }
     }
 
